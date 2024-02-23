@@ -1,17 +1,22 @@
 const express = require('express');
 const app = express();
-const logger = require('morgan')
 const mongoose = require('mongoose');
-const car = require('../controllers/carController')
+const logger = require('morgan')
+const carController = require('../controllers/indexController');
 
-const mongoDB = 'mongodb+srv://admin:adminHead@cluster0.ukavakh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+const mongoDB = 'mongodb+srv://admin:adminHead@cluster0.ukavakh.mongodb.net/carShop?retryWrites=true&w=majority&appName=Cluster0'
 
+app.set('view engine', 'ejs')
+
+mongoose.connect(mongoDB)
+  .then(() => {
+    app.listen(3000, () => {
+      console.log("Server is live")
+    })
+  })
+  .catch((err) => console.error(err))
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/', (req, res) => {
-  res.render('index.ejs', { title: 'Polovni Automobili' })
-})
-app.get('/newCar', car)
-app.listen(3000, () => {
-  console.log("Server is live")
-})
+
+app.get('/', carController)
+
