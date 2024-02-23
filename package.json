@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon routes/index.js",
-    "dev": "tailwindcss -i ./styles/style.css -o ./styles/output.css --watch"
+    "dev": "tailwindcss -i ./public/styles/style.css -o ./public/styles/output.css --watch"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

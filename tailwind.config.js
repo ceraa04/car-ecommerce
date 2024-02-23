@@ -2,7 +2,17 @@
 module.exports = {
   content: ['./views/**/*.ejs'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#969799'
+      },
+      fontFamily: {
+        bodyFont: ['Rubik']
+      },
+      maxHeight: {
+        index: '40rem'
+      }
+    },
   },
   plugins: [],
 }
