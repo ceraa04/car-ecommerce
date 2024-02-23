@@ -8,5 +8,5 @@
 }
 
 .liNav {
-    @apply text-primary cursor-pointer font-sans tracking-wide
+    @apply text-primary cursor-pointer font-sans tracking-wide hover:text-black
 }

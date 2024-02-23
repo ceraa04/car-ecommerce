@@ -1,19 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./views/**/*.ejs'],
+  content: ["./views/**/*.ejs"],
   theme: {
     extend: {
       colors: {
-        primary: '#969799'
+        primary: "#969799"
       },
       fontFamily: {
-        bodyFont: ['Rubik']
+        bodyFont: ["Rubik"]
       },
       maxHeight: {
-        index: '40rem'
+        index: "40rem"
       }
     },
   },
   plugins: [],
-}
+};
 

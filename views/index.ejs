@@ -9,9 +9,21 @@
 </head>
 
 <body>
-  <% include ./partials/nav.ejs %>
-    <% include ./partials/homePageImage.ejs %>
-      <p>Our latest products</p>
+  <%- include ./partials/nav.ejs %>
+  <%- include ./partials/homePageImage.ejs %>
+  <div class="mt-11 mb-28">
+
+    <p class="flex justify-center my-28 text-3xl">Popular now</p>
+    <div class="grid grid-cols-4 ml-36">
+      <% for(let i = 0; i < 4; i++) { %>
+      <div class="flex-col w-64 h-48 border-4 border-black">
+        <p><%= cars[i].model %></p>
+        <p><%= cars[i].price %></p>
+      </div>
+      <% } %>
+    </div>
+
+  </div>
 </body>
 
 </html>

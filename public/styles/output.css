@@ -554,28 +554,89 @@ video {
   position: relative;
 }
 
-.top-0{
-  top: 0px;
+.mx-5{
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
 }
 
-.top-10{
-  top: 2.5rem;
+.mx-10{
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
 }
 
-.top-20{
-  top: 5rem;
+.mx-auto{
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.m-auto{
-  margin: auto;
+.mx-20{
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.mx-36{
+  margin-left: 9rem;
+  margin-right: 9rem;
+}
+
+.my-8{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.my-16{
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.my-28{
+  margin-top: 7rem;
+  margin-bottom: 7rem;
+}
+
+.my-11{
+  margin-top: 2.75rem;
+  margin-bottom: 2.75rem;
+}
+
+.ml-11{
+  margin-left: 2.75rem;
+}
+
+.ml-36{
+  margin-left: 9rem;
+}
+
+.mt-11{
+  margin-top: 2.75rem;
+}
+
+.mb-28{
+  margin-bottom: 7rem;
 }
 
 .flex{
   display: flex;
 }
 
+.grid{
+  display: grid;
+}
+
 .h-36{
   height: 9rem;
+}
+
+.h-44{
+  height: 11rem;
+}
+
+.h-4{
+  height: 1rem;
+}
+
+.h-48{
+  height: 12rem;
 }
 
 .max-h-index{
@@ -584,6 +645,26 @@ video {
 
 .w-full{
   width: 100%;
+}
+
+.w-28{
+  width: 7rem;
+}
+
+.w-56{
+  width: 14rem;
+}
+
+.w-64{
+  width: 16rem;
+}
+
+.grid-cols-4{
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.flex-col{
+  flex-direction: column;
 }
 
 .items-center{
@@ -598,12 +679,25 @@ video {
   justify-content: space-between;
 }
 
+.justify-around{
+  justify-content: space-around;
+}
+
 .gap-5{
   gap: 1.25rem;
 }
 
 .gap-8{
   gap: 2rem;
+}
+
+.border-4{
+  border-width: 4px;
+}
+
+.border-black{
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .bg-black{
@@ -647,24 +741,8 @@ video {
   text-decoration-line: underline;
 }
 
-.opacity-15{
-  opacity: 0.15;
-}
-
-.opacity-90{
-  opacity: 0.9;
-}
-
-.opacity-75{
-  opacity: 0.75;
-}
-
 .opacity-85{
   opacity: 0.85;
-}
-
-.opacity-80{
-  opacity: 0.8;
 }
 
 .btn{
@@ -683,4 +761,14 @@ video {
   letter-spacing: 0.025em;
   --tw-text-opacity: 1;
   color: rgb(150 151 153 / var(--tw-text-opacity));
+}
+
+.liNav:hover{
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.hover\:text-yellow-400:hover{
+  --tw-text-opacity: 1;
+  color: rgb(250 204 21 / var(--tw-text-opacity));
 }
