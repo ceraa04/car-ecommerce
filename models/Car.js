@@ -6,13 +6,13 @@ const carSchema = new Schema({
         type: String,
         required: true
     },
-    catg: {
-        type: Schema.Types.ObjectId,
-        ref: 'categories',
-    },
     price: {
         type: Number,
         required: true
+    },
+    category: {
+        type: String,
+        requried: true
     },
     brand: {
         type: Schema.Types.ObjectId,

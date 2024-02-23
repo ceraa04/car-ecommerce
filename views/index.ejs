@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="/output.css">
+</head>
+
+<body>
+  <nav>
+    <h1>
+      <%= title %>
+    </h1>
+    <div>
+      <p>Brands</p>
+    </div>
+  </nav>
+  <p>Welcome to <%= title %>
+  </p>
+  <div>
+    <% cars.forEach(car=>{ %>
+      <div>
+        <p>
+          <%= car.model %>
+        </p>
+        <p>
+          <%= car.price %>
+        </p>
+      </div>
+
+      <% }) %>
+  </div>
+</body>
+
 </html>
