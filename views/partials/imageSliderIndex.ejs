@@ -1,11 +1,21 @@
-<div class="my-24">
+<div>
     <% cars.forEach(function(car) { %>
-    <div class="slide relative hidden">
-        <img class="w-2/3 max-h-index rounded" src="../img/<%= car.model %>.jpg" alt="<%= car.model %>">
-        <div class="absolute font-bodyFont top-0 bg-yellow-600 p-3 w-2/3 flex  justify-around">
-            <span><%= car.model  %></span>
-            <span><%= car.price + "$" %></span>
+    <div class="slide max-w-imgSlider my-28 relative hidden">
+
+        <img class="rounded" src="../img/<%= car.model %>.jpg" alt="<%= car.model %>">
+        <div class="absolute bottom-0 w-full p-2 shadow-2xl bg-white ">
+            <div>
+                <span>
+                    <%= car.brand.name %>
+                </span>
+                <span><%= car.model  %></span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-primary"><%= car.year + "." %></span>
+                <span class="font-bold"><%= car.price + " $" %></span>
+            </div>
         </div>
+        <div class="progressBar bg-primary h-3 top-0 absolute"></div>
     </div>
     <% }); %>
 
