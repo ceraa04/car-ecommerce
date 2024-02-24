@@ -1,0 +1,14 @@
+<div class="my-24">
+    <% cars.forEach(function(car) { %>
+    <div class="slide relative hidden">
+        <img class="w-2/3 max-h-index rounded" src="../img/<%= car.model %>.jpg" alt="<%= car.model %>">
+        <div class="absolute font-bodyFont top-0 bg-yellow-600 p-3 w-2/3 flex  justify-around">
+            <span><%= car.model  %></span>
+            <span><%= car.price + "$" %></span>
+        </div>
+    </div>
+    <% }); %>
+
+
+    <script src="/javascript/slider.js"></script>
+</div>
