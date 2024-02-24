@@ -11,6 +11,15 @@ module.exports = {
       },
       maxHeight: {
         index: "40rem"
+      },
+      maxWidth: {
+        imgSlider: "40rem"
+      },
+      height: {
+        newsLetter: "30rem"
+      },
+      width: {
+        newsLetter: "40rem"
       }
     },
   },
