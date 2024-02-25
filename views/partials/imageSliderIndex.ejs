@@ -2,9 +2,12 @@
     <% cars.forEach(function(car) { %>
     <div class="slide  relative hidden">
 
-        <img class="rounded  h-imgSlider w-imgSlider" src="../img/<%= car.model %>.jpg" alt="<%= car.model %>">
+        <div class="overflow-hidden">
+            <img class="rounded  h-imgSlider w-imgSlider hover:scale-150 hover:transform duration-700 cursor-pointer"
+                src="../img/<%= car.model %>.jpg" alt="<%= car.model %>">
+        </div>
         <div class="absolute bottom-0 w-full p-5 shadow-2xl bg-white ">
-            <div>
+            <div class="text-xl">
                 <span>
                     <%= car.brand.name %>
                 </span>
@@ -12,10 +15,10 @@
             </div>
             <div class="flex justify-between">
                 <span class="text-primary"><%= car.year + "." %></span>
-                <span class="font-bold"><%= car.price + " $" %></span>
+                <span class="font-bold pr-10 text-2xl"><%= car.price + " $" %></span>
             </div>
         </div>
-        <div class="progressBar bg-black h-3 top-0 absolute"></div>
+        <div class="progressBar bg-gray-600 h-3 top-0 absolute"></div>
     </div>
     <% }); %>
 
