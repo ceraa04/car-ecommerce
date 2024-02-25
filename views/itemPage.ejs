@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriftDreams</title>
+    <link rel="stylesheet" href="/styles/output.css">
+</head>
+<!--Props se nalaze u objectu koji se zove car-->
+
+<body>
+    <%- include ./partials/nav.ejs  %>
+    <div class="my-20 flex justify-center">
+        <div class="flex w-singleCarPage flex-col items-center">
+            <img class="h-singleCarPage rounded" src="../img/<%= car.model %>.jpg" alt="">
+            <div class="w-full p-10 font-bodyFont">
+                <div class="flex flex-col gap-5">
+                    <h2 class="flex justify-center text-2xl underline">Car information:</h2>
+                    <div>
+                        <p>Model:
+                            <span><%= car.brand.name %></span>
+                            <span><%= car.model %></span>
+                        </p>
+                        <p>
+                            Price:
+                            <span><%= car.price %></span>
+                            <span>$</span>
+                        </p>
+                        <p>
+                            Year of production:
+                            <span><%= car.year %></span>
+                        </p>
+                        <p class="mt-10 leading-7">
+                            <%= car.description  %>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-8 mt-10">
+                    <h2 class="flex justify-center text-2xl underline">
+                        Brand information:</h2>
+                    <div>
+                        <p>Brand:
+                            <span><%= car.brand.name %></span>
+                        </p>
+                        <p>
+                            Founded:
+                            <span><%= car.brand.madeIn %></span>
+                        </p>
+                        <p class="mt-10 leading-7">
+                            <%= car.brand.description  %>
+                        </p>
+                        <p class="mt-10">
+                            Site:
+                            <a class="underline hover:text-primary" target="_blank" href="<%= car.brand.url %>">
+                                <%= car.brand.url%>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn bg-black text-white w-52 h-16 mt-10">Add to cart</button>
+        </div>
+    </div>
+    <%- include ./partials/footer.ejs  %>
+
+</body>
+
+</html>
