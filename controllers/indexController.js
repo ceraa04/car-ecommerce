@@ -14,6 +14,8 @@ const carOfTheWeek = async () => {
 
 const getAllCars = async (req, res) => {
     const countDocuments = await Car.countDocuments();
+    const carBrandsAll = await Brand.find({}, { name: 1, _id: 0 });
+    carBrandsAll.forEach(brand => console.log(brand));
     try {
         const cars = await Car.find()
             .populate("brand");
@@ -25,8 +27,8 @@ const getAllCars = async (req, res) => {
             checkboxesChecked: ["Audi", "BMW"],
             minPrice: await minPrice(),
             maxPrice: await maxPrice(),
-            countDocuments: countDocuments
-
+            countDocuments: countDocuments,
+            carBrandsAll: carBrandsAll
         });
     }
     catch (error) {
@@ -106,9 +108,6 @@ const filterAndSortCars = async (req, res) => {
         const brand = await Brand.findOne({ name: checkboxesBrand });
         checkboxesBrandMethod.push(brand._id);
     }
-    else {
-        console.error("checkboxesBrand is not defined or is not an array");
-    }
 
     let checkboxesObjectBrand;
     if (checkboxesBrandMethod.length > 0) {
@@ -118,6 +117,7 @@ const filterAndSortCars = async (req, res) => {
     }
 
     const countDocuments = await Car.countDocuments(checkboxesObjectBrand);
+    const carBrandsAll = await Brand.find({}, { name: 1, _id: 0 });
 
     Car.find(checkboxesObjectBrand)
         .populate("brand")
@@ -130,7 +130,8 @@ const filterAndSortCars = async (req, res) => {
                     maxPrice: 0,
                     minPrice: 0,
                     checkboxesChecked: checkboxesBrand,
-                    countDocuments: 0
+                    countDocuments: 0,
+                    carBrandsAll: carBrandsAll
                 });
             }
 
@@ -140,7 +141,8 @@ const filterAndSortCars = async (req, res) => {
                 maxPrice: await maxPrice(checkboxesObjectBrand),
                 minPrice: await minPrice(checkboxesObjectBrand),
                 checkboxesChecked: checkboxesBrand,
-                countDocuments: countDocuments
+                countDocuments: countDocuments,
+                carBrandsAll: carBrandsAll
             });
         })
         .catch(err => {
