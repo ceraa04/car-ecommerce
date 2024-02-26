@@ -1,0 +1,26 @@
+<div class="flex flex-col gap-3">
+    <p>Sort items:</p>
+    <select onchange="submitForm()" class="border-2 border-primary p-3 cursor-pointer" name="sortMethod"
+        id="selectSorting">
+        <option value="none" <%=selectedOptionSort === '' ? 'selected' : 'none'  %>>None</option>
+        <option value="ascendingPrice" <%=selectedOptionSort === 'ascendingPrice' ? 'selected' : 'none'  %>>
+            Ascending
+            order by
+            price
+        </option>
+        <option value="descendingPrice" <%=selectedOptionSort === 'descendingPrice' ? 'selected' : 'none'  %>>
+            Descending
+            order by
+            price
+        </option>
+        <option value="ascendingYear" <%=selectedOptionSort === 'ascendingYear' ? 'selected' : 'none'  %>>
+            Ascending
+            order by year
+        </option>
+        <option value="descendingYear" <%=selectedOptionSort === 'descendingYear' ? 'selected' : 'none'  %>>
+            Descending
+            order by
+            year
+        </option>
+    </select>
+</div>

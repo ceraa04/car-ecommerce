@@ -20,7 +20,11 @@ const getAllCars = async (req, res) => {
             cars: cars,
             // Select option za sortiranje kada se stranica tek ucitava, kad i dalje nije POST method vec GET
             selectedOptionFilter: "",
-            selectedOptionSort: ""
+            selectedOptionSort: "",
+            checkboxesChecked: [],
+            minPrice: await minPrice(),
+            maxPrice: await maxPrice()
+
         });
     }
     catch (error) {
@@ -63,37 +67,73 @@ const cars_imgSlider = async (req, res) => {
 
 };
 
-const filterAndSortCars = async (req, res) => {
-    // Ovo su vrednosti koje se nalaze u SELECT inputima u trenutku submitovanja forme
-    const sortValue = req.body.sortMethod;
-    const filterValue = req.body.filterMethodBrand;
+const maxPrice = async (filter = {}) => {
+    const cars = await Car.find(filter).sort({ price: -1 });
+    const biggestPrice = cars[0].price;
+    return biggestPrice;
+};
+const minPrice = async (filter = {}) => {
+    const cars = await Car.find(filter).sort({ price: 1 });
+    const biggestPrice = cars[0].price;
+    return biggestPrice;
+};
 
-    // Sortiranje
+const filterAndSortCars = async (req, res) => {
+    const sortValue = req.body.sortMethod;
+    const checkboxesBrand = req.body.checkboxBrand;
+
     let sortMethod;
     if (sortValue === "ascendingPrice") {
         sortMethod = { price: 1 };
-    }
-    else if (sortValue === "descendingPrice") {
+    } else if (sortValue === "descendingPrice") {
         sortMethod = { price: -1 };
-    }
-    else if (sortValue === "descendingYear") {
+    } else if (sortValue === "descendingYear") {
         sortMethod = { year: -1 };
-    }
-    else if (sortValue === "ascendingYear") {
+    } else if (sortValue === "ascendingYear") {
         sortMethod = { year: 1 };
     }
-    // Filtriranje
-    let filterMethodBrand;
-    if (filterValue !== "none") {
-        const brand = await Brand.findOne({ name: filterValue });
-        filterMethodBrand = { brand: brand._id };
+
+    let checkboxesBrandMethod = [];
+
+    if (Array.isArray(checkboxesBrand)) {
+        await Promise.all(checkboxesBrand.map(async (checkbox) => {
+            const brand = await Brand.findOne({ name: checkbox });
+            checkboxesBrandMethod.push(brand._id);
+        }));
+    } else if (checkboxesBrand) {
+        const brand = await Brand.findOne({ name: checkboxesBrand });
+        checkboxesBrandMethod.push(brand._id);
+    } else {
+        console.error("checkboxesBrand is not defined or is not an array");
     }
-    Car.find(filterMethodBrand).populate("brand").sort(sortMethod)
-        .then((result) => {
+
+    let checkboxesObjectBrand;
+    if (checkboxesBrandMethod.length > 0) {
+        checkboxesObjectBrand = { brand: checkboxesBrandMethod };
+    } else {
+        checkboxesObjectBrand = {};
+    }
+
+    Car.find(checkboxesObjectBrand)
+        .populate("brand")
+        .sort(sortMethod)
+        .then(async (result) => {
+            if (Object.keys(checkboxesObjectBrand).length === 0) {
+                return res.render("products", {
+                    cars: [],
+                    selectedOptionSort: sortValue,
+                    maxPrice: 0,
+                    minPrice: 0,
+                    checkboxesChecked: checkboxesBrand
+                });
+            }
+
             res.render("products", {
                 cars: result,
                 selectedOptionSort: sortValue,
-                selectedOptionFilter: filterValue
+                maxPrice: await maxPrice(checkboxesObjectBrand),
+                minPrice: await minPrice(checkboxesObjectBrand),
+                checkboxesChecked: checkboxesBrand
             });
         })
         .catch(err => {
