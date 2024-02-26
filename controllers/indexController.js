@@ -13,6 +13,7 @@ const carOfTheWeek = async () => {
 };
 
 const getAllCars = async (req, res) => {
+    const countDocuments = await Car.countDocuments();
     try {
         const cars = await Car.find()
             .populate("brand");
@@ -21,9 +22,10 @@ const getAllCars = async (req, res) => {
             // Select option za sortiranje kada se stranica tek ucitava, kad i dalje nije POST method vec GET
             selectedOptionFilter: "",
             selectedOptionSort: "",
-            checkboxesChecked: [],
+            checkboxesChecked: ["Audi", "BMW"],
             minPrice: await minPrice(),
-            maxPrice: await maxPrice()
+            maxPrice: await maxPrice(),
+            countDocuments: countDocuments
 
         });
     }
@@ -77,7 +79,6 @@ const minPrice = async (filter = {}) => {
     const biggestPrice = cars[0].price;
     return biggestPrice;
 };
-
 const filterAndSortCars = async (req, res) => {
     const sortValue = req.body.sortMethod;
     const checkboxesBrand = req.body.checkboxBrand;
@@ -100,10 +101,12 @@ const filterAndSortCars = async (req, res) => {
             const brand = await Brand.findOne({ name: checkbox });
             checkboxesBrandMethod.push(brand._id);
         }));
-    } else if (checkboxesBrand) {
+    }
+    else if (checkboxesBrand) {
         const brand = await Brand.findOne({ name: checkboxesBrand });
         checkboxesBrandMethod.push(brand._id);
-    } else {
+    }
+    else {
         console.error("checkboxesBrand is not defined or is not an array");
     }
 
@@ -113,6 +116,8 @@ const filterAndSortCars = async (req, res) => {
     } else {
         checkboxesObjectBrand = {};
     }
+
+    const countDocuments = await Car.countDocuments(checkboxesObjectBrand);
 
     Car.find(checkboxesObjectBrand)
         .populate("brand")
@@ -124,7 +129,8 @@ const filterAndSortCars = async (req, res) => {
                     selectedOptionSort: sortValue,
                     maxPrice: 0,
                     minPrice: 0,
-                    checkboxesChecked: checkboxesBrand
+                    checkboxesChecked: checkboxesBrand,
+                    countDocuments: 0
                 });
             }
 
@@ -133,7 +139,8 @@ const filterAndSortCars = async (req, res) => {
                 selectedOptionSort: sortValue,
                 maxPrice: await maxPrice(checkboxesObjectBrand),
                 minPrice: await minPrice(checkboxesObjectBrand),
-                checkboxesChecked: checkboxesBrand
+                checkboxesChecked: checkboxesBrand,
+                countDocuments: countDocuments
             });
         })
         .catch(err => {
