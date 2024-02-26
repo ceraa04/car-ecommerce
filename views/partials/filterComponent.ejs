@@ -1,0 +1,18 @@
+<h2 class="flex justify-center text-2xl">Filter items:</h2>
+<div class="flex flex-col gap-2">
+    <p>Brand:</p>
+    <select onchange="submitForm()" class="filterProductsSelect" name="filterMethodBrand" id="selectFilter">
+        <option value="none" <%=selectedOptionFilter === '' ? 'selected' : ''  %>>All</option>
+        <option value="BMW" <%=selectedOptionFilter === 'BMW' ? 'selected' : ''  %>>BMW</option>
+        <option value="Audi" <%=selectedOptionFilter === 'Audi' ? 'selected' : ''  %>>Audi</option>
+    </select>
+</div>
+<div class="flex flex-col gap-2 justify-center">
+    <p>Range of price:</p>
+    <div class="relative">
+        <span class="top-0 left-0">0</span>
+        <input type="range" min="0" max="100" value="50">
+        <span class="top-0 right-10">100</span>
+    </div>
+
+</div>
