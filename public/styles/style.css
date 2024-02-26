@@ -2,11 +2,60 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 .btn {
     @apply px-10 py-4 rounded-md cursor-pointer tracking-wider
 }
 
 .liNav {
     @apply text-primary cursor-pointer font-sans tracking-wide hover:text-black
+}
+
+.inputContact {
+    @apply flex flex-col gap-2 w-96
+}
+
+.footerH {
+    @apply flex justify-center py-4 font-bodyFont tracking-wider font-bold
+}
+.cardFooter {
+    @apply border-primary border-2 h-16 w-44 flex justify-center items-center mx-auto cursor-pointer hover:bg-white hover:text-black hover:border-none
+}
+
+.aFooter{
+    @apply flex justify-center font-bold tracking-wider hover:underline
+}
+
+.featuredDivFooter {
+    @apply flex flex-col gap-4
+}
+.divAbout {
+    @apply w-1/2 flex flex-col items-center gap-5
+}
+
+.filterProductsSelect {
+    @apply p-3 pr-20 border-2 border-primary 
+}
+.rangeInputFilter {
+    -webkit-appearance: none;
+    appearance: none; 
+    background-color: black;
+    width: 13rem;
+    border-radius: 20px;
+    cursor: pointer;
+    padding-top: 3px;
+    padding-bottom: 3px
+}
+.rangeInputFilter::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px; 
+    height: 15px;
+    background-color: white; 
+    border-radius: 50%; 
+    cursor: pointer;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
