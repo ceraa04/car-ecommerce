@@ -27,7 +27,8 @@ const getAllCars = async (req, res) => {
             minPrice: await minPrice(),
             maxPrice: await maxPrice(),
             countDocuments: countDocuments,
-            carBrandsAll: carBrandsAll
+            carBrandsAll: carBrandsAll,
+            price: await maxPrice()
         });
     }
     catch (error) {
@@ -80,12 +81,10 @@ const minPrice = async (filter = {}) => {
     const biggestPrice = cars[0].price;
     return biggestPrice;
 };
-const filterAndSortCars = async (req, res, sort, brand) => {
+const filterAndSortCars = async (req, res, sort, brand, price) => {
     if (brand) {
         brand = brand.split(",");
     }
-    console.log("Brand je" + brand);
-    console.log("Brand je type: " + typeof (brand));
     let sortMethod;
     if (sort === "ascendingPrice") {
         sortMethod = { price: 1 };
@@ -117,13 +116,19 @@ const filterAndSortCars = async (req, res, sort, brand) => {
         checkboxesObjectBrand = {};
     }
 
-    const countDocuments = await Car.countDocuments(checkboxesObjectBrand);
     const carBrandsAll = await Brand.find({}, { name: 1, _id: 0 });
 
+    // Izracunavanje targetPrice za sortiranje, trebaju mi funkcije za min i max price
+    const minPriceRender = await minPrice();
+    const maxPriceRender = await maxPrice();
+    const targetPrice = minPriceRender + (price / 100) * (maxPriceRender - minPriceRender);
+
     Car.find(checkboxesObjectBrand)
+        .find({ price: { $lte: targetPrice } })
         .populate("brand")
         .sort(sortMethod)
         .then(async (result) => {
+            const countDocuments = result.length;
             if (Object.keys(checkboxesObjectBrand).length === 0) {
                 return res.render("products", {
                     cars: [],
@@ -132,19 +137,20 @@ const filterAndSortCars = async (req, res, sort, brand) => {
                     minPrice: 0,
                     checkboxesChecked: brand,
                     countDocuments: 0,
-                    carBrandsAll: carBrandsAll
+                    carBrandsAll: carBrandsAll,
+                    price: 0
                 });
             }
-
-
+            // Max i min price trebaju uvek da budu pocetni, a ne da se menjaju pri promeni filtera
             res.render("products", {
                 cars: result,
                 selectedOptionSort: sort,
-                maxPrice: await maxPrice(checkboxesObjectBrand),
-                minPrice: await minPrice(checkboxesObjectBrand),
+                maxPrice: await maxPrice(),
+                minPrice: await minPrice(),
                 checkboxesChecked: brand,
                 countDocuments: countDocuments,
-                carBrandsAll: carBrandsAll
+                carBrandsAll: carBrandsAll,
+                price: price
             });
         })
         .catch(err => {

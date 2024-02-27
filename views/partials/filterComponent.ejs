@@ -3,8 +3,9 @@
     <p class="flex justify-center text-xl">Brand:</p>
     <div class="flex flex-col gap-2">
         <% carBrandsAll.forEach(brand => { %>
-        <label>
-            <input onclick="submitForm()" type="checkbox" name="checkboxBrand" value="<%= brand.name %>"
+        <label class="flex items-center gap-3">
+            <input class="appearance-none border-2 cursor-pointer h-5 w-5 border-black checked:bg-black"
+                onclick="submitForm()" type="checkbox" name="checkboxBrand" value="<%= brand.name %>"
                 <%= (checkboxesChecked && checkboxesChecked.includes(brand.name)) ? 'checked' : '' %>>
             <%= brand.name  %>
         </label>
@@ -14,9 +15,16 @@
 <div class="flex flex-col gap-2 justify-center mt-10 p-3">
     <p>Range of price:</p>
     <div class="relative w-52">
-        <span class="top-0 left-0"><%= minPrice %></span>
-        <input class="rangeInputFilter" type="range" min="0" max="100" value="50">
-        <span class="absolute top-0 right-0"><%= maxPrice %></span>
+        <span class="top-0 left-0 minPrice"><%= minPrice %></span>
+        <input onchange="submitForm()" name="rangePriceFilter" class="rangeInputFilter" type="range" min="0" max="100"
+            value="<%= price %>">
+        <span class="absolute top-0 right-0 maxPrice"><%= maxPrice %></span>
+        <p class="flex gap-3 justify-center mt-2">
+            <span class="minPrice"><%= minPrice  %></span>
+            <span>-</span>
+            <span class="targetPrice"><%= maxPrice  %></span>
+        </p>
     </div>
 
+    <script src="/javascript/rangeValue.js"></script>
 </div>

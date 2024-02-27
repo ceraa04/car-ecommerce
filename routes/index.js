@@ -32,33 +32,34 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/products", (req, res) => {
-  console.log(req.query);
   const sort = req.query.sort;
   const brand = req.query.brand;
-  console.log("Sort method is: " + sort);
-  console.log("Brand is : " + brand);
+  const price = req.query.price;
   if (sort == undefined && brand == undefined) {
     carController.getAllCars(req, res);
   } else {
-    carController.filterAndSortCars(req, res, sort, brand);
+    carController.filterAndSortCars(req, res, sort, brand, price);
   }
 });
 
 app.post("/products", (req, res) => {
-  console.log("Req.body je" + Object.keys(req.body));
   const sort = req.body.sortMethod;
   const brand = req.body.checkboxBrand;
-  console.log("u post methodu sort i brand su: " + sort + "" + brand);
+  const price = parseInt(req.body.rangePriceFilter);
+  console.log("Price u postu je " + price);
   let redirectUrl = "/products";
   if (sort) {
     redirectUrl += `?sort=${sort}`;
   }
-
   if (brand && brand.length > 0) {
     redirectUrl += `&brand=${brand}`;
   }
+  if (price != 50) {
+    redirectUrl += `&price=${price}`;
+  }
   res.redirect(redirectUrl);
 });
+
 app.get("/products/:id", async (req, res) => {
   const id = req.params.id;
   await carController.singleCarPage(req, res, id);
