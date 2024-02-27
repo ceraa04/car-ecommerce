@@ -12,12 +12,10 @@ const carOfTheWeek = async () => {
     }
 };
 
+// Renderovanje products stranice kada je url /products
 const getAllCars = async (req, res) => {
-    const countDocuments = await Car.countDocuments();
-    const carBrandsAll = await Brand.find({}, { name: 1, _id: 0 });
     try {
-        const cars = await Car.find()
-            .populate("brand");
+        const cars = await Car.find().populate("brand");
         res.render("products", {
             cars: cars,
             // Select option za sortiranje kada se stranica tek ucitava, kad i dalje nije POST method vec GET
@@ -26,8 +24,9 @@ const getAllCars = async (req, res) => {
             checkboxesChecked: ["Audi", "BMW"],
             minPrice: await minPrice(),
             maxPrice: await maxPrice(),
-            countDocuments: countDocuments,
-            carBrandsAll: carBrandsAll,
+            countDocuments: await Car.countDocuments(),
+            // CarBrandAll koristim za ispisivanje checkboxova za filtriranje na products page
+            carBrandsAll: await Brand.find({}, { name: 1, _id: 0 }),
             price: await maxPrice()
         });
     }
@@ -56,6 +55,8 @@ const add_car = (req, res) => {
         });
 
 };
+
+// Renderovanje slidera na index stranici
 const cars_imgSlider = async (req, res) => {
     const popularCar = await carOfTheWeek();
     Car.find()
@@ -68,20 +69,24 @@ const cars_imgSlider = async (req, res) => {
             });
         })
         .catch((err) => console.error(err));
-
 };
 
+// Izracunavanje najvece cene od svih automobila koji prodju filter iz argumenata, ako se ne ubaci nijedan argument, filter je prazan
 const maxPrice = async (filter = {}) => {
     const cars = await Car.find(filter).sort({ price: -1 });
     const biggestPrice = cars[0].price;
     return biggestPrice;
 };
+
+// Izracunavanje najmanje cene od svih automobila koji prodju filter iz argumenata, ako se ne ubaci nijedan argument, filter je prazan
 const minPrice = async (filter = {}) => {
     const cars = await Car.find(filter).sort({ price: 1 });
     const biggestPrice = cars[0].price;
     return biggestPrice;
 };
+
 const filterAndSortCars = async (req, res, sort, brand, price) => {
+    // Posto je brand prvobitno string, pomocu splita ga pretvaramo u array
     if (brand) {
         brand = brand.split(",");
     }
@@ -95,7 +100,7 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
     } else if (sort === "ascendingYear") {
         sortMethod = { year: 1 };
     }
-
+    // u ovaj niz cu pakovati ID-jeve checkboxova kada prodju findOne()
     let checkboxesBrandMethod = [];
 
     if (Array.isArray(brand)) {
@@ -116,15 +121,17 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
         checkboxesObjectBrand = {};
     }
 
-    const carBrandsAll = await Brand.find({}, { name: 1, _id: 0 });
-
     // Izracunavanje targetPrice za sortiranje, trebaju mi funkcije za min i max price
     const minPriceRender = await minPrice();
     const maxPriceRender = await maxPrice();
     const targetPrice = minPriceRender + (price / 100) * (maxPriceRender - minPriceRender);
 
-    Car.find(checkboxesObjectBrand)
-        .find({ price: { $lte: targetPrice } })
+    Car.find({
+        $and: [
+            checkboxesObjectBrand,
+            { price: { $lte: targetPrice } }
+        ]
+    })
         .populate("brand")
         .sort(sortMethod)
         .then(async (result) => {
@@ -137,7 +144,7 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
                     minPrice: 0,
                     checkboxesChecked: brand,
                     countDocuments: 0,
-                    carBrandsAll: carBrandsAll,
+                    carBrandsAll: await Brand.find({}, { name: 1, _id: 0 }),
                     price: 0
                 });
             }
@@ -145,11 +152,11 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
             res.render("products", {
                 cars: result,
                 selectedOptionSort: sort,
-                maxPrice: await maxPrice(),
-                minPrice: await minPrice(),
+                maxPrice: maxPriceRender,
+                minPrice: minPriceRender,
                 checkboxesChecked: brand,
                 countDocuments: countDocuments,
-                carBrandsAll: carBrandsAll,
+                carBrandsAll: await Brand.find({}, { name: 1, _id: 0 }),
                 price: price
             });
         })
@@ -158,6 +165,7 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
         });
 };
 
+// Renderovanje itemPage stranice
 const singleCarPage = async (req, res, id) => {
     try {
         const car = await Car.findOne({ _id: id }).populate("brand");
