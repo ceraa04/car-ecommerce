@@ -15,7 +15,6 @@ const carOfTheWeek = async () => {
 const getAllCars = async (req, res) => {
     const countDocuments = await Car.countDocuments();
     const carBrandsAll = await Brand.find({}, { name: 1, _id: 0 });
-    carBrandsAll.forEach(brand => console.log(brand));
     try {
         const cars = await Car.find()
             .populate("brand");
@@ -81,32 +80,34 @@ const minPrice = async (filter = {}) => {
     const biggestPrice = cars[0].price;
     return biggestPrice;
 };
-const filterAndSortCars = async (req, res) => {
-    const sortValue = req.body.sortMethod;
-    const checkboxesBrand = req.body.checkboxBrand;
-
+const filterAndSortCars = async (req, res, sort, brand) => {
+    if (brand) {
+        brand = brand.split(",");
+    }
+    console.log("Brand je" + brand);
+    console.log("Brand je type: " + typeof (brand));
     let sortMethod;
-    if (sortValue === "ascendingPrice") {
+    if (sort === "ascendingPrice") {
         sortMethod = { price: 1 };
-    } else if (sortValue === "descendingPrice") {
+    } else if (sort === "descendingPrice") {
         sortMethod = { price: -1 };
-    } else if (sortValue === "descendingYear") {
+    } else if (sort === "descendingYear") {
         sortMethod = { year: -1 };
-    } else if (sortValue === "ascendingYear") {
+    } else if (sort === "ascendingYear") {
         sortMethod = { year: 1 };
     }
 
     let checkboxesBrandMethod = [];
 
-    if (Array.isArray(checkboxesBrand)) {
-        await Promise.all(checkboxesBrand.map(async (checkbox) => {
+    if (Array.isArray(brand)) {
+        await Promise.all(brand.map(async (checkbox) => {
             const brand = await Brand.findOne({ name: checkbox });
             checkboxesBrandMethod.push(brand._id);
         }));
     }
-    else if (checkboxesBrand) {
-        const brand = await Brand.findOne({ name: checkboxesBrand });
-        checkboxesBrandMethod.push(brand._id);
+    else if (brand) {
+        const brandResult = await Brand.findOne({ name: brand });
+        checkboxesBrandMethod.push(brandResult._id);
     }
 
     let checkboxesObjectBrand;
@@ -126,21 +127,22 @@ const filterAndSortCars = async (req, res) => {
             if (Object.keys(checkboxesObjectBrand).length === 0) {
                 return res.render("products", {
                     cars: [],
-                    selectedOptionSort: sortValue,
+                    selectedOptionSort: sort,
                     maxPrice: 0,
                     minPrice: 0,
-                    checkboxesChecked: checkboxesBrand,
+                    checkboxesChecked: brand,
                     countDocuments: 0,
                     carBrandsAll: carBrandsAll
                 });
             }
 
+
             res.render("products", {
                 cars: result,
-                selectedOptionSort: sortValue,
+                selectedOptionSort: sort,
                 maxPrice: await maxPrice(checkboxesObjectBrand),
                 minPrice: await minPrice(checkboxesObjectBrand),
-                checkboxesChecked: checkboxesBrand,
+                checkboxesChecked: brand,
                 countDocuments: countDocuments,
                 carBrandsAll: carBrandsAll
             });
