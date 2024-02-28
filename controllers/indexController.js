@@ -75,17 +75,18 @@ const add_brand = async (req, res, name, founded, description, url) => {
 };
 // Renderovanje slidera na index stranici
 const cars_imgSlider = async (req, res) => {
-    const popularCar = await carOfTheWeek();
-    Car.find()
-        .limit(4)
-        .populate("brand")
-        .then((result) => {
-            res.render("index", {
-                cars: result,
-                popularCar: popularCar
-            });
-        })
-        .catch((err) => console.error(err));
+    try {
+        const popularCar = await carOfTheWeek();
+        const result = await Car.find().limit(4).populate("brand");
+        res.render("index", {
+            cars: result,
+            popularCar: popularCar
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+
 };
 
 // Izracunavanje najvece cene od svih automobila koji prodju filter iz argumenata, ako se ne ubaci nijedan argument, filter je prazan
