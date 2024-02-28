@@ -64,7 +64,7 @@ app.get("/products/:id", async (req, res) => {
 
 
 
-// Funkcije koje su samo za admina(CRUD)
+// Funkcije koje su samo za admina (CRUD)
 app.get("/newCar", async (req, res) => {
   res.render("newCar", {
     brands: await carController.getAllBrands()
