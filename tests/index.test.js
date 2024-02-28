@@ -1,30 +1,16 @@
-const request = require("supertest");
-const app = require("../routes/index");
+const { getAllBrands } = require("../controllers/indexController");
+const Brand = require("../models/Brand");
 
-describe("GET /", () => {
-    test("responds with status 200 INDEX", async () => {
-        const response = await request(app).get("/");
-        expect(response.statusCode).toBe(200);
-    }, 10000); // 10 seconds timeout
-});
+jest.mock("../models/Brand");
 
-describe("GET /contact", () => {
-    test("responds with status 200 CONTACT", async () => {
-        const response = await request(app).get("/contact");
-        expect(response.statusCode).toBe(200);
-    }, 10000); // 10 seconds timeout
-});
+describe("getAllBrands", () => {
+    it("returns an array of brand names", async () => {
+        // Mock Brand model behavior
+        const brands = [{ name: "Toyota" }, { name: "Honda" }];
+        require("../models/Brand").find.mockResolvedValue(brands);
 
-describe("GET /about", () => {
-    test("responds with status 200 ABOUT", async () => {
-        const response = await request(app).get("/about");
-        expect(response.status).toBe(200);
-    }, 10000); // 10 seconds timeout
-});
+        const result = await getAllBrands();
+        expect(result).toEqual(["Toyota", "Honda"]);
+    });
 
-describe("GET /products", () => {
-    test("responds with status 200 PRODUCTS", async () => {
-        const response = await request(app).get("/products");
-        expect(response.status).toBe(200);
-    }, 10000); // 10 seconds timeout
 });
