@@ -201,6 +201,7 @@ module.exports = {
     carOfTheWeek,
     singleCarPage,
     getAllCars,
+    getAllBrands,
     filterAndSortCars,
     add_car,
     add_brand
