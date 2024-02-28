@@ -26,22 +26,9 @@ describe("getAllBrands", () => {
             }
         ];
         Brand.find.mockResolvedValue(brands);
-
+        // get all brands vraca samo nazive brendova, ne cele objekte
         const result = await getAllBrands();
 
-        expect(result).toEqual([
-            {
-                name: "Toyota",
-                madeIn: 1910,
-                description: "random description",
-                url: "https://github.com/"
-            },
-            {
-                name: "Honda",
-                madeIn: 1910,
-                description: "random description",
-                url: "https://github.com/"
-            }
-        ]);
+        expect(result).toEqual(["Toyota", "Honda"]);
     });
 });
