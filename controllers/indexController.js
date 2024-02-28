@@ -23,7 +23,6 @@ const getAllCars = async (req, res) => {
     try {
         // Pretvaram checkboxove iz niza objekata u niz stringova, koje posle koristim da cekiram sve brandove na /products url
         let checkboxesChecked = await getAllBrands();
-        console.log(checkboxesChecked);
         const cars = await Car.find().populate("brand");
         res.render("products", {
             cars: cars,
@@ -54,9 +53,6 @@ const add_car = async (req, res, model, price, year, description, brand) => {
             year: year
         });
         newCar.save()
-            .then(savedCar => {
-                console.log("New car with embedded brand information saved:", savedCar);
-            })
             .catch(error => {
                 console.error("Error saving car:", error);
             });

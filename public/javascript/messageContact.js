@@ -1,9 +1,8 @@
-const message = document.querySelector(".messageContact");
 const showMessage = () => {
+    const message = document.querySelector(".messageContact");
     const inputs = document.querySelectorAll(".inputContact input");
     document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault();
-        console.log("Show message!");
         message.classList.remove("opacity-0");
         message.classList.add("opacity-1");
         setTimeout(() => {

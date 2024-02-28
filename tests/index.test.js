@@ -21,3 +21,10 @@ describe("GET /about", () => {
         expect(response.status).toBe(200);
     });
 });
+
+describe("GET /products", () => {
+    it("responds with status 200", async () => {
+        const response = await request(app).get("/products");
+        expect(response.status).toBe(200);
+    });
+});

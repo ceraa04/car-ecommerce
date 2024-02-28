@@ -32,8 +32,9 @@
                     <div class="inputNewCarDiv">
                         <label for="newCarSelect">Name of brand:</label>
                         <select class="w-72 border-2 border-primary p-2" name="brand" id="newCarSelect">
-                            <option value="Audi">Audi</option>
-                            <option value="BMW">BMW</option>
+                            <% brands.map(brand => { %>
+                            <option value="<%= brand %>"><%= brand %></option>
+                            <% }) %>
                         </select>
                     </div>
                     <div class="inputNewCarDiv">

@@ -1,25 +1,26 @@
 <div>
-    <% cars.forEach(function(car) { %>
-    <div class="slide  relative hidden">
-
-        <div class="overflow-hidden">
-            <img class="rounded  h-imgSlider w-imgSlider hover:scale-150 hover:transform duration-700 cursor-pointer"
-                src="../img/<%= car.model %>.jpg" alt="<%= car.model %>">
-        </div>
-        <div class="absolute bottom-0 w-full p-5 shadow-2xl bg-white ">
-            <div class="text-xl">
-                <span>
-                    <%= car.brand.name %>
-                </span>
-                <span><%= car.model  %></span>
+    <% cars.forEach(car => { %>
+    <a href="/products/<%= car._id  %>">
+        <div class="slide relative hidden">
+            <div class="overflow-hidden w-imgSlider">
+                <img class="rounded h-imgSlider cursor-pointer" src="../img/<%= car.model %>.jpg"
+                    alt="<%= car.model %>">
             </div>
-            <div class="flex justify-between">
-                <span class="text-primary"><%= car.year + "." %></span>
-                <span class="font-bold pr-10 text-2xl"><%= car.price + " $" %></span>
+            <div class="absolute bottom-0 w-full p-5 shadow-2xl bg-white ">
+                <div class="text-xl">
+                    <span>
+                        <%= car.brand.name %>
+                    </span>
+                    <span><%= car.model  %></span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-primary"><%= car.year + "." %></span>
+                    <span class="font-bold pr-10 text-2xl"><%= car.price + " $" %></span>
+                </div>
             </div>
+            <div class="progressBar bg-gray-600 h-3 top-0 absolute"></div>
         </div>
-        <div class="progressBar bg-gray-600 h-3 top-0 absolute"></div>
-    </div>
+    </a>
     <% }); %>
 
 

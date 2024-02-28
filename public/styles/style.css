@@ -38,9 +38,10 @@
 .rangeInputFilter {
     -webkit-appearance: none;
     appearance: none; 
-    background-color: black;
+    background-color: white;
     width: 13rem;
     border-radius: 20px;
+    border: 2px solid black;
     cursor: pointer;
     padding-top: 3px;
     padding-bottom: 3px
@@ -50,9 +51,20 @@
     appearance: none;
     width: 15px; 
     height: 15px;
-    background-color: white; 
+    background-color: black; 
     border-radius: 50%; 
     cursor: pointer;
+}
+.sortSelect {
+    top: 30px;
+    right: 140px;
+    position: absolute
+}
+.inputNewCar {
+    @apply w-72 h-10 border-2 border-primary p-5
+}
+.inputNewCarDiv {
+    @apply flex flex-col gap-2
 }
 * {
     margin: 0;

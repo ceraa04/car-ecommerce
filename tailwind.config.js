@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#969799"
+        primary: "#969799",
       },
       fontFamily: {
         bodyFont: ["Rubik"]
@@ -12,14 +12,22 @@ module.exports = {
       maxHeight: {
         index: "40rem"
       },
-      maxWidth: {
-        imgSlider: "40rem"
+      width: {
+        imgSlider: "50rem",
+        newsLetter: "40rem",
+        popularCar: "50rem",
+        singleCarPage: "50rem",
+        productsImg: "25rem",
       },
       height: {
-        newsLetter: "30rem"
+        newsLetter: "30rem",
+        imgSlider: "40rem",
+        popularCar: "40rem",
+        singleCarPage: "40rem",
+        productsImg: "20rem"
       },
-      width: {
-        newsLetter: "40rem"
+      margin: {
+        profileMarginTop: "155px"
       }
     },
   },

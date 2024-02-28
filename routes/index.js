@@ -65,8 +65,10 @@ app.get("/products/:id", async (req, res) => {
 
 
 // Funkcije koje su samo za admina(CRUD)
-app.get("/newCar", (req, res) => {
-  res.render("newCar");
+app.get("/newCar", async (req, res) => {
+  res.render("newCar", {
+    brands: await carController.getAllBrands()
+  });
 });
 app.post("/newCar", async (req, res) => {
   const { model, price, year, description, brand } = req.body;
@@ -85,6 +87,9 @@ app.post("/newBrand", async (req, res) => {
   } else {
     console.log("Neispravne vrednosti za add brand!");
   }
+});
 
+app.get("/editCars", (req, res) => {
+  res.render("editCars");
 });
 module.exports = app;

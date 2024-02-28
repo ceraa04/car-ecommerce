@@ -2,25 +2,22 @@
 <html>
 
 <head>
-  <title>
-    <%= title %>
-  </title>
+  <title>DriftDreams</title>
   <link rel="stylesheet" href="/styles/output.css">
 </head>
 
 <body>
-  <div class="mx-16">
+  <div>
     <%- include ./partials/nav.ejs %>
     <%- include ./partials/homePageImage.ejs %>
-    <div class="flex my-28 items-center justify-between">
+    <div class="flex mx-16 my-28 items-center justify-between">
       <%- include ./partials/imageSliderIndex.ejs  %>
-
       <%- include ./partials/newsletter.ejs  %>
     </div>
-
+    <%- include ./partials/mostPopularItem.ejs  %>
+    <%- include ./partials/reviews.ejs  %>
   </div>
-
-  </div>
+  <%- include ./partials/footer.ejs  %>
 </body>
 
 </html>

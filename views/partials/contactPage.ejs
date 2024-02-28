@@ -1,0 +1,37 @@
+<div class="font-bodyFont flex flex-col items-center gap-9">
+    <h2 class="text-3xl">Contact</h2>
+    <p class="text-primary tracking-wider">At <span class="text-black">DriftDreams</span>
+        , we value your inquiries and strive to provide
+        the best support possible. Whether you have a query about our products, need guidance, or simply want to
+        share your
+        thoughts, we're all ears!
+        Feel free to ask us anything by filling out the form below. No question is too big or too small. Our
+        dedicated team is committed to addressing your concerns promptly and thoroughly.
+        Your satisfaction is our priority. So, don't hesitate and reach out to us today!
+    </p>
+    <form action="" class="my-20 flex flex-col gap-10 items-center">
+        <div class="flex gap-10">
+            <div class="inputContact">
+                <label for="email">Email</label>
+                <input required class="p-5 border-2 border-primary" type="email" id="email"
+                    placeholder="Enter your email...">
+            </div>
+            <div class="inputContact">
+                <label for="name">Name</label>
+                <input required class="p-5 border-2 border-primary" type="text" id="name"
+                    placeholder="Enter your name...">
+            </div>
+        </div>
+        <div class="inputContact">
+            <label for="message">Message</label>
+            <textarea required class="border-2 border-primary p-4 resize-x" name="" id="message" cols="30"
+                rows="10"></textarea>
+        </div>
+        <button class="btn bg-black text-white uppercase">send</button>
+        <div
+            class="messageContact opacity-0 transition-opacity duration-500 absolute top-10 bg-green-500 px-20 py-5 rounded-lg">
+            <p>Message sent</p>
+        </div>
+    </form>
+    <script src="/javascript/messageContact.js"></script>
+</div>
