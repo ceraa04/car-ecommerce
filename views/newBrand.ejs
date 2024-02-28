@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/output.css">
+</head>
+
+<body>
+    <%- include ./partials/nav.ejs  %>
+    <h3 class="flex justify-center text-3xl font-bodyFont">Add new brand</h3>
+    <form action="" method="post" class="mt-20 flex flex-col items-center">
+        <p class="text-primary text-2xl tracking-wide">
+            Please fill out all inputs to add new brand for cars.
+        </p>
+        <div class="flex flex-col gap-7 justify-center mt-32">
+            <div class="flex gap-10">
+                <div class="inputNewCarDiv">
+                    <label for="newBrand">Name of the brand:</label>
+                    <input placeholder="Audi" type="text" class="inputNewCar" id="newBrand" name="brand" required>
+                </div>
+                <div class="inputNewCarDiv">
+                    <label for="foundedNewBrand">Brand founded(year):</label>
+                    <input placeholder="1910" type="number" class="inputNewCar" id="foundedNewBrand" name="founded"
+                        min="0" max="2024" required>
+                </div>
+                <div class="inputNewCarDiv">
+                    <label for="urlNewBrand">Url of brand's official site:</label>
+                    <input placeholder="https://www.audi.com/en.html" type="url" class="inputNewCar" id="urlNewBrand"
+                        name="urlNewBrand" required>
+                </div>
+            </div>
+            <div class="flex flex-col gap-6">
+                <div class="inputNewCarDiv">
+                    <label for="descriptionNewCar">Description of the brand:</label>
+                    <textarea required class="border-2 border-primary p-5" name="description" id="descriptionNewCar"
+                        cols="30" rows="10"></textarea>
+                </div>
+            </div>
+        </div>
+        <button class="btn bg-black text-white my-20">Add brand</button>
+    </form>
+    <%- include ./partials/footer.ejs  %>
+</body>
+
+</html>
