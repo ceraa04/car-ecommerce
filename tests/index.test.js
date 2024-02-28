@@ -1,6 +1,5 @@
 const { getAllBrands } = require("../controllers/indexController");
 const Brand = require("../models/Brand");
-const Car = require("../models/Car");
 
 jest.mock("../models/Brand");
 jest.mock("../models/Car");
