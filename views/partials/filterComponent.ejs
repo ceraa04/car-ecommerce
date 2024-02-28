@@ -5,9 +5,9 @@
         <% carBrandsAll.forEach(brand => { %>
         <label class="flex items-center gap-3">
             <input class="appearance-none border-2 cursor-pointer h-5 w-5 border-black checked:bg-black"
-                onclick="submitForm()" type="checkbox" name="checkboxBrand" value="<%= brand.name %>"
-                <%= (checkboxesChecked && checkboxesChecked.includes(brand.name)) ? 'checked' : '' %>>
-            <%= brand.name  %>
+                onclick="submitForm()" type="checkbox" name="checkboxBrand" value="<%= brand %>"
+                <%= (checkboxesChecked && checkboxesChecked.includes(brand)) ? 'checked' : '' %>>
+            <%= brand  %>
         </label>
         <% }) %>
     </div>
