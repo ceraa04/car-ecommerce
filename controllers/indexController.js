@@ -11,22 +11,31 @@ const carOfTheWeek = async () => {
         console.log(error.message);
     }
 };
-
+const getAllBrands = async () => {
+    let brands = await Brand.find({}, { name: 1, _id: 0 });
+    brands = brands.map(brand => (
+        brand = brand.name
+    ));
+    return brands;
+};
 // Renderovanje products stranice kada je url /products
 const getAllCars = async (req, res) => {
     try {
+        // Pretvaram checkboxove iz niza objekata u niz stringova, koje posle koristim da cekiram sve brandove na /products url
+        let checkboxesChecked = await getAllBrands();
+        console.log(checkboxesChecked);
         const cars = await Car.find().populate("brand");
         res.render("products", {
             cars: cars,
             // Select option za sortiranje kada se stranica tek ucitava, kad i dalje nije POST method vec GET
             selectedOptionFilter: "",
             selectedOptionSort: "",
-            checkboxesChecked: ["Audi", "BMW"],
+            checkboxesChecked: checkboxesChecked,
             minPrice: await minPrice(),
             maxPrice: await maxPrice(),
             countDocuments: await Car.countDocuments(),
             // CarBrandAll koristim za ispisivanje checkboxova za filtriranje na products page
-            carBrandsAll: await Brand.find({}, { name: 1, _id: 0 }),
+            carBrandsAll: checkboxesChecked,
             price: await maxPrice()
         });
     }
@@ -35,27 +44,39 @@ const getAllCars = async (req, res) => {
     }
 };
 
-const add_car = (req, res) => {
-    const newCar = new Car({
-        model: "M5",
-        price: 140000,
-        category: "limo",
-        brand: "65d89d530b4fff2c81525bc2",
-        description: "The BMW M5 is an icon among enthusiasts, renowned for its fusion of track-ready performance and everyday usability. Its sleek exterior design hints at the power within, boasting aggressive lines, aerodynamic enhancements, and signature M badging. Under the hood lies a potent engine, typically a turbocharged inline-six, delivering exhilarating acceleration and a thrilling exhaust note. ",
-        year: 2021
-    });
-
-    newCar.save()
-        .then(savedCar => {
-            console.log("New car with embedded brand information saved:", savedCar);
-            res.redirect("/");
-        })
-        .catch(error => {
-            console.error("Error saving car:", error);
+const add_car = async (req, res, model, price, year, description, brand) => {
+    try {
+        const newCar = new Car({
+            model: model,
+            price: price,
+            brand: await Brand.findOne({ name: brand }),
+            description: description,
+            year: year
         });
+        newCar.save()
+            .then(savedCar => {
+                console.log("New car with embedded brand information saved:", savedCar);
+            })
+            .catch(error => {
+                console.error("Error saving car:", error);
+            });
+    }
+    catch (error) { console.log("greska!"); }
 
 };
+const add_brand = async (req, res, name, founded, description, url) => {
+    try {
+        const newBrand = new Brand({
+            name: name,
+            madeIn: founded,
+            description: description,
+            url: url
+        });
+        newBrand.save();
+    }
+    catch (error) { console.log("greska!"); }
 
+};
 // Renderovanje slidera na index stranici
 const cars_imgSlider = async (req, res) => {
     const popularCar = await carOfTheWeek();
@@ -140,12 +161,12 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
                 return res.render("products", {
                     cars: [],
                     selectedOptionSort: sort,
-                    maxPrice: 0,
-                    minPrice: 0,
+                    maxPrice: await maxPrice(),
+                    minPrice: await minPrice(),
                     checkboxesChecked: brand,
                     countDocuments: 0,
-                    carBrandsAll: await Brand.find({}, { name: 1, _id: 0 }),
-                    price: 0
+                    carBrandsAll: await getAllBrands(),
+                    price: price
                 });
             }
             // Max i min price trebaju uvek da budu pocetni, a ne da se menjaju pri promeni filtera
@@ -156,7 +177,7 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
                 minPrice: minPriceRender,
                 checkboxesChecked: brand,
                 countDocuments: countDocuments,
-                carBrandsAll: await Brand.find({}, { name: 1, _id: 0 }),
+                carBrandsAll: await getAllBrands(),
                 price: price
             });
         })
@@ -174,11 +195,13 @@ const singleCarPage = async (req, res, id) => {
         console.error(error);
     }
 };
+
 module.exports = {
     cars_imgSlider,
-    add_car,
     carOfTheWeek,
     singleCarPage,
     getAllCars,
-    filterAndSortCars
+    filterAndSortCars,
+    add_car,
+    add_brand
 };

@@ -21,7 +21,6 @@ mongoose.connect(mongoDB)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/new", carController.add_car);
 app.get("/", carController.cars_imgSlider, carController.carOfTheWeek);
 
 app.get("/contact", (req, res) => {
@@ -46,7 +45,6 @@ app.post("/products", (req, res) => {
   const sort = req.body.sortMethod;
   const brand = req.body.checkboxBrand;
   const price = parseInt(req.body.rangePriceFilter);
-  console.log("Price u postu je " + price);
   let redirectUrl = "/products";
   if (sort) {
     redirectUrl += `?sort=${sort}`;
@@ -54,9 +52,8 @@ app.post("/products", (req, res) => {
   if (brand && brand.length > 0) {
     redirectUrl += `&brand=${brand}`;
   }
-  if (price != 50) {
-    redirectUrl += `&price=${price}`;
-  }
+  redirectUrl += `&price=${price}`;
+
   res.redirect(redirectUrl);
 });
 
@@ -65,4 +62,29 @@ app.get("/products/:id", async (req, res) => {
   await carController.singleCarPage(req, res, id);
 });
 
+
+
+// Funkcije koje su samo za admina(CRUD)
+app.get("/newCar", (req, res) => {
+  res.render("newCar");
+});
+app.post("/newCar", async (req, res) => {
+  const { model, price, year, description, brand } = req.body;
+  await carController.add_car(req, res, model, price, year, description, brand);
+  res.redirect("/newCar");
+});
+
+app.get("/newBrand", (req, res) => {
+  res.render("newBrand");
+});
+app.post("/newBrand", async (req, res) => {
+  const { brand, founded, description, urlNewBrand } = req.body;
+  if (brand) {
+    await carController.add_brand(req, res, brand, founded, description, urlNewBrand);
+    res.redirect("/newBrand");
+  } else {
+    console.log("Neispravne vrednosti za add brand!");
+  }
+
+});
 module.exports = app;
