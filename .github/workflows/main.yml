@@ -24,8 +24,8 @@ jobs:
         run: |
           docker build -t car2 .
           echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-          docker tag car2 docker.pkg.github.com/ceraa04/carEcommerce/car2:${{ github.sha }}
-          docker push docker.pkg.github.com/ceraa04/carEcommerce/car2:${{ github.sha }}
+          docker tag car2 docker.pkg.github.com/ceraa04/car-ecommerce/car2:${{ github.sha }}
+          docker push docker.pkg.github.com/ceraa04/car-ecommerce/car2:${{ github.sha }}
       
 
       - name: Run tests with Docker
