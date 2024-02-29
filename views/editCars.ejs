@@ -20,7 +20,7 @@
             <ul class="border-separate">
                 <% for (car of cars) { %>
                 <li>
-                    <form action="" method="post" id="editForm"
+                    <form action="" method="post" id="<%= car._id  %>"
                         class="border-2 border-primary w-editPageProducts p-5 grid grid-cols-11">
 
                         <div class="carModel col-span-3 flex justify-center items-center gap-2 font-bold text-xl">
@@ -37,7 +37,7 @@
 
                         <div class="col-span-2 flex gap-5 justify-center items-center">
 
-                            <div onclick="submitForm()"
+                            <div onclick="submitForm(event,'<%= car._id %>')"
                                 class="deleteButton w-12 bg-black fill-white p-3 cursor-pointer hover:bg-slate-700">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                     <title>delete</title>
@@ -66,8 +66,16 @@
     </div>
     <%- include ./partials/footer.ejs  %>
     <script>
-        function submitForm() {
-            document.querySelector('#editForm').submit();
+        function submitForm(event, id) {
+            event.preventDefault();
+
+            const form = document.querySelector(`form[id="${id}"]`);
+
+            if (form) {
+                form.submit();
+            } else {
+                console.error('Form not found for car ID:', id);
+            }
         }
     </script>
 </body>

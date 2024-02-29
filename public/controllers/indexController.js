@@ -24,7 +24,6 @@ const getAllBrands = async () => {
 const getAllCars_editCars = async () => {
     try {
         const cars = await Car.find().populate("brand");
-        console.log(cars);
         return cars;
     }
     catch (error) {
@@ -33,7 +32,6 @@ const getAllCars_editCars = async () => {
 };
 // Renderovanje products stranice kada je url /products
 const getAllCars_products = async (req, res) => {
-    console.log("Get all cars products krece!");
     try {
         // Pretvaram checkboxove iz niza objekata u niz stringova, koje posle koristim da cekiram sve brandove na /products url
         let checkboxesChecked = await getAllBrands();
@@ -79,13 +77,16 @@ const add_car = async (req, res, model, price, year, description, brand) => {
 };
 const add_brand = async (req, res, name, founded, description, url) => {
     try {
-        const newBrand = new Brand({
-            name: name,
-            madeIn: founded,
-            description: description,
-            url: url
-        });
-        newBrand.save();
+        const doesBrandExist = await Brand.findOne({ name: name });
+        if (!doesBrandExist) {
+            const newBrand = new Brand({
+                name: name,
+                madeIn: founded,
+                description: description,
+                url: url
+            });
+            newBrand.save();
+        }
     }
     catch (error) { console.log("greska!"); }
 

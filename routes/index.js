@@ -36,7 +36,6 @@ app.get("/products", (req, res) => {
   const sort = req.query.sort;
   const brand = req.query.brand;
   const price = req.query.price;
-  console.log("Get metoda!");
   if (sort == undefined && brand == undefined && price == undefined) {
     carController.getAllCars_products(req, res);
   } else {
@@ -49,7 +48,6 @@ app.post("/products", (req, res) => {
   const brand = req.body.checkboxBrand;
   const price = req.body.rangePriceFilter;
   let redirectUrl = "/products";
-  console.log("Post metoda!");
   if (sort) {
     redirectUrl += `?sort=${sort}`;
   }
