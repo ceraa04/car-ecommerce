@@ -1,4 +1,5 @@
 <div>
+    <% if(cars.length > 0) { %>
     <% cars.forEach(car => { %>
     <a href="/products/<%= car._id  %>">
         <div class="slide relative hidden">
@@ -22,6 +23,13 @@
         </div>
     </a>
     <% }); %>
+    <% } else { %>
+    <p class="font-bodyFont text-xl">Database is empty.
+        When you add some cars in it, slideshow of first 5 cars will
+        appear here.
+    </p>
+    <% } %>
+
 
 
     <script src="/javascript/slider.js"></script>

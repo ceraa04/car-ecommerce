@@ -22,7 +22,9 @@
         <p class="flex gap-3 justify-center mt-2">
             <span class="minPrice"><%= minPrice  %></span>
             <span>-</span>
-            <span class="targetPrice"><%= maxPrice  %></span>
+            <% if (!isNaN(maxPrice)) { %>
+            <span class="targetPrice"><%= maxPrice %></span>
+            <% } %>
         </p>
     </div>
 

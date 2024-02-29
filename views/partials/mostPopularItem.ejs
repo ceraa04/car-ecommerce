@@ -1,5 +1,6 @@
-<div class="flex flex-col items-center">
-    <h2 class="text-2xl font-bodyFont underline">Car of the week:</h2>
+<div class="flex flex-col items-center font-bodyFont">
+    <h2 class="text-2xl underline">Car of the week:</h2>
+    <% if (popularCar) { %>
     <a href="/products/<%= popularCar._id %>">
         <div class="my-10">
             <div class="overflow-hidden">
@@ -20,4 +21,11 @@
             </div>
         </div>
     </a>
+    <%} else{ %>
+    <div class="my-10">
+        <p class="text-2xl">Database is empty, when you add some cars in it, car with highest price will be displayed
+        </p>
+    </div>
+    <% } %>
+
 </div>

@@ -1,33 +1,24 @@
-<div class="bg-black h-auto py-10 text-white grid grid-cols-5">
+<div class="bg-black h-auto py-10 text-white grid grid-cols-5 font-bodyFont">
     <div class="col-span-3">
         <h3 class="footerH">Popular models</h3>
+        <% if(cars.length > 0) { %>
         <div class="grid grid-cols-4 gap-5 h-2/3 p-6 pl-10 w-full justify-center items-center ">
-            <a href="/products/65d9e0fc1f7fae4851cb01ca">
+            <% for(let i = 0; i< cars.length; i++) { %>
+            <a href="/products/<%= cars[i]._id %>">
                 <div class="cardFooter">
-                    <p>Audi A7</p>
+                    <p>
+                        <span><%= cars[i].brand.name  %></span>
+                        <span><%= cars[i].model  %></span>
+                    </p>
                 </div>
             </a>
-            <a href="/products/65db18fc88a9437c97c9bc62">
-                <div class="cardFooter">
-                    <p>BMW M5</p>
-                </div>
-            </a>
-            <a href="/products/65d9e1aafac819c97f37981d">
-                <div class="cardFooter">
-                    <p>Audi Q7</p>
-                </div>
-            </a>
-            <a href="/products/65d9e139e3a9a53fc7f9be3d">
-                <div class="cardFooter">
-                    <p>Audi Q3</p>
-                </div>
-            </a>
-            <a href="/products/65d9e0a993d233b02de3ab46">
-                <div class="cardFooter">
-                    <p>Audi A4</p>
-                </div>
-            </a>
+            <% } %>
         </div>
+        <% } else { %>
+        <p class="flex justify-center">Database is currently empty.
+            When you add some cars to it, first 4 cars will get displayed here</p>
+        <% } %>
+
     </div>
     <div>
         <h3 class="footerH">Featured content</h3>
