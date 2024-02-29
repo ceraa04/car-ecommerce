@@ -1,4 +1,4 @@
-const { getAllBrands } = require("../controllers/indexController");
+const { getAllBrands } = require("../public/controllers/indexController");
 const Brand = require("../models/Brand");
 
 jest.mock("../models/Brand", () => ({
