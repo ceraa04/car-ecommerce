@@ -18,6 +18,7 @@ module.exports = {
         popularCar: "50rem",
         singleCarPage: "50rem",
         productsImg: "25rem",
+        editPageProducts: "80rem"
       },
       height: {
         newsLetter: "30rem",

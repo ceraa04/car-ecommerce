@@ -18,8 +18,17 @@ const getAllBrands = async () => {
     ));
     return brands;
 };
+const getAllCars_editCars = async () => {
+    try {
+        const cars = await Car.find().populate("brand");
+        return cars;
+    }
+    catch (error) {
+        console.log(error);
+    }
+};
 // Renderovanje products stranice kada je url /products
-const getAllCars = async (req, res) => {
+const getAllCars_products = async (req, res) => {
     try {
         // Pretvaram checkboxove iz niza objekata u niz stringova, koje posle koristim da cekiram sve brandove na /products url
         let checkboxesChecked = await getAllBrands();
@@ -197,7 +206,8 @@ module.exports = {
     cars_imgSlider,
     carOfTheWeek,
     singleCarPage,
-    getAllCars,
+    getAllCars_products,
+    getAllCars_editCars,
     getAllBrands,
     filterAndSortCars,
     add_car,

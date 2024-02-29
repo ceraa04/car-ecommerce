@@ -35,7 +35,7 @@ app.get("/products", (req, res) => {
   const brand = req.query.brand;
   const price = req.query.price;
   if (sort == undefined && brand == undefined) {
-    carController.getAllCars(req, res);
+    carController.getAllCars_products(req, res);
   } else {
     carController.filterAndSortCars(req, res, sort, brand, price);
   }
@@ -64,7 +64,11 @@ app.get("/products/:id", async (req, res) => {
 
 
 
-// Funkcije koje su samo za admina (CRUD)
+// Funkcije koje su samo za admina (update, delete, create)
+
+// 1. Create funkcije
+
+// Za novi auto
 app.get("/newCar", async (req, res) => {
   res.render("newCar", {
     brands: await carController.getAllBrands()
@@ -76,6 +80,7 @@ app.post("/newCar", async (req, res) => {
   res.redirect("/newCar");
 });
 
+// Za novi brend
 app.get("/newBrand", (req, res) => {
   res.render("newBrand");
 });
@@ -89,7 +94,13 @@ app.post("/newBrand", async (req, res) => {
   }
 });
 
-app.get("/editCars", (req, res) => {
-  res.render("editCars");
+// Update i delete funkcije
+
+app.get("/editCars", async (req, res) => {
+  const cars = await carController.getAllCars_editCars();
+  res.render("editCars", {
+    cars: cars
+  });
 });
+
 module.exports = app;

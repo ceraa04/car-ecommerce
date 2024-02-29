@@ -606,6 +606,18 @@ video {
   grid-column: span 3 / span 3;
 }
 
+.col-span-1{
+  grid-column: span 1 / span 1;
+}
+
+.col-span-4{
+  grid-column: span 4 / span 4;
+}
+
+.col-span-2{
+  grid-column: span 2 / span 2;
+}
+
 .mx-16{
   margin-left: 4rem;
   margin-right: 4rem;
@@ -636,8 +648,22 @@ video {
   margin-bottom: 7rem;
 }
 
+.my-40{
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+
+.mx-10{
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+}
+
 .mb-20{
   margin-bottom: 5rem;
+}
+
+.mb-24{
+  margin-bottom: 6rem;
 }
 
 .mb-52{
@@ -670,10 +696,6 @@ video {
 
 .mt-profileMarginTop{
   margin-top: 155px;
-}
-
-.mb-24{
-  margin-bottom: 6rem;
 }
 
 .flex{
@@ -776,6 +798,10 @@ video {
   width: 18rem;
 }
 
+.w-80{
+  width: 20rem;
+}
+
 .w-full{
   width: 100%;
 }
@@ -798,6 +824,22 @@ video {
 
 .w-singleCarPage{
   width: 50rem;
+}
+
+.w-editPageProducts{
+  width: 80rem;
+}
+
+.w-20{
+  width: 5rem;
+}
+
+.border-collapse{
+  border-collapse: collapse;
+}
+
+.border-separate{
+  border-collapse: separate;
 }
 
 .transform{
@@ -828,6 +870,14 @@ video {
 
 .grid-cols-5{
   grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.grid-cols-6{
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.grid-cols-7{
+  grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 .flex-col{
@@ -946,6 +996,25 @@ video {
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.bg-red-600{
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+
+.bg-yellow-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 204 21 / var(--tw-bg-opacity));
+}
+
+.bg-yellow-600{
+  --tw-bg-opacity: 1;
+  background-color: rgb(202 138 4 / var(--tw-bg-opacity));
+}
+
+.fill-white{
+  fill: #fff;
 }
 
 .p-10{

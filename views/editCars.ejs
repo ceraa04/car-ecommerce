@@ -10,7 +10,44 @@
 
 <body>
     <%- include ./partials/nav.ejs  %>
-    <p>Ovo je view za edit cars</p>
+    <div class="font-bodyFont flex flex-col items-center">
+        <h3 class="text-3xl">Edit cars</h3>
+        <p class="text-primary text-2xl tracking-wide mt-20">Below you have a list of all cars in the database. Feel
+            free to
+            edit or delete any car you want.</p>
+        <div class="flex justify-center my-20">
+            <ul class="border-separate">
+                <% for (car of cars) { %>
+                <li class="border-2 border-primary w-editPageProducts p-5 grid grid-cols-7">
+                    <div class="col-span-1 flex justify-center items-center gap-2 font-bold text-xl">
+                        <span><%= car.brand.name  %></span>
+                        <span><%= car.model  %></span>
+                    </div>
+                    <span class="col-span-1 flex items-center"><%= car.year  %></span>
+                    <p class="col-span-1 flex items-center"><%= car.price + "$" %></p>
+                    <p class="col-span-2"><%= car.description %></p>
+                    <div class="col-span-2 flex gap-5 justify-center items-center">
+                        <div class="w-12 bg-red-600 fill-white p-3 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <title>delete</title>
+                                <path
+                                    d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                            </svg>
+                        </div>
+                        <div class="w-12 bg-yellow-600 fill-white p-3 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <title>pencil</title>
+                                <path
+                                    d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                            </svg>
+                        </div>
+                    </div>
+                </li>
+                <%}  %>
+            </ul>
+        </div>
+    </div>
+
 </body>
 
 </html>
