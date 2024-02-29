@@ -232,8 +232,8 @@ const singleCarPage = async (req, res, id) => {
     }
 };
 
-const deleteCar = async (req, res, model) => {
-    Car.deleteOne({ model: model })
+const deleteCar = async (req, res, carId) => {
+    Car.deleteOne({ _id: carId })
         .then(() => {
             console.log(`${model} je izbrisan iz DB!`);
         })

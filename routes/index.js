@@ -109,10 +109,18 @@ app.get("/editCars", async (req, res) => {
   });
 });
 app.post("/editCars", async (req, res) => {
-  const model = req.body.model;
-  if (model) {
-    await carController.deleteCar(req, res, model);
-  } else {
+  const carIdD = req.body.carIdDelete;
+  const carIdE = req.body.carIdEdit;
+  console.log(carIdD);
+  console.log(carIdE);
+  if (carIdD) {
+    console.log("Delete!");
+    await carController.deleteCar(req, res, carIdD);
+  }
+  else if (carIdE) {
+    console.log("Edit!");
+  }
+  else {
     console.log("Model nije prosledjen!");
   }
   res.redirect("/editCars");
