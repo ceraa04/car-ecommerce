@@ -19,14 +19,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Build Docker image
-        run: |
-          docker build -t car2 .
-          echo ${{ secrets.CAR_TOKEN_SECRET }} | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-          docker tag car2 docker.pkg.github.com/ceraa04/car-ecommerce/car2:${{ github.sha }}
-          docker push docker.pkg.github.com/ceraa04/car-ecommerce/car2:${{ github.sha }}
       
-
-      - name: Run tests with Docker
-        run: docker run car2 npm test
+      - name: Run tests
+        run: npm test
