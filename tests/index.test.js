@@ -4,9 +4,7 @@ const Brand = require("../models/Brand");
 jest.mock("../models/Brand", () => ({
     find: jest.fn(),
     findOne: jest.fn(),
-    // Add other mocked methods as needed
 }));
-
 
 describe("getAllBrands", () => {
     it("returns an array of brand objects with all properties", async () => {
