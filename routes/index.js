@@ -104,13 +104,16 @@ app.post("/newBrand", async (req, res) => {
 // Update i delete funkcije
 app.get("/editCars", async (req, res) => {
   const cars = await carController.getAllCars();
+  const brands = await carController.getAllBrands();
   res.render("editCars", {
-    cars: cars
+    cars: cars,
+    brands: brands
   });
 });
 app.post("/editCars", async (req, res) => {
   const carIdD = req.body.carIdDelete;
   const carIdE = req.body.carIdEdit;
+  console.log(Object.keys(req.body));
   if (carIdD) {
     console.log("Delete!");
     await carController.deleteCar(req, res, carIdD);

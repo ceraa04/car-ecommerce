@@ -16,69 +16,78 @@
             free to
             edit or delete any car you want.</p>
         <div class="flex justify-center mt-20 mb-48">
+            <div class="hidden">
+                <% for(brand of brands){ %>
+                <p class="brand"><%= brand %></p>
+                <% }  %>
+            </div>
             <% if(cars.length > 0){ %>
-            <ul>
+            <ul class="w-editPageProducts">
+                <li class="border-2 border-primary text-primary p-5 grid grid-cols-12 flex items-center">
+                    <p class="col-span-3">Car brand and model:</p>
+                    <p class="col-span-1">Car year of production:</p>
+                    <p class="col-span-2">Car price:</p>
+                    <p class="col-span-4">Car description:</p>
+                    <p class="col-span-2">Delete and edit car:</p>
+                </li>
                 <% for (car of cars) { %>
-                <li>
-                    <div class="border-2 border-primary w-editPageProducts p-5 grid grid-cols-11">
-                        <div class="col-span-2 flex justify-center items-center gap-2 font-bold text-lg">
-                            <span><%= car.brand.name  %></span>
-                            <span class="carModel_<%= car._id  %> w-52 whitespace-normal"><%= car.model %></span>
+                <li class="border-2 border-primary p-5 grid grid-cols-12">
+                    <div class="col-span-3 flex justify-center items-center gap-2 font-bold text-lg">
+                        <span class="carBrand_<%= car._id  %>"><%= car.brand.name  %></span>
+                        <span class="carModel_<%= car._id  %> w-52 whitespace-normal"><%= car.model %></span>
+                    </div>
+
+                    <div class="col-span-1 flex items-center">
+                        <span class="carYear_<%= car._id %>"><%= car.year  %></span>
+                    </div>
+                    <p class="flex col-span-2 justify-start items-center gap-2">
+                        <span class="carPrice_<%= car._id %>">
+                            <%= car.price %>
+                        </span>
+                        <span> $</span>
+                    </p>
+
+
+                    <p class="carDescription_<%= car._id %> col-span-4 flex items-center">
+                        <%= car.description %></p>
+
+                    <div class="col-span-2 flex gap-5 justify-center items-center">
+
+                        <div onclick="submitDelete('<%= car._id %>')" class="deleteButton editCarsButton">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <title>delete</title>
+                                <path
+                                    d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                            </svg>
                         </div>
 
-                        <div class="col-span-1 flex items-center">
-                            <span class="carYear_<%= car._id %>"><%= car.year  %></span>
+                        <div onclick="handleEdit('<%= car._id %>')" class="editButton_<%= car._id  %> editCarsButton">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <title>pencil</title>
+                                <path
+                                    d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                            </svg>
                         </div>
-                        <p class="flex col-span-2 justify-start items-center gap-2">
-                            <span class="carPrice_<%= car._id %>">
-                                <%= car.price %>
-                            </span>
-                            <span> $</span>
-                        </p>
-
-
-                        <p class="carDescription_<%= car._id %> col-span-4 flex items-center justify-center">
-                            <%= car.description %></p>
-
-                        <div class="col-span-2 flex gap-5 justify-center items-center">
-
-                            <div onclick="submitDelete('<%= car._id %>')" class="deleteButton editCarsButton">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <title>delete</title>
-                                    <path
-                                        d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
-                                </svg>
-                            </div>
-
-                            <div onclick="handleEdit('<%= car._id %>')"
-                                class="editButton_<%= car._id  %> editCarsButton">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <title>pencil</title>
-                                    <path
-                                        d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-                                </svg>
-                            </div>
-                            <div onclick="confirmEdit('<%= car._id %>')"
-                                class="confirmButton_<%= car._id %> editCarsButton hidden">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <title>check-bold</title>
-                                    <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" />
-                                </svg>
-                            </div>
-                            <!-- Delete form 
+                        <div onclick="confirmEdit('<%= car._id %>')"
+                            class="confirmButton_<%= car._id %> editCarsButton hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <title>check-bold</title>
+                                <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" />
+                            </svg>
+                        </div>
+                        <!-- Delete form 
                                 Pravim input model, dajem mu value car.model, da bih mogao uzeti njegovu vrednost u post metodi i prosleditit ga DELETE funkciji
                             -->
-                            <form class="hidden deleteForm_<%= car._id  %>" action="" method="post" name="delete">
-                                <input type="hidden" name="carIdDelete" value="<%= car._id %>">
-                            </form>
+                        <form class="hidden deleteForm_<%= car._id  %>" action="" method="post" name="delete">
+                            <input name="carIdDelete" value="<%= car._id %>">
+                        </form>
 
-                            <!-- Edit form 
+                        <!-- Edit form 
                                 Pravim input model, dajem mu value car.model, da bih mogao uzetmin-h-9i njegovu vrednost u post metodi i prosleditit ga EDIT funkciji
                             -->
-                            <form class="hidden  confirmForm_<%= car._id %>" action="" method="get" name="edit">
-                                <input type="hidden" name="carIdEdit" value="<%= car._id %>">
-                            </form>
-                        </div>
+                        <form class="hidden  confirmForm_<%= car._id %>" action="" method="post" name="edit">
+                            <input type="hidden" name="carIdEdit" value="<%= car._id %>">
+                        </form>
                     </div>
                 </li>
                 <% }  %>
@@ -105,36 +114,53 @@
         // Function to submit edit form
         function handleEdit(carId) {
             toogleEdit(carId);
+            // Car brand edit, uzimam sve brendove iz baze i pravim select(dropdown listu)
+            const carBrand = document.querySelector(`.carBrand_${carId}`);
+            const carBrandValue = carBrand.textContent.trim();
+            const carBrandSelect = document.createElement("select");
+            const carBrandOptions = document.querySelectorAll(".brand");
+
+            carBrandOptions.forEach(brand => {
+                const brandOption = document.createElement("option");
+                console.log(brandOption.value)
+                brandOption.value = brand.textContent;
+                brandOption.text = brand.textContent
+                console.log(brandOption.value)
+                carBrandSelect.appendChild(brandOption)
+            })
+            carBrandSelect.name = `carBrand_${carId}`;
+            carBrandSelect.className = "px-5 py-2";
+            carBrand.parentNode.replaceChild(carBrandSelect, carBrand)
             // Car model edit
             const carModel = document.querySelector(`.carModel_${carId}`);
             // Brisem sav razmak pre texta
             const carModelValue = carModel.textContent.trim();
-            const carModelInput = document.createElement("input");
-            carModelInput.type = "text";
+            const carModelInput = document.createElement("textarea");
             carModelInput.value = carModelValue;
-            carModelInput.className = `carModel_${carId} w-24 px-4 py-2 h-auto text-wrap`;
+            carModelInput.name = `carModel_${carId}`
+            carModelInput.className = "border-2 border-primary";
             carModel.parentNode.replaceChild(carModelInput, carModel)
 
             // Car year edit
             const carYear = document.querySelector(`.carYear_${carId}`);
             // Brisem sav razmak pre texta
             const carYearValue = carYear.textContent.trim();
-            console.log(carYearValue)
             const carYearInput = document.createElement("input");
             carYearInput.type = "number";
             carYearInput.value = carYearValue;
-            carYearInput.className = `carYear_${carId} w-24 px-4 py-2 `;
+            carYearInput.name = `carYear_${carId}`
+            carYearInput.className = "w-24 px-4 py-2";
             carYear.parentNode.replaceChild(carYearInput, carYear)
 
             // Car price edit
             const carPrice = document.querySelector(`.carPrice_${carId}`);
             // Brisem sav razmak pre texta
             const carPriceValue = carPrice.textContent.trim();
-            console.log(carPriceValue)
             const carPriceInput = document.createElement("input");
             carPriceInput.type = "number";
             carPriceInput.value = carPriceValue;
-            carPriceInput.className = `carPrice_${carId} w-32 px-4 py-2 text-start`;
+            carPriceInput.name = `carPrice_${carId}`
+            carPriceInput.className = "w-32 px-4 py-2 text-start";
             carPrice.parentNode.replaceChild(carPriceInput, carPrice)
 
             // Car description edit
@@ -142,17 +168,9 @@
             const carDescriptionValue = carDescription.textContent.trim();
 
             const carDescriptionInput = document.createElement("textarea");
-            carDescriptionInput.type = "text";
             carDescriptionInput.value = carDescriptionValue;
-            carDescriptionInput.className = `carDescription_${carId} col-span-4 flex items-center px-2`;
-
-            carDescriptionInput.addEventListener('input', function () {
-                if (carDescriptionInput.value.length > 49) {
-                    carDescriptionInput.classList.add("h-72");
-                    carDescriptionInput.classList.remove("items-center")
-                    carDescriptionInput.classList.add("items-start")
-                }
-            });
+            carDescription.name = `carDescription_${carId}`
+            carDescriptionInput.className = "col-span-4 px-2 border-2 border-primary";
             carDescription.parentNode.replaceChild(carDescriptionInput, carDescription)
         }
         function confirmEdit(carId) {

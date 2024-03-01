@@ -648,11 +648,6 @@ video {
   margin-bottom: 7rem;
 }
 
-.mx-10{
-  margin-left: 2.5rem;
-  margin-right: 2.5rem;
-}
-
 .mb-20{
   margin-bottom: 5rem;
 }
@@ -701,14 +696,6 @@ video {
   margin-top: 155px;
 }
 
-.mr-10{
-  margin-right: 2.5rem;
-}
-
-.inline-block{
-  display: inline-block;
-}
-
 .flex{
   display: flex;
 }
@@ -741,6 +728,10 @@ video {
   height: 1.25rem;
 }
 
+.h-72{
+  height: 18rem;
+}
+
 .h-auto{
   height: auto;
 }
@@ -765,32 +756,12 @@ video {
   height: 40rem;
 }
 
-.h-96{
-  height: 24rem;
-}
-
-.h-72{
-  height: 18rem;
-}
-
 .max-h-index{
   max-height: 40rem;
 }
 
-.max-h-20{
-  max-height: 5rem;
-}
-
 .min-h-48{
   min-height: 12rem;
-}
-
-.min-h-9{
-  min-height: 2.25rem;
-}
-
-.min-h-20{
-  min-height: 5rem;
 }
 
 .w-10{
@@ -801,12 +772,16 @@ video {
   width: 3rem;
 }
 
-.w-20{
-  width: 5rem;
+.w-24{
+  width: 6rem;
 }
 
 .w-3\/4{
   width: 75%;
+}
+
+.w-32{
+  width: 8rem;
 }
 
 .w-40{
@@ -861,32 +836,8 @@ video {
   width: 50rem;
 }
 
-.w-16{
-  width: 4rem;
-}
-
-.w-32{
-  width: 8rem;
-}
-
-.w-24{
-  width: 6rem;
-}
-
-.w-28{
-  width: 7rem;
-}
-
-.max-w-8{
-  max-width: 2rem;
-}
-
-.max-w-14{
-  max-width: 3.5rem;
-}
-
-.max-w-20{
-  max-width: 5rem;
+.w-20{
+  width: 5rem;
 }
 
 .transform{
@@ -895,10 +846,6 @@ video {
 
 .cursor-pointer{
   cursor: pointer;
-}
-
-.resize-y{
-  resize: vertical;
 }
 
 .resize-x{
@@ -925,6 +872,10 @@ video {
 
 .grid-cols-5{
   grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.grid-cols-12{
+  grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 
 .flex-col{
@@ -1090,6 +1041,11 @@ video {
   padding-right: 4rem;
 }
 
+.px-2{
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .px-20{
   padding-left: 5rem;
   padding-right: 5rem;
@@ -1105,19 +1061,19 @@ video {
   padding-bottom: 2.5rem;
 }
 
+.py-2{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
 .py-5{
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
 }
 
-.px-2{
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-.py-2{
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+.px-5{
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
 .pb-5{
@@ -1146,10 +1102,6 @@ video {
 
 .pt-6{
   padding-top: 1.5rem;
-}
-
-.text-left{
-  text-align: left;
 }
 
 .text-start{
@@ -1453,9 +1405,4 @@ video {
 .hover\:text-primary:hover{
   --tw-text-opacity: 1;
   color: rgb(150 151 153 / var(--tw-text-opacity));
-}
-
-.focus\:outline-none:focus{
-  outline: 2px solid transparent;
-  outline-offset: 2px;
 }
