@@ -85,7 +85,6 @@
                 </li>
                 <% }  %>
             </ul>
-
             <% } else { %>
             <p class="text-5xl mb-60 mt-20">No cars found!</p>
             <% } %>
@@ -93,18 +92,18 @@
     </div>
     <%- include ./partials/footer.ejs  %>
     <script>
+        // Potvrdjivanje delete
         function submitDelete(carId) {
-            console.log(`Car ID je: ${carId}`)
             const form = document.querySelector(`.deleteForm_${carId}`)
             form.submit()
         }
+        // Funkcija za menjanje olovkice u check znak, kada se klikne na olovkicu za edit
         function toogleEdit(carId) {
             const confirmButton = document.querySelector(`.confirmButton_${carId}`);
             const editButton = document.querySelector(`.editButton_${carId}`);
             editButton.classList.toggle("hidden");
             confirmButton.classList.toggle("hidden")
         }
-        // Function to submit edit form
         function handleEdit(carId) {
             toogleEdit(carId);
             // Car brand edit, uzimam sve brendove iz baze i pravim select(dropdown listu)
@@ -117,11 +116,11 @@
                 const brandOption = document.createElement("option");
                 brandOption.value = brand.textContent;
                 brandOption.text = brand.textContent
-                console.log(brandOption.value)
                 carBrandSelect.appendChild(brandOption)
             })
+
             carBrandSelect.name = "carBrand";
-            carBrandSelect.className = "px-5 py-2";
+            carBrandSelect.className = "px-5 py-2 border-2 border-primary";
             carBrand.parentNode.replaceChild(carBrandSelect, carBrand)
             // Car model edit
             const carModel = document.querySelector(`.carModel_${carId}`);
@@ -141,7 +140,10 @@
             carYearInput.type = "number";
             carYearInput.value = carYearValue;
             carYearInput.name = "carYear"
-            carYearInput.max = 2024;
+            // Handle-ujem min i max case
+            carYearInput.addEventListener("input", () => {
+                carYearInput.value = Math.min(Math.max(carYearInput.value, 1), 2024)
+            })
             carYearInput.className = "w-24 px-4 py-2";
             carYear.parentNode.replaceChild(carYearInput, carYear)
 
@@ -153,7 +155,11 @@
             carPriceInput.type = "number";
             carPriceInput.value = carPriceValue;
             carPriceInput.name = "carPrice"
-            carPriceInput.className = "w-32 px-4 py-2 text-start";
+            // Handle-ujem min i max case
+            carPriceInput.addEventListener("input", () => {
+                carPriceInput.value = Math.max(carPriceInput.value, 1)
+            })
+            carPriceInput.className = "w-32 px-4 py-2 text-start border-2 border-primary";
             carPrice.parentNode.replaceChild(carPriceInput, carPrice)
 
             // Car description edit
