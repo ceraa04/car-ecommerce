@@ -32,14 +32,14 @@ app.get("/about", async (req, res) => {
   });
 });
 
-app.get("/products", (req, res) => {
+app.get("/products", async (req, res) => {
   const sort = req.query.sort;
   const brand = req.query.brand;
   const price = req.query.price;
   if (sort == undefined && brand == undefined && price == undefined) {
-    carController.productsPageRender(req, res);
+    await carController.productsPageRender(req, res);
   } else {
-    carController.filterAndSortCars(req, res, sort, brand, price);
+    await carController.filterAndSortCars(req, res, sort, brand, price);
   }
 });
 
@@ -112,19 +112,13 @@ app.get("/editCars", async (req, res) => {
 });
 app.post("/editCars", async (req, res) => {
   const carIdD = req.body.carIdDelete;
-  console.log(Object.keys(req.body));
 
   const { carBrand, carModel, carYear, carPrice, carIdEdit, carDescription } = req.body;
   if (carIdD) {
-    console.log("Delete!");
     await carController.deleteCar(req, res, carIdD);
   }
   else if (carBrand) {
-    console.log("Edit!");
     await carController.editCar(carIdEdit, carModel, carBrand, carPrice, carYear, carDescription);
-  }
-  else {
-    console.log("Model nije prosledjen!");
   }
   res.redirect("/editCars");
 });

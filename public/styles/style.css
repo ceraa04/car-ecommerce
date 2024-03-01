@@ -74,3 +74,6 @@
 .editCarsButton {
     @apply w-12 bg-black fill-white p-3 cursor-pointer hover:bg-slate-700
 }
+.messageSuccess {
+    @apply duration-500 absolute top-10 bg-green-500 px-20 py-5 rounded-lg 
+}

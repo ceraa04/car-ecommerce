@@ -42,8 +42,8 @@ const productsPageRender = async (req, res) => {
             selectedOptionFilter: "",
             selectedOptionSort: "",
             checkboxesChecked: allBrands,
-            minPrice: maxP,
-            maxPrice: await maxPrice(),
+            minPrice: await minPrice(),
+            maxPrice: maxP,
             countDocuments: await Car.countDocuments(),
             // CarBrandAll koristim za ispisivanje checkboxova za filtriranje na products page
             carBrandsAll: allBrands,
@@ -120,8 +120,8 @@ const maxPrice = async (filter = {}) => {
 const minPrice = async (filter = {}) => {
     const cars = await Car.find(filter).sort({ price: 1 });
     if (cars.length > 0) {
-        const biggestPrice = cars[0].price;
-        return biggestPrice;
+        const smallestPrice = cars[0].price;
+        return smallestPrice;
     }
 
 };
@@ -157,7 +157,7 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
 
     let checkboxesObjectBrand;
     if (checkboxesBrandMethod.length > 0) {
-        checkboxesObjectBrand = { brand: checkboxesBrandMethod };
+        checkboxesObjectBrand = checkboxesBrandMethod;
     } else {
         checkboxesObjectBrand = {};
     }
@@ -165,6 +165,7 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
     // Izracunavanje targetPrice za sortiranje, trebaju mi funkcije za min i max price
     const minPriceRender = await minPrice();
     const maxPriceRender = await maxPrice();
+
     let targetPrice;
     // Ako su pronadjeni max i min price, odnosno ako cars collection nije prazan
     if (minPriceRender && maxPriceRender) {
@@ -172,50 +173,45 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
     } else {
         targetPrice = 0;
     }
-
-    Car.find({
-        $and: [
-            checkboxesObjectBrand,
-            { price: { $lte: targetPrice } }
-        ]
-    })
-        .populate("brand")
-        .sort(sortMethod)
-        .then(async (result) => {
-            const countDocuments = result.length;
-            if (Object.keys(checkboxesObjectBrand).length === 0) {
-                return res.render("products", {
-                    cars: [],
-                    selectedOptionSort: sort,
-                    maxPrice: await maxPrice(),
-                    minPrice: await minPrice(),
-                    checkboxesChecked: brand,
-                    countDocuments: 0,
-                    carBrandsAll: await getAllBrands(),
-                    price: price
-                });
-            }
-            // Max i min price trebaju uvek da budu pocetni, a ne da se menjaju pri promeni filtera
-            res.render("products", {
-                cars: result,
+    let cars;
+    if (checkboxesObjectBrand.length > 0) {
+        cars = await Car.find({ $and: [{ brand: { $in: checkboxesObjectBrand } }, { price: { $lte: targetPrice } }] }).populate("brand").sort(sortMethod);
+    } else {
+        cars = await Car.find({ price: { $lte: targetPrice } }).populate("brand").sort(sortMethod);
+    }
+    try {
+        const countDocuments = cars.length;
+        if (Object.keys(checkboxesObjectBrand).length === 0) {
+            return res.render("products", {
+                cars: [],
                 selectedOptionSort: sort,
-                maxPrice: maxPriceRender,
-                minPrice: minPriceRender,
+                maxPrice: await maxPrice(),
+                minPrice: await minPrice(),
                 checkboxesChecked: brand,
-                countDocuments: countDocuments,
+                countDocuments: 0,
                 carBrandsAll: await getAllBrands(),
                 price: price
             });
-        })
-        .catch((error) => {
-            if (error.name === "CastError") {
-                console.error("Invalid value for price:", error.message);
-            } else {
-                console.error("Error:", error.message);
-            }
+        }
+        // Max i min price trebaju uvek da budu pocetni, a ne da se menjaju pri promeni filtera
+        res.render("products", {
+            cars: cars,
+            selectedOptionSort: sort,
+            maxPrice: maxPriceRender,
+            minPrice: minPriceRender,
+            checkboxesChecked: brand,
+            countDocuments: countDocuments,
+            carBrandsAll: await getAllBrands(),
+            price: price
         });
+    } catch (error) {
 
-
+        if (error.name === "CastError") {
+            console.error("Invalid value for price:", error.message);
+        } else {
+            console.error("Error:", error.message);
+        }
+    }
 };
 
 // Renderovanje itemPage stranice
@@ -239,19 +235,15 @@ const deleteCar = async (req, res, carId) => {
         .catch(error => console.log(error));
 };
 const editCar = async (carId, model, brandName, price, year, description) => {
-    const brandId = await Brand.findOne({ name: brandName });
-    Car.updateOne({ _id: carId }, {
-        price: price,
-        year: year,
-        model: model,
-        brand: brandId,
-        description: description
-    })
-        .then(() => {
-            console.log("Auto je updatovan");
-        })
-        .catch((error) => console.log(error));
-
+    try {
+        const brandId = await Brand.findOne({ name: brandName });
+        await Car.updateOne(
+            { _id: carId },
+            { price: price, year: year, model: model, brand: brandId, description: description }
+        );
+    } catch (error) {
+        console.error(error);
+    }
 };
 module.exports = {
     cars_imgSlider,

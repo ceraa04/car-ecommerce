@@ -9,11 +9,10 @@ const showMessage = () => {
             message.classList.remove("opacity-1");
             message.classList.add("opacity-0");
         }, 2000);
-        document.querySelector("#message").value = "";
+        document.querySelector(".message").value = "";
         inputs.forEach(input => {
             input.value = "";
         });
     });
-
 };
 showMessage();
