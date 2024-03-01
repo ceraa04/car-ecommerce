@@ -15,10 +15,9 @@
 <div class="flex flex-col gap-2 justify-center mt-10 p-3">
     <p>Range of price:</p>
     <div class="relative w-52">
-        <span class="top-0 left-0 minPrice"><%= minPrice %></span>
         <input onchange="submitForm()" name="rangePriceFilter" class="rangeInputFilter" type="range" min="0" max="100"
             value="<%= price %>">
-        <span class="absolute top-0 right-0 maxPrice"><%= maxPrice %></span>
+        <span class="absolute top-0 right-0 maxPrice hidden"><%= maxPrice %></span>
         <p class="flex gap-3 justify-center mt-2">
             <span class="minPrice"><%= minPrice  %></span>
             <span>-</span>
