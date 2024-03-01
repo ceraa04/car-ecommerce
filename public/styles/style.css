@@ -2,6 +2,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .btn {
     @apply px-10 py-4 rounded-md cursor-pointer tracking-wider
 }
@@ -66,8 +71,6 @@
 .inputNewCarDiv {
     @apply flex flex-col gap-2
 }
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.editCarsButton {
+    @apply w-12 bg-black fill-white p-3 cursor-pointer hover:bg-slate-700
 }

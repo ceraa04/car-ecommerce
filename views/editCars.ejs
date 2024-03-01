@@ -20,25 +20,29 @@
             <ul>
                 <% for (car of cars) { %>
                 <li>
-                    <div action="" method="post"
-                        class="border-2 border-primary w-editPageProducts p-5 grid grid-cols-11">
-
-                        <div class="carModel col-span-3 flex justify-center items-center gap-2 font-bold text-xl">
+                    <div class="border-2 border-primary w-editPageProducts p-5 grid grid-cols-11">
+                        <div class="col-span-2 flex justify-center items-center gap-2 font-bold text-lg">
                             <span><%= car.brand.name  %></span>
-                            <input class="w-52 focus:outline-none text-wrap" name="model" type="text" readonly
-                                value="<%= car.model %>">
+                            <span class="carModel_<%= car._id  %> w-52 whitespace-normal"><%= car.model %></span>
                         </div>
 
-                        <span class="col-span-1 flex items-center"><%= car.year  %></span>
+                        <div class="col-span-1 flex items-center">
+                            <span class="carYear_<%= car._id %>"><%= car.year  %></span>
+                        </div>
+                        <p class="flex col-span-2 justify-start items-center gap-2">
+                            <span class="carPrice_<%= car._id %>">
+                                <%= car.price %>
+                            </span>
+                            <span> $</span>
+                        </p>
 
-                        <p class="col-span-1 flex items-center"><%= car.price + "$" %></p>
 
-                        <p class="col-span-4 flex items-center justify-center"><%= car.description %></p>
+                        <p class="carDescription_<%= car._id %> col-span-4 flex items-center justify-center">
+                            <%= car.description %></p>
 
                         <div class="col-span-2 flex gap-5 justify-center items-center">
 
-                            <div onclick="submitDelete('<%= car._id %>')"
-                                class="deleteButton w-12 bg-black fill-white p-3 cursor-pointer hover:bg-slate-700">
+                            <div onclick="submitDelete('<%= car._id %>')" class="deleteButton editCarsButton">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                     <title>delete</title>
                                     <path
@@ -46,27 +50,32 @@
                                 </svg>
                             </div>
 
-                            <div onclick="submitEdit('<%= car._id %>')"
-                                class="editButton w-12 bg-black fill-white p-3 cursor-pointer hover:bg-slate-700">
+                            <div onclick="handleEdit('<%= car._id %>')"
+                                class="editButton_<%= car._id  %> editCarsButton">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                     <title>pencil</title>
                                     <path
                                         d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
                                 </svg>
                             </div>
+                            <div onclick="confirmEdit('<%= car._id %>')"
+                                class="confirmButton_<%= car._id %> editCarsButton hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <title>check-bold</title>
+                                    <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" />
+                                </svg>
+                            </div>
                             <!-- Delete form 
                                 Pravim input model, dajem mu value car.model, da bih mogao uzeti njegovu vrednost u post metodi i prosleditit ga DELETE funkciji
                             -->
-                            <form id="deleteForm_<%= car._id %>" action="" method="post" name="delete"
-                                style="display: none;">
+                            <form class="hidden deleteForm_<%= car._id  %>" action="" method="post" name="delete">
                                 <input type="hidden" name="carIdDelete" value="<%= car._id %>">
                             </form>
 
                             <!-- Edit form 
-                                Pravim input model, dajem mu value car.model, da bih mogao uzeti njegovu vrednost u post metodi i prosleditit ga EDIT funkciji
+                                Pravim input model, dajem mu value car.model, da bih mogao uzetmin-h-9i njegovu vrednost u post metodi i prosleditit ga EDIT funkciji
                             -->
-                            <form id="editForm_<%= car._id %>" action="" method="post" name="edit"
-                                style="display: none;">
+                            <form class="hidden  confirmForm_<%= car._id %>" action="" method="get" name="edit">
                                 <input type="hidden" name="carIdEdit" value="<%= car._id %>">
                             </form>
                         </div>
@@ -74,6 +83,7 @@
                 </li>
                 <% }  %>
             </ul>
+
             <% } else { %>
             <p class="text-5xl mb-60 mt-20">No cars found!</p>
             <% } %>
@@ -83,18 +93,72 @@
     <script>
         function submitDelete(carId) {
             console.log(`Car ID je: ${carId}`)
-            // Submit the delete form
-            const form2 = document.querySelector("form");
-            console.log(form2)
-            const form = document.querySelector(`#deleteForm_${carId}`)
+            const form = document.querySelector(`.deleteForm_${carId}`)
             form.submit()
         }
-
+        function toogleEdit(carId) {
+            const confirmButton = document.querySelector(`.confirmButton_${carId}`);
+            const editButton = document.querySelector(`.editButton_${carId}`);
+            editButton.classList.toggle("hidden");
+            confirmButton.classList.toggle("hidden")
+        }
         // Function to submit edit form
-        function submitEdit(carId) {
-            // Submit the edit form
-            const form = document.querySelector(`#editForm_${carId}`)
-            form.submit()
+        function handleEdit(carId) {
+            toogleEdit(carId);
+            // Car model edit
+            const carModel = document.querySelector(`.carModel_${carId}`);
+            // Brisem sav razmak pre texta
+            const carModelValue = carModel.textContent.trim();
+            const carModelInput = document.createElement("input");
+            carModelInput.type = "text";
+            carModelInput.value = carModelValue;
+            carModelInput.className = `carModel_${carId} w-24 px-4 py-2 h-auto text-wrap`;
+            carModel.parentNode.replaceChild(carModelInput, carModel)
+
+            // Car year edit
+            const carYear = document.querySelector(`.carYear_${carId}`);
+            // Brisem sav razmak pre texta
+            const carYearValue = carYear.textContent.trim();
+            console.log(carYearValue)
+            const carYearInput = document.createElement("input");
+            carYearInput.type = "number";
+            carYearInput.value = carYearValue;
+            carYearInput.className = `carYear_${carId} w-24 px-4 py-2 `;
+            carYear.parentNode.replaceChild(carYearInput, carYear)
+
+            // Car price edit
+            const carPrice = document.querySelector(`.carPrice_${carId}`);
+            // Brisem sav razmak pre texta
+            const carPriceValue = carPrice.textContent.trim();
+            console.log(carPriceValue)
+            const carPriceInput = document.createElement("input");
+            carPriceInput.type = "number";
+            carPriceInput.value = carPriceValue;
+            carPriceInput.className = `carPrice_${carId} w-32 px-4 py-2 text-start`;
+            carPrice.parentNode.replaceChild(carPriceInput, carPrice)
+
+            // Car description edit
+            const carDescription = document.querySelector(`.carDescription_${carId}`);
+            const carDescriptionValue = carDescription.textContent.trim();
+
+            const carDescriptionInput = document.createElement("textarea");
+            carDescriptionInput.type = "text";
+            carDescriptionInput.value = carDescriptionValue;
+            carDescriptionInput.className = `carDescription_${carId} col-span-4 flex items-center px-2`;
+
+            carDescriptionInput.addEventListener('input', function () {
+                if (carDescriptionInput.value.length > 49) {
+                    carDescriptionInput.classList.add("h-72");
+                    carDescriptionInput.classList.remove("items-center")
+                    carDescriptionInput.classList.add("items-start")
+                }
+            });
+            carDescription.parentNode.replaceChild(carDescriptionInput, carDescription)
+        }
+        function confirmEdit(carId) {
+            const confirmEditForm = document.querySelector(`.confirmForm_${carId}`)
+            toogleEdit(carId)
+            confirmEditForm.submit()
         }
     </script>
 </body>
