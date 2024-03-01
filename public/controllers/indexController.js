@@ -21,7 +21,7 @@ const getAllBrands = async () => {
     }
 
 };
-const getAllCars_editCars = async () => {
+const getAllCars = async () => {
     try {
         const cars = await Car.find().populate("brand");
         return cars;
@@ -31,26 +31,25 @@ const getAllCars_editCars = async () => {
     }
 };
 // Renderovanje products stranice kada je url /products
-const getAllCars_products = async (req, res) => {
+const productsPageRender = async (req, res) => {
+    const maxP = await maxPrice();
+    const allBrands = await getAllBrands();
     try {
         // Pretvaram checkboxove iz niza objekata u niz stringova, koje posle koristim da cekiram sve brandove na /products url
-        let checkboxesChecked = await getAllBrands();
-        const cars = await Car.find().populate("brand");
-        if (cars) {
-            res.render("products", {
-                cars: cars,
-                // Select option za sortiranje kada se stranica tek ucitava, kad i dalje nije POST method vec GET
-                selectedOptionFilter: "",
-                selectedOptionSort: "",
-                checkboxesChecked: checkboxesChecked,
-                minPrice: await minPrice(),
-                maxPrice: await maxPrice(),
-                countDocuments: await Car.countDocuments(),
-                // CarBrandAll koristim za ispisivanje checkboxova za filtriranje na products page
-                carBrandsAll: checkboxesChecked,
-                price: await maxPrice()
-            });
-        }
+        res.render("products", {
+            cars: await getAllCars(),
+            // Select option za sortiranje kada se stranica tek ucitava, kad i dalje nije POST method vec GET
+            selectedOptionFilter: "",
+            selectedOptionSort: "",
+            checkboxesChecked: allBrands,
+            minPrice: maxP,
+            maxPrice: await maxPrice(),
+            countDocuments: await Car.countDocuments(),
+            // CarBrandAll koristim za ispisivanje checkboxova za filtriranje na products page
+            carBrandsAll: allBrands,
+            price: maxP
+        });
+
 
     }
     catch (error) {
@@ -95,9 +94,9 @@ const add_brand = async (req, res, name, founded, description, url) => {
 const cars_imgSlider = async (req, res) => {
     try {
         const popularCar = await carOfTheWeek();
-        const result = await Car.find().limit(4).populate("brand");
         res.render("index", {
-            cars: result,
+            imgSliderCars: await Car.find().limit(4).populate("brand"),
+            cars: await getAllCars(),
             popularCar: popularCar
         });
     }
@@ -225,7 +224,7 @@ const singleCarPage = async (req, res, id) => {
         const itemCar = await Car.findOne({ _id: id }).populate("brand");
         res.render("itemPage", {
             car: itemCar,
-            cars: await getAllCars_editCars()
+            cars: await getAllCars()
         });
     } catch (error) {
         console.error(error);
@@ -235,7 +234,7 @@ const singleCarPage = async (req, res, id) => {
 const deleteCar = async (req, res, carId) => {
     Car.deleteOne({ _id: carId })
         .then(() => {
-            console.log(`${model} je izbrisan iz DB!`);
+            console.log(`Model sa brojem ${carId} je izbrisan iz DB!`);
         })
         .catch(error => console.log(error));
 };
@@ -244,8 +243,8 @@ module.exports = {
     cars_imgSlider,
     carOfTheWeek,
     singleCarPage,
-    getAllCars_products,
-    getAllCars_editCars,
+    getAllCars,
+    productsPageRender,
     getAllBrands,
     filterAndSortCars,
     add_car,

@@ -656,6 +656,10 @@ video {
   margin-bottom: 6rem;
 }
 
+.mb-48{
+  margin-bottom: 12rem;
+}
+
 .mb-52{
   margin-bottom: 13rem;
 }
@@ -690,10 +694,6 @@ video {
 
 .mt-profileMarginTop{
   margin-top: 155px;
-}
-
-.mb-48{
-  margin-bottom: 12rem;
 }
 
 .flex{
@@ -822,10 +822,6 @@ video {
 
 .w-singleCarPage{
   width: 50rem;
-}
-
-.border-separate{
-  border-collapse: separate;
 }
 
 .transform{
