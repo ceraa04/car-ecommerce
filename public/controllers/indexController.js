@@ -238,7 +238,21 @@ const deleteCar = async (req, res, carId) => {
         })
         .catch(error => console.log(error));
 };
+const editCar = async (carId, model, brandName, price, year, description) => {
+    const brandId = await Brand.findOne({ name: brandName });
+    Car.updateOne({ _id: carId }, {
+        price: price,
+        year: year,
+        model: model,
+        brand: brandId,
+        description: description
+    })
+        .then(() => {
+            console.log("Auto je updatovan");
+        })
+        .catch((error) => console.log(error));
 
+};
 module.exports = {
     cars_imgSlider,
     carOfTheWeek,
@@ -249,5 +263,6 @@ module.exports = {
     filterAndSortCars,
     add_car,
     add_brand,
-    deleteCar
+    deleteCar,
+    editCar
 };

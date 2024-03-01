@@ -112,14 +112,16 @@ app.get("/editCars", async (req, res) => {
 });
 app.post("/editCars", async (req, res) => {
   const carIdD = req.body.carIdDelete;
-  const carIdE = req.body.carIdEdit;
   console.log(Object.keys(req.body));
+
+  const { carBrand, carModel, carYear, carPrice, carIdEdit, carDescription } = req.body;
   if (carIdD) {
     console.log("Delete!");
     await carController.deleteCar(req, res, carIdD);
   }
-  else if (carIdE) {
+  else if (carBrand) {
     console.log("Edit!");
+    await carController.editCar(carIdEdit, carModel, carBrand, carPrice, carYear, carDescription);
   }
   else {
     console.log("Model nije prosledjen!");
