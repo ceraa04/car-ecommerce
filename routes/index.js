@@ -19,16 +19,16 @@ mongoose.connect(mongoDB)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/", carController.cars_imgSlider, carController.carOfTheWeek);
+app.get("/", carController.cars_imgSlider);
 
 app.get("/contact", async (req, res) => {
   res.render("contact", {
-    cars: await carController.getAllCars_editCars()
+    cars: await carController.getAllCars()
   });
 });
 app.get("/about", async (req, res) => {
   res.render("about", {
-    cars: await carController.getAllCars_editCars()
+    cars: await carController.getAllCars()
   });
 });
 
@@ -37,7 +37,7 @@ app.get("/products", (req, res) => {
   const brand = req.query.brand;
   const price = req.query.price;
   if (sort == undefined && brand == undefined && price == undefined) {
-    carController.getAllCars_products(req, res);
+    carController.productsPageRender(req, res);
   } else {
     carController.filterAndSortCars(req, res, sort, brand, price);
   }
@@ -74,7 +74,7 @@ app.get("/products/:id", async (req, res) => {
 app.get("/newCar", async (req, res) => {
   res.render("newCar", {
     brands: await carController.getAllBrands(),
-    cars: await carController.getAllCars_editCars()
+    cars: await carController.getAllCars()
   });
 });
 app.post("/newCar", async (req, res) => {
@@ -86,7 +86,7 @@ app.post("/newCar", async (req, res) => {
 // Za novi brend
 app.get("/newBrand", async (req, res) => {
   res.render("newBrand", {
-    cars: await carController.getAllCars_editCars()
+    cars: await carController.getAllCars()
   });
 });
 
@@ -103,7 +103,7 @@ app.post("/newBrand", async (req, res) => {
 
 // Update i delete funkcije
 app.get("/editCars", async (req, res) => {
-  const cars = await carController.getAllCars_editCars();
+  const cars = await carController.getAllCars();
   res.render("editCars", {
     cars: cars
   });
@@ -111,8 +111,6 @@ app.get("/editCars", async (req, res) => {
 app.post("/editCars", async (req, res) => {
   const carIdD = req.body.carIdDelete;
   const carIdE = req.body.carIdEdit;
-  console.log(carIdD);
-  console.log(carIdE);
   if (carIdD) {
     console.log("Delete!");
     await carController.deleteCar(req, res, carIdD);
