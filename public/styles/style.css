@@ -40,6 +40,9 @@
 .filterProductsSelect {
     @apply p-3 pr-20 border-2 border-primary 
 }
+.pageNotFoundP {
+    @apply text-4xl flex justify-center my-64
+}
 .rangeInputFilter {
     -webkit-appearance: none;
     appearance: none; 

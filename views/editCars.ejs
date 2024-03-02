@@ -10,6 +10,7 @@
 
 <body>
     <%- include ./partials/nav.ejs  %>
+    <% if(currentUser && currentUser.username === "admin") { %>
     <div class="font-bodyFont flex flex-col items-center">
         <h3 class="text-3xl">Edit cars</h3>
         <p class="text-primary text-2xl tracking-wide mt-20">Below you have a list of all cars in the database. Feel
@@ -74,9 +75,7 @@
                                     <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" />
                                 </svg>
                             </div>
-                            <!-- Delete form
-                                    Pravim input model, dajem mu value car.model, da bih mogao uzeti njegovu vrednost u post metodi i prosleditit ga DELETE funkciji
-                                -->
+
                         </div>
                     </form>
                     <form class="hidden deleteForm_<%= car._id  %>" action="" method="post" name="delete">
@@ -90,6 +89,10 @@
             <% } %>
         </div>
     </div>
+    <% } else{ %>
+    <p class="pageNotFoundP">Page not found!</p>
+    <% } %>
+
     <%- include ./partials/footer.ejs  %>
     <script>
         // Potvrdjivanje delete

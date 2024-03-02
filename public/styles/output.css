@@ -649,6 +649,11 @@ video {
   margin-bottom: 7rem;
 }
 
+.my-64{
+  margin-top: 16rem;
+  margin-bottom: 16rem;
+}
+
 .mb-20{
   margin-bottom: 5rem;
 }
@@ -1328,6 +1333,15 @@ video {
   border-color: rgb(150 151 153 / var(--tw-border-opacity));
   padding: 0.75rem;
   padding-right: 5rem;
+}
+
+.pageNotFoundP{
+  margin-top: 16rem;
+  margin-bottom: 16rem;
+  display: flex;
+  justify-content: center;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .rangeInputFilter {

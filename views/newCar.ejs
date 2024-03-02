@@ -10,6 +10,7 @@
 
 <body>
     <%- include ./partials/nav.ejs  %>
+    <% if(currentUser && currentUser.username === "admin") { %>
     <h3 class="flex justify-center text-3xl font-bodyFont">Add new car</h3>
     <form action="" method="post" class="mt-20 flex flex-col items-center">
         <p class="text-primary text-2xl tracking-wide">
@@ -52,6 +53,10 @@
         </div>
         <button class="btn bg-black text-white my-20">Add car</button>
     </form>
+    <% } else { %>
+    <p class="pageNotFoundP">Page not found!</p>
+    <% } %>
+
     <%- include ./partials/footer.ejs  %>
 </body>
 
