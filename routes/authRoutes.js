@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const User = require("../models/User");
-
+const bcrypt = require("bcryptjs");
 // Sign-in route
 router.get("/signin", (req, res) => {
     res.render("signIn", { message: req.flash("error")[0] });
@@ -30,9 +30,12 @@ router.get("/signup", (req, res) => {
 
 router.post("/signup", async (req, res, next) => {
     try {
+        // Salt je broj dodatnih random karaktera koje ce bcrypt funkcija dodati
+        const salt = await bcrypt.genSalt(15);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
         const user = new User({
             username: req.body.username,
-            password: req.body.password
+            password: hashedPassword
         });
         await user.save();
         res.redirect("/");
