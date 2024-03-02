@@ -6,7 +6,6 @@ router.get("/", async (req, res) => {
     res.render("newCar", {
         brands: await carController.getAllBrands(),
         cars: await carController.getAllCars(),
-        user: req.user
     });
 });
 router.post("/", async (req, res) => {

@@ -8,7 +8,6 @@ router.get("/", async (req, res) => {
     res.render("editCars", {
         cars: cars,
         brands: brands,
-        user: req.user
     });
 });
 router.post("/", async (req, res) => {

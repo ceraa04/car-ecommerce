@@ -12,7 +12,6 @@ router.get("/", async (req, res) => {
         imgSliderCars: imgSliderCars,
         cars: allCars,
         popularCar: await carController.carOfTheWeek(),
-        user: req.user
     });
 });
 

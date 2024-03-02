@@ -35,19 +35,21 @@ app.use(session({
 }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
-
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  console.log(res.locals.currentUser);
+  next();
+});
 
 app.use("/", indexPageRouter);
 app.get("/contact", async (req, res) => {
   res.render("contact", {
     cars: await carController.getAllCars(),
-    user: req.user
   });
 });
 app.get("/about", async (req, res) => {
   res.render("about", {
     cars: await carController.getAllCars(),
-    user: req.user
   });
 });
 
