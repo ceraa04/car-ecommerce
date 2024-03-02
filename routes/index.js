@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const carController = require("../public/controllers/indexController");
 const passport = require("../routes/auth");
 const session = require("express-session");
+const flash = require("connect-flash");
 const User = require("../models/User");
 
 app.set("view engine", "ejs");
@@ -20,6 +21,7 @@ mongoose.connect(mongoDB)
   })
   .catch((err) => console.error(err));
 
+app.use(flash());
 app.use(express.json());
 app.use(session({
   secret: "randomString",
@@ -190,13 +192,20 @@ app.post("/editCars", async (req, res) => {
   }
   res.redirect("/editCars");
 });
-app.get("/signin", (req, res) => {
-  res.render("signIn");
+app.get("/signin", function (req, res) {
+  res.render("signIn", {
+    message: req.flash("error")[0]
+  });
 });
-app.post("/signin", passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/signin"
-}));
+// Autentikacija korisnika
+app.post("/signin",
+  passport.authenticate("local", {
+    failureRedirect: "/signin",
+    failureFlash: true
+  }), (req, res) => {
+    res.redirect("/");
+  }
+);
 app.get("/signout", (req, res, next) => {
   req.logout((err) => {
     if (err) {
