@@ -8,7 +8,7 @@
     box-sizing: border-box;
 }
 .btn {
-    @apply px-10 py-4 rounded-md cursor-pointer tracking-wider
+    @apply rounded-md cursor-pointer tracking-wider py-3 px-8
 }
 
 .liNav {

@@ -25,7 +25,8 @@ module.exports = {
         imgSlider: "40rem",
         popularCar: "40rem",
         singleCarPage: "40rem",
-        productsImg: "20rem"
+        productsImg: "20rem",
+        signUp: "40rem"
       },
       margin: {
         profileMarginTop: "155px"

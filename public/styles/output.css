@@ -558,10 +558,6 @@ video {
   bottom: 0px;
 }
 
-.left-0{
-  left: 0px;
-}
-
 .left-14{
   left: 3.5rem;
 }
@@ -574,20 +570,16 @@ video {
   right: 0px;
 }
 
-.right-8{
-  right: 2rem;
-}
-
 .top-0{
   top: 0px;
 }
 
-.top-14{
-  top: 3.5rem;
-}
-
 .top-20{
   top: 5rem;
+}
+
+.top-28{
+  top: 7rem;
 }
 
 .top-32{
@@ -614,6 +606,14 @@ video {
   grid-column: span 4 / span 4;
 }
 
+.row-span-4{
+  grid-row: span 4 / span 4;
+}
+
+.m-14{
+  margin: 3.5rem;
+}
+
 .mx-16{
   margin-left: 4rem;
   margin-right: 4rem;
@@ -627,6 +627,11 @@ video {
 .mx-7{
   margin-left: 1.75rem;
   margin-right: 1.75rem;
+}
+
+.mx-auto{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .my-10{
@@ -662,10 +667,6 @@ video {
 
 .mb-60{
   margin-bottom: 15rem;
-}
-
-.ml-16{
-  margin-left: 4rem;
 }
 
 .ml-80{
@@ -720,6 +721,10 @@ video {
   height: 9rem;
 }
 
+.h-4\/5{
+  height: 80%;
+}
+
 .h-5{
   height: 1.25rem;
 }
@@ -744,6 +749,14 @@ video {
   height: 20rem;
 }
 
+.h-screen{
+  height: 100vh;
+}
+
+.h-signUp{
+  height: 40rem;
+}
+
 .h-singleCarPage{
   height: 40rem;
 }
@@ -754,6 +767,10 @@ video {
 
 .min-h-48{
   min-height: 12rem;
+}
+
+.w-1\/3{
+  width: 33.333333%;
 }
 
 .w-10{
@@ -774,10 +791,6 @@ video {
 
 .w-32{
   width: 8rem;
-}
-
-.w-40{
-  width: 10rem;
 }
 
 .w-44{
@@ -862,6 +875,10 @@ video {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
+.grid-rows-5{
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+}
+
 .flex-col{
   flex-direction: column;
 }
@@ -894,6 +911,10 @@ video {
   gap: 2.5rem;
 }
 
+.gap-16{
+  gap: 4rem;
+}
+
 .gap-2{
   gap: 0.5rem;
 }
@@ -904,6 +925,10 @@ video {
 
 .gap-3{
   gap: 0.75rem;
+}
+
+.gap-32{
+  gap: 8rem;
 }
 
 .gap-4{
@@ -946,6 +971,10 @@ video {
   border-radius: 0.5rem;
 }
 
+.rounded-xl{
+  border-radius: 0.75rem;
+}
+
 .rounded-tl-lg{
   border-top-left-radius: 0.5rem;
 }
@@ -981,6 +1010,10 @@ video {
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.fill-primary{
+  fill: #969799;
 }
 
 .p-10{
@@ -1027,6 +1060,11 @@ video {
   padding-right: 1.25rem;
 }
 
+.px-8{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
 .py-10{
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
@@ -1037,9 +1075,18 @@ video {
   padding-bottom: 0.5rem;
 }
 
+.py-3{
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
 .py-5{
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+
+.pb-40{
+  padding-bottom: 10rem;
 }
 
 .pb-5{
@@ -1056,6 +1103,10 @@ video {
 
 .pr-10{
   padding-right: 2.5rem;
+}
+
+.pt-10{
+  padding-top: 2.5rem;
 }
 
 .pt-14{
@@ -1187,10 +1238,10 @@ video {
 .btn{
   cursor: pointer;
   border-radius: 0.375rem;
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   letter-spacing: 0.05em;
 }
 
@@ -1369,6 +1420,10 @@ video {
 
 .hover\:transform:hover{
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.hover\:text-nowrap:hover{
+  text-wrap: nowrap;
 }
 
 .hover\:font-bold:hover{
