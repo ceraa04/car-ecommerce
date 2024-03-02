@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
+require("dotenv").config();
 const carController = require("../public/controllers/indexController");
 const passport = require("./auth");
 const session = require("express-session");
@@ -16,7 +17,7 @@ const indexPageRouter = require("./indexPageRouter");
 app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "..", "public")));
-const mongoDB = "mongodb+srv://admin:adminHead@cluster0.ukavakh.mongodb.net/carShop?retryWrites=true&w=majority&appName=Cluster0";
+const mongoDB = process.env.DB_CONNECTION_STRING;
 
 mongoose.connect(mongoDB)
   .then(() => {
