@@ -31,12 +31,12 @@ const getAllCars = async () => {
     }
 };
 // Renderovanje products stranice kada je url /products
-const productsPageRender = async (req, res) => {
+const productsPageRender = async () => {
     const maxP = await maxPrice();
     const allBrands = await getAllBrands();
     try {
         // Pretvaram checkboxove iz niza objekata u niz stringova, koje posle koristim da cekiram sve brandove na /products url
-        res.render("products", {
+        return {
             cars: await getAllCars(),
             // Select option za sortiranje kada se stranica tek ucitava, kad i dalje nije POST method vec GET
             selectedOptionFilter: "",
@@ -48,9 +48,7 @@ const productsPageRender = async (req, res) => {
             // CarBrandAll koristim za ispisivanje checkboxova za filtriranje na products page
             carBrandsAll: allBrands,
             price: maxP
-        });
-
-
+        };
     }
     catch (error) {
         console.log(error.message);
@@ -182,7 +180,7 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
     try {
         const countDocuments = cars.length;
         if (Object.keys(checkboxesObjectBrand).length === 0) {
-            return res.render("products", {
+            return {
                 cars: [],
                 selectedOptionSort: sort,
                 maxPrice: await maxPrice(),
@@ -191,10 +189,10 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
                 countDocuments: 0,
                 carBrandsAll: await getAllBrands(),
                 price: price
-            });
+            };
         }
         // Max i min price trebaju uvek da budu pocetni, a ne da se menjaju pri promeni filtera
-        res.render("products", {
+        return {
             cars: cars,
             selectedOptionSort: sort,
             maxPrice: maxPriceRender,
@@ -203,7 +201,7 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
             countDocuments: countDocuments,
             carBrandsAll: await getAllBrands(),
             price: price
-        });
+        };
     } catch (error) {
 
         if (error.name === "CastError") {

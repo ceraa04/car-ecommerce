@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const carController = require("../public/controllers/indexController");
 const passport = require("../routes/auth");
 const session = require("express-session");
+const User = require("../models/User");
+
 app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "..", "public")));
@@ -19,7 +21,11 @@ mongoose.connect(mongoDB)
   .catch((err) => console.error(err));
 
 app.use(express.json());
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(session({
+  secret: "randomString",
+  resave: false,
+  saveUninitialized: true
+}));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
@@ -39,23 +45,66 @@ app.get("/", async (req, res) => {
 });
 app.get("/contact", async (req, res) => {
   res.render("contact", {
-    cars: await carController.getAllCars()
+    cars: await carController.getAllCars(),
+    user: req.user
   });
 });
 app.get("/about", async (req, res) => {
   res.render("about", {
-    cars: await carController.getAllCars()
+    cars: await carController.getAllCars(),
+    user: req.user
   });
 });
 
 app.get("/products", async (req, res) => {
   const sort = req.query.sort;
-  const brand = req.query.brand;
-  const price = req.query.price;
-  if (sort == undefined && brand == undefined && price == undefined) {
-    await carController.productsPageRender(req, res);
+  const brandFilter = req.query.brand;
+  const priceFilter = req.query.price;
+  if (sort == undefined && brandFilter == undefined && priceFilter == undefined) {
+    const {
+      cars,
+      selectedOptionFilter,
+      selectedOptionSort,
+      checkboxesChecked,
+      minPrice,
+      maxPrice,
+      countDocuments,
+      carBrandsAll,
+      price
+    } = await carController.productsPageRender();
+    res.render("products", {
+      cars: cars,
+      user: req.user,
+      selectedOptionFilter: selectedOptionFilter,
+      selectedOptionSort: selectedOptionSort,
+      checkboxesChecked: checkboxesChecked,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+      countDocuments: countDocuments,
+      carBrandsAll: carBrandsAll,
+      price: price
+    });
+
   } else {
-    await carController.filterAndSortCars(req, res, sort, brand, price);
+    const { cars,
+      selectedOptionSort,
+      maxPrice,
+      minPrice,
+      checkboxesChecked,
+      countDocuments,
+      carBrandsAll,
+      price } = await carController.filterAndSortCars(req, res, sort, brandFilter, priceFilter);
+    res.render("products", {
+      cars: cars,
+      user: req.user,
+      selectedOptionSort: selectedOptionSort,
+      checkboxesChecked: checkboxesChecked,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+      countDocuments: countDocuments,
+      carBrandsAll: carBrandsAll,
+      price: price
+    });
   }
 });
 
@@ -90,7 +139,8 @@ app.get("/products/:id", async (req, res) => {
 app.get("/newCar", async (req, res) => {
   res.render("newCar", {
     brands: await carController.getAllBrands(),
-    cars: await carController.getAllCars()
+    cars: await carController.getAllCars(),
+    user: req.user
   });
 });
 app.post("/newCar", async (req, res) => {
@@ -102,7 +152,8 @@ app.post("/newCar", async (req, res) => {
 // Za novi brend
 app.get("/newBrand", async (req, res) => {
   res.render("newBrand", {
-    cars: await carController.getAllCars()
+    cars: await carController.getAllCars(),
+    user: req.user
   });
 });
 
@@ -123,7 +174,8 @@ app.get("/editCars", async (req, res) => {
   const brands = await carController.getAllBrands();
   res.render("editCars", {
     cars: cars,
-    brands: brands
+    brands: brands,
+    user: req.user
   });
 });
 app.post("/editCars", async (req, res) => {
@@ -145,11 +197,27 @@ app.post("/signin", passport.authenticate("local", {
   successRedirect: "/",
   failureRedirect: "/signin"
 }));
-app.get("/logout", (req, res, next) => {
+app.get("/signout", (req, res, next) => {
   req.logout((err) => {
     if (err) {
       return next(err);
     }
     res.redirect("/");
   });
-}); module.exports = app;
+});
+app.get("/signup", (req, res) => {
+  res.render("signup");
+});
+app.post("/signup", async (req, res, next) => {
+  try {
+    const user = new User({
+      username: req.body.username,
+      password: req.body.password
+    });
+    await user.save();
+    res.redirect("/");
+  } catch (err) {
+    return next(err);
+  }
+});
+module.exports = app;
