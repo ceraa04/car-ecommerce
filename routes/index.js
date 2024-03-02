@@ -3,6 +3,8 @@ const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
 const carController = require("../public/controllers/indexController");
+const passport = require("../routes/auth");
+const session = require("express-session");
 app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "..", "public")));
@@ -16,11 +18,25 @@ mongoose.connect(mongoDB)
   })
   .catch((err) => console.error(err));
 
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(passport.session());
+app.use(express.urlencoded({ extended: false }));
 
-app.get("/", carController.cars_imgSlider);
 
+app.get("/", async (req, res) => {
+  const allCars = await carController.getAllCars();
+  const imgSliderCars = [];
+  for (let i = 0; i < 4; i++) {
+    imgSliderCars.push(allCars[i]);
+  }
+  res.render("index", {
+    imgSliderCars: imgSliderCars,
+    cars: allCars,
+    popularCar: await carController.carOfTheWeek(),
+    user: req.user
+  });
+});
 app.get("/contact", async (req, res) => {
   res.render("contact", {
     cars: await carController.getAllCars()
@@ -122,5 +138,18 @@ app.post("/editCars", async (req, res) => {
   }
   res.redirect("/editCars");
 });
-
-module.exports = app;
+app.get("/signin", (req, res) => {
+  res.render("signIn");
+});
+app.post("/signin", passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/signin"
+}));
+app.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+}); module.exports = app;
