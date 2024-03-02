@@ -19,7 +19,7 @@
                 Cart
             </a>
         </li>
-        <% if(user){ %>
+        <% if(currentUser){ %>
         <li class="min-h-48 flex-col flex gap-4 mt-profileMarginTop bg-white">
             <svg class="profileLogo w-10 cursor-pointer" xmlns="http://www.w3.org/2000/svg" version="1.0"
                 viewBox="0 0 1280.000000 1231.000000" preserveAspectRatio="xMidYMid meet">
@@ -34,10 +34,10 @@
             </svg>
             <div class="profileList hidden flex-col gap-4 items-center p-5 
                 font-bodyFont bg-white w-48 border-2 border-primary absolute top-28 right-0 z-10">
-                <h3 class="text-2xl font-bold"><%= user.username  %></h3>
+                <h3 class="text-2xl font-bold"><%= currentUser.username  %></h3>
                 <ul class="flex flex-col items-center gap-1 text-primary">
                     <!-- Kada je USER Admin -->
-                    <% if(user.username === "admin") { %>
+                    <% if(currentUser.username === "admin") { %>
                     <li class="hover:font-bold cursor-pointer ">
                         <a href="/newCar">Add new car</a>
                     </li>
