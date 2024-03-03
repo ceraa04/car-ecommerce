@@ -39,9 +39,6 @@ app.use(session({
 }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
-
-// Middleware za definisanje user-a koji je trenutno prijavljen 
-//za svaku stranicu
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
@@ -61,6 +58,7 @@ app.get("/about", async (req, res) => {
 
 app.use("/products", productsRouter);
 
+
 // Funkcije koje su samo za admina (update, delete, create)
 // 1. Create funkcije
 // Za novi auto
@@ -68,15 +66,21 @@ app.use("/products", productsRouter);
 app.use("/newCar", newCarRouter);
 // Za novi brend
 app.use("/newBrand", newBrandRouter);
-
+app.get("/cart", async (req, res) => {
+  const cartItems = req.session.cartItems || [];
+  res.render("cart", {
+    cars: await carController.getAllCars(),
+    cartItems: cartItems
+  });
+});
 // Update i delete funkcije
 app.use("/editCars", editCarsRouter);
 // Autentikacija korisnika
 app.use("/", authRouter);
 app.get("*", async (req, res) => {
   res.render("errorPage", {
-    cars: await carController.getAllCars(),
-
+    cars: await carController.getAllCars()
   });
 });
+
 module.exports = app;

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const carController = require("../public/controllers/indexController");
+const Car = require("../models/Car");
 
 router.get("/", async (req, res) => {
     const sort = req.query.sort;
@@ -76,6 +77,19 @@ router.get("/:id", async (req, res) => {
         car: car,
         cars: cars,
     });
+});
+router.post("/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const car = await Car.findOne({ _id: id });
+        // Dek
+        req.session.cartItems = req.session.cartItems || [];
+        req.session.cartItems.push(car);
+        res.redirect("/products");
+    } catch (error) {
+        console.log(error);
+    }
+
 });
 
 
