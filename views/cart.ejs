@@ -13,7 +13,8 @@
     <div class="flex flex-col items-center font-bodyFont tracking-wider ">
         <!-- Slucaj kada je admin ulogovan -->
         <% if(currentUser && currentUser.username === "admin") { %>
-        <p class="text-3xl text-primary tracking-wider my-64">Admin cannot buy items from his own shop!
+        <p class="text-3xl text-primary tracking-wider my-64">
+            Admin cannot buy items from his own shop! Sign out of admin profile to be able to visit cart.
         </p>
 
         <!-- Slucaj kada admin nije ulogovan -->
@@ -36,7 +37,7 @@
             </p>
             <div class="flex justify-end">
                 <p class="p-5">
-                    Hope you had a good time shopping!
+                    Hope you are having a great time!
                 </p>
             </div>
         </section>
@@ -55,7 +56,8 @@
                             <%= car.model  %>
                         </span>
                     </p>
-                    <div class="flex gap-4">
+                    <form class="flex gap-4" method="post">
+                        <input name="carId" value="<%= car._id  %>" class="hidden" type="text">
                         <div>
                             <img class="w-40 rounded-lg" src="/img/<%= car.model %>.jpg" alt="<%= car.model  %>">
                         </div>
@@ -76,9 +78,9 @@
                             </p>
                         </div>
                         <div class="flex items-center ml-28">
-                            <span class="text-2xl cursor-pointer">x</span>
+                            <button type="submit" class="text-2xl cursor-pointer">x</button>
                         </div>
-                    </div>
+                    </form>
                 </section>
                 <% } %>
 
@@ -99,20 +101,20 @@
                     <div class="mt-5 flex flex-col gap-4">
                         <p class="flex justify-between">
                             <span>Subtotal</span>
-                            <span class="font-bold text-xl"><%= subtotal  %> $</span>
+                            <span class="font-bold text-xl"><%= subtotal.toFixed(2)  %> $</span>
                         </p>
                         <p class="flex justify-between">
                             <span>Shipping costs</span>
-                            <span><%= shipmentCost  %> $</span>
+                            <span><%= shipmentCost.toFixed(2)  %> $</span>
                         </p>
                         <p class="flex justify-between">
                             <span>Estimated Sales Tax</span>
-                            <span><%= salesTax  %> $</span>
+                            <span><%= salesTax.toFixed(2)  %> $</span>
                         </p>
                         <p class="flex justify-between mt-3">
                             <span>Estimated Total:</span>
                             <span class="font-bold text-xl">
-                                <%= subtotal + salesTax + shipmentCost %> $
+                                <%=( subtotal + salesTax + shipmentCost).toFixed(2) %> $
                             </span>
                         </p>
                         <button class="btn bg-black text-white mt-8">

@@ -51,8 +51,8 @@ app.use((req, res, next) => {
   res.locals.salesTax = 0;
   for (car of res.locals.cartItems) {
     res.locals.subtotal += car.price;
-    res.locals.shipmentCost += car.price / 2;
-    res.locals.salesTax += car.price * 6.5;
+    res.locals.shipmentCost += car.price * 0.1;
+    res.locals.salesTax += car.price * 0.065;
   }
   next();
 });
@@ -83,6 +83,12 @@ app.get("/cart", async (req, res) => {
   res.render("cart", {
     cars: await carController.getAllCars(),
   });
+});
+app.post("/cart", (req, res) => {
+  const carId = req.body.carId;
+  // Brisanje izabranog auta iz cartItemsa
+  req.session.cartItems = req.session.cartItems.filter(item => item._id !== carId);
+  res.redirect("/cart");
 });
 // Update i delete funkcije
 app.use("/editCars", editCarsRouter);
