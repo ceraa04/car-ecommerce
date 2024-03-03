@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/output.css">
+</head>
+
+<body>
+    <%- include ./partials/nav.ejs  %>
+    <div class="flex flex-col items-center font-bodyFont tracking-wider ">
+        <!-- Slucaj kada je admin ulogovan -->
+        <% if(currentUser && currentUser.username === "admin") { %>
+        <p class="text-3xl text-primary tracking-wider my-64">Admin cannot buy items from his own shop!
+        </p>
+
+        <!-- Slucaj kada admin nije ulogovan -->
+        <% }else{ %>
+        <h2 class="text-3xl">Your cart</h2>
+        <% if(cartItems && cartItems.length > 0) { %>
+        <section class="mt-14 grid grid-cols-3 items-center w-3/4">
+            <div>
+                <a class="btn bg-black text-white" href="/products">
+                    Continue shopping
+                </a>
+            </div>
+            <p class="flex justify-center text-2xl">
+                <span class="mr-1"><%= cartItems.length %></span>
+                <% if(cartItems.length > 1) { %>
+                <span>items</span>
+                <% } else{ %>
+                <span>item</span>
+                <% } %>
+            </p>
+            <p class="flex justify-end">
+                Hope you had a good time shopping!
+            </p>
+        </section>
+
+        <section class="w-3/4 mt-14 mb-64 grid grid-cols-5 border-2 border-blue-600">
+            <!-- Cart items div -->
+            <div class="col-span-3">
+                <p>1</p>
+            </div>
+            <!-- Checkout div -->
+            <div class="border-l-2 border-l-black p-5 col-span-2">
+                <div class="flex flex-col gap-5">
+                    <h2>Enter Promo code:</h2>
+                    <div class="flex gap-5">
+                        <input class="border-2 border-primary p-2" type="text" placeholder="Promo code">
+                        <button class="btn bg-black text-white">Submit</button>
+                    </div>
+                </div>
+                <div class="mt-10">
+                    <div class="border-b-2 border-b-primary">
+                        <h2 class="font-bold text-2xl">Price:</h2>
+                    </div>
+                    <div class="mt-5 flex flex-col gap-4">
+                        <p class="flex justify-between">
+                            <span>Subtotal</span>
+                            <span class="font-bold text-xl">10000</span>
+                        </p>
+                        <p class="flex justify-between">
+                            <span>Shipping costs</span>
+                            <span>26500</span>
+                        </p>
+                        <p class="flex justify-between">
+                            <span>Estimated Sales Tax</span>
+                            <span>26500</span>
+                        </p>
+                        <p class="flex justify-between mt-3">
+                            <span>Estimated Total:</span>
+                            <span class="font-bold text-xl">120000</span>
+                        </p>
+                        <button class="btn bg-black text-white mt-8">
+                            Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kada je korpa za kupovinu prazna -->
+        <% } else { %>
+        <p class="text-2xl text-primary tracking-wider my-64">Cart is currently empty! Head back to
+            <a class="underline font-bold mx-1 uppercase text-black" href="/products">products</a>
+            page to add items to cart.
+        </p>
+        <% }  %>
+        <% } %>
+    </div>
+    <%- include ./partials/footer.ejs  %>
+</body>
+
+</html>
