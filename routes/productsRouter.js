@@ -81,15 +81,15 @@ router.get("/:id", async (req, res) => {
 router.post("/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const car = await Car.findOne({ _id: id });
-        // Dek
+        // Trazenje auta u DB
+        const car = await Car.findOne({ _id: id }).populate("brand");
+        // Pravljenje arraya cartItems, dostupan i u app ruteru pomocu req.session
         req.session.cartItems = req.session.cartItems || [];
         req.session.cartItems.push(car);
-        res.redirect("/products");
+        res.redirect("/cart");
     } catch (error) {
         console.log(error);
     }
-
 });
 
 

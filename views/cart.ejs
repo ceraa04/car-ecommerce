@@ -99,20 +99,20 @@
                     <div class="mt-5 flex flex-col gap-4">
                         <p class="flex justify-between">
                             <span>Subtotal</span>
-                            <span class="font-bold text-xl"><%= subtotal  %></span>
+                            <span class="font-bold text-xl"><%= subtotal  %> $</span>
                         </p>
                         <p class="flex justify-between">
                             <span>Shipping costs</span>
-                            <span><%= shipmentCost  %></span>
+                            <span><%= shipmentCost  %> $</span>
                         </p>
                         <p class="flex justify-between">
                             <span>Estimated Sales Tax</span>
-                            <span><%= salesTax  %></span>
+                            <span><%= salesTax  %> $</span>
                         </p>
                         <p class="flex justify-between mt-3">
                             <span>Estimated Total:</span>
                             <span class="font-bold text-xl">
-                                <%= subtotal + salesTax + shipmentCost %>
+                                <%= subtotal + salesTax + shipmentCost %> $
                             </span>
                         </p>
                         <button class="btn bg-black text-white mt-8">

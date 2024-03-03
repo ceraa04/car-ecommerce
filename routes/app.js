@@ -51,7 +51,7 @@ app.use((req, res, next) => {
   res.locals.salesTax = 0;
   for (car of res.locals.cartItems) {
     res.locals.subtotal += car.price;
-    res.locals.shipmentCost += 7000;
+    res.locals.shipmentCost += car.price / 2;
     res.locals.salesTax += car.price * 6.5;
   }
   next();
