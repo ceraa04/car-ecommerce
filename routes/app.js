@@ -39,8 +39,21 @@ app.use(session({
 }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
+
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  next();
+});
+app.use((req, res, next) => {
+  res.locals.cartItems = req.session.cartItems || [];
+  res.locals.subtotal = 0;
+  res.locals.shipmentCost = 0;
+  res.locals.salesTax = 0;
+  for (car of res.locals.cartItems) {
+    res.locals.subtotal += car.price;
+    res.locals.shipmentCost += 7000;
+    res.locals.salesTax += car.price * 6.5;
+  }
   next();
 });
 
@@ -67,10 +80,8 @@ app.use("/newCar", newCarRouter);
 // Za novi brend
 app.use("/newBrand", newBrandRouter);
 app.get("/cart", async (req, res) => {
-  const cartItems = req.session.cartItems || [];
   res.render("cart", {
     cars: await carController.getAllCars(),
-    cartItems: cartItems
   });
 });
 // Update i delete funkcije
