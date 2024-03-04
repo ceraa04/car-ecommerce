@@ -6,12 +6,9 @@ router.get("/", async (req, res) => {
     if (req.user && req.user.username !== "admin") {
         res.render("myOrders", {
             orders: await carController.getAllOrders(req.user._id),
-            cars: await carController.getAllCars()
         });
     } else {
-        res.render("errorPage", {
-            cars: await carController.getAllCars()
-        });
+        res.render("errorPage");
     }
 
 });

@@ -46,9 +46,10 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
-// Props koje se koriste u cart-u
-app.use((req, res, next) => {
+// Props koje se koriste u celoj ap
+app.use(async (req, res, next) => {
   res.locals.cartItems = req.session.cartItems || [];
+  res.locals.cars = await carController.getAllCars();
   res.locals.subtotal = 0;
   res.locals.shipmentCost = 0;
   res.locals.salesTax = 0;
@@ -64,14 +65,10 @@ app.use((req, res, next) => {
 
 app.use("/", indexPageRouter);
 app.get("/contact", async (req, res) => {
-  res.render("contact", {
-    cars: await carController.getAllCars(),
-  });
+  res.render("contact");
 });
 app.get("/about", async (req, res) => {
-  res.render("about", {
-    cars: await carController.getAllCars(),
-  });
+  res.render("about");
 });
 
 app.use("/products", productsRouter);
@@ -93,16 +90,16 @@ app.use("/editCars", editCarsRouter);
 app.use("/myOrders", myOrdersRouter);
 
 //Stranica za sve porudzbine, adminova
-app.get("/allOrders", (req, res) => {
-  res.render("allOrders",);
+app.get("/allOrders", async (req, res) => {
+  res.render("allOrders", {
+    orders: await carController.getAllOrders()
+  });
 });
 
 // Autentikacija korisnika
 app.use("/", authRouter);
 app.get("*", async (req, res) => {
-  res.render("errorPage", {
-    cars: await carController.getAllCars()
-  });
+  res.render("errorPage");
 });
 
 module.exports = app;

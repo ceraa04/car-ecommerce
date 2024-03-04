@@ -4,8 +4,7 @@ const carController = require("../public/controllers/indexController");
 
 router.get("/", async (req, res) => {
     res.render("newCar", {
-        brands: await carController.getAllBrands(),
-        cars: await carController.getAllCars(),
+        brands: await carController.getAllBrands()
     });
 });
 router.post("/", async (req, res) => {

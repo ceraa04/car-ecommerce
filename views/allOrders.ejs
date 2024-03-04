@@ -10,7 +10,15 @@
 
 <body>
     <%- include ./partials/nav.ejs %>
-
+    <h2 class="text-3xl tracking-wider font-bodyFont flex justify-center">About us</h2>
+    <div class="w-2/3 mx-auto my-20">
+        <% if(orders) { %>
+        <% orders.forEach(order => { %>
+        <p><%= order  %></p>
+        <% }) %>
+        <% } %>
+    </div>
+    <%- include ./partials/footer.ejs  %>
 </body>
 
 </html>

@@ -3,10 +3,9 @@ const router = express.Router();
 const carController = require("../public/controllers/indexController");
 
 router.get("/", async (req, res) => {
-    const cars = await carController.getAllCars();
     const brands = await carController.getAllBrands();
     res.render("editCars", {
-        cars: cars,
+        cars: res.locals.cars,
         brands: brands,
     });
 });
