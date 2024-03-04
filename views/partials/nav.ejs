@@ -17,6 +17,9 @@
         <li>
             <a class="btn bg-black text-white" href="/cart">
                 Cart
+                <% if(cartItems) { %>
+                <span>(<%= cartItems.length %>)</span>
+                <% } %>
             </a>
         </li>
         <% if(currentUser){ %>
@@ -35,7 +38,7 @@
             <div class="profileList hidden flex-col gap-4 items-center p-5 
                 font-bodyFont bg-white w-48 border-2 border-primary absolute top-28 right-0 z-10">
                 <h3 class="text-2xl font-bold"><%= currentUser.username  %></h3>
-                <ul class="flex flex-col items-center gap-1 text-primary">
+                <ul class="flex flex-col items-center gap-2 text-primary">
                     <!-- Kada je USER Admin -->
                     <% if(currentUser.username === "admin") { %>
                     <li class="hover:font-bold cursor-pointer ">
@@ -47,7 +50,9 @@
                     <li class="hover:font-bold cursor-pointer">
                         <a href="/editCars">Edit cars</a>
                     </li>
-
+                    <li class="hover:font-bold cursor-pointer text-nowrap">
+                        <a href="/allOrders">View pending orders</a>
+                    </li>
                     <li class="hover:font-bold cursor-pointer">
                         <a href="/signout">Sign out</a>
                     </li>
@@ -79,10 +84,12 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const profileLogo = document.querySelector(".profileLogo");
-        profileLogo.addEventListener("click", () => {
-            const dropdownMenu = document.querySelector(".profileList");
-            dropdownMenu.classList.toggle("hidden");
-            dropdownMenu.classList.toggle("flex");
-        });
+        if (profileLogo) {
+            profileLogo.addEventListener("click", () => {
+                const dropdownMenu = document.querySelector(".profileList");
+                dropdownMenu.classList.toggle("hidden");
+                dropdownMenu.classList.toggle("flex");
+            });
+        }
     });
 </script>

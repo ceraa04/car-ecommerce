@@ -89,7 +89,12 @@ app.use("/newBrand", newBrandRouter);
 // Update i delete funkcije
 app.use("/editCars", editCarsRouter);
 
+// Stranica za userove porudzbine
 app.use("/myOrders", myOrdersRouter);
+
+//Stranica za sve porudzbine, adminova
+
+
 // Autentikacija korisnika
 app.use("/", authRouter);
 app.get("*", async (req, res) => {

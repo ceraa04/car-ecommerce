@@ -17,8 +17,7 @@ router.get("/", async (req, res) => {
             maxPrice,
             countDocuments,
             carBrandsAll,
-            price
-        } = await carController.productsPageRender();
+            price } = await carController.productsPageRender();
         res.render("products", {
             cars: cars,
             selectedOptionFilter: selectedOptionFilter,
@@ -32,7 +31,8 @@ router.get("/", async (req, res) => {
         });
 
     } else {
-        const { cars,
+        const {
+            cars,
             selectedOptionSort,
             maxPrice,
             minPrice,
@@ -73,10 +73,23 @@ router.post("/", (req, res) => {
 router.get("/:id", async (req, res) => {
     const id = req.params.id;
     const { cars, car } = await carController.singleCarPage(req, res, id);
-
+    let orders = [];
+    if (res.locals.currentUser) {
+        orders = await carController.getAllOrders(res.locals.currentUser._id);
+    }
+    let purchased = false;
+    console.log("Ovo je id: " + id);
+    orders.forEach(order => {
+        for (item of order.items) {
+            if (item._id.equals(id)) {
+                purchased = true;
+            }
+        }
+    });
     res.render("itemPage", {
         car: car,
         cars: cars,
+        purchased: purchased
     });
 });
 router.post("/:id", async (req, res) => {

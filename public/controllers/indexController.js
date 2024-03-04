@@ -1,6 +1,7 @@
 const Car = require("../../models/Car");
 const Brand = require("../../models/Brand");
-
+const Order = require("../../models/Order");
+const User = require("../../models/User");
 const carOfTheWeek = async () => {
     try {
         const carsSorted = await Car.find().sort({ price: -1 }).populate("brand");
@@ -27,6 +28,22 @@ const getAllCars = async () => {
         return cars;
     }
     catch (error) {
+        console.log(error);
+    }
+};
+const getAllOrders = async (userId) => {
+    try {
+        const orders = await Order.find({ user: userId })
+            .populate({
+                path: "items",
+                populate: {
+                    path: "brand",
+                    model: "Brand"
+                }
+            })
+            .populate("user");
+        return orders;
+    } catch (error) {
         console.log(error);
     }
 };
@@ -235,12 +252,16 @@ const singleCarPage = async (req, res, id) => {
 };
 
 const deleteCar = async (req, res, carId) => {
-    Car.deleteOne({ _id: carId })
-        .then(() => {
-            console.log(`Model sa brojem ${carId} je izbrisan iz DB!`);
-        })
-        .catch(error => console.log(error));
+    try {
+        await Car.deleteOne({ _id: carId });
+        console.log(`Model sa brojem ${carId} je izbrisan iz DB!`);
+        return; // Resolve the promise
+    } catch (error) {
+        console.error(error);
+        throw error; // Re-throw the error to be caught in the calling function
+    }
 };
+
 const editCar = async (carId, model, brandName, price, year, description) => {
     try {
         const brandId = await Brand.findOne({ name: brandName });
@@ -250,6 +271,17 @@ const editCar = async (carId, model, brandName, price, year, description) => {
         );
     } catch (error) {
         console.error(error);
+    }
+};
+
+const deleteOrder = async (id) => {
+    try {
+        Order.deleteOne({ _id: id })
+            .then(() => {
+                console.log("Uspesno brisanje ordera!");
+            });
+    } catch (error) {
+        console.log("greska pri brisanju ordera iz DB!");
     }
 };
 module.exports = {
@@ -263,5 +295,7 @@ module.exports = {
     add_car,
     add_brand,
     deleteCar,
-    editCar
+    editCar,
+    getAllOrders,
+    deleteOrder
 };
