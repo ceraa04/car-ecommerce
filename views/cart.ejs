@@ -122,7 +122,7 @@
                         <p class="flex justify-between mt-3">
                             <span>Estimated Total:</span>
                             <span class="font-bold text-xl">
-                                <%=( subtotal + salesTax + shipmentCost).toFixed(2) %> $
+                                <%= totalPrice.toFixed(2) %> $
                             </span>
                         </p>
                         <% if(!currentUser){ %>
