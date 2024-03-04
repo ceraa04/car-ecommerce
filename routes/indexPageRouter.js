@@ -4,10 +4,7 @@ const carController = require("../public/controllers/indexController");
 
 router.get("/", async (req, res) => {
     const allCars = await carController.getAllCars();
-    const imgSliderCars = [];
-    for (let i = 0; i < 4; i++) {
-        imgSliderCars.push(allCars[i]);
-    }
+    const imgSliderCars = await carController.cars_imgSlider();
     res.render("index", {
         imgSliderCars: imgSliderCars,
         cars: allCars,

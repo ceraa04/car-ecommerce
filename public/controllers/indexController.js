@@ -89,14 +89,18 @@ const add_brand = async (req, res, name, founded, description, url) => {
 
 };
 // Renderovanje slidera na index stranici
-const cars_imgSlider = async (req, res) => {
+const cars_imgSlider = async () => {
     try {
-        const popularCar = await carOfTheWeek();
-        res.render("index", {
-            imgSliderCars: await Car.find().limit(4).populate("brand"),
-            cars: await getAllCars(),
-            popularCar: popularCar
-        });
+        let imgSliderCars;
+        const countDocuments = await Car.countDocuments();
+        if (countDocuments < 4) {
+            imgSliderCars = countDocuments;
+        } else {
+            imgSliderCars = 4;
+        }
+        const carsImgSlider = await Car.find().limit(imgSliderCars).populate("brand");
+        return carsImgSlider;
+
     }
     catch (error) {
         console.log(error);

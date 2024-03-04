@@ -88,11 +88,21 @@ app.get("/cart", async (req, res) => {
   });
 });
 
-app.post("/cart", (req, res) => {
+app.post("/cart", async (req, res, next) => {
   const carId = req.body.carId;
-  // Brisanje izabranog auta iz cartItemsa
-  req.session.cartItems = req.session.cartItems.filter(item => item._id !== carId);
-  res.redirect("/cart");
+  if (carId) {
+    req.session.cartItems = req.session.cartItems.filter(item => item._id !== carId);
+    res.redirect("/cart");
+  } else {
+    carController.deleteCar(req, res, req.body.carIdCheckout)
+      .then(() => {
+        req.session.cartItems = req.session.cartItems.filter(item => item._id !== carId);
+
+        res.redirect("/cart");
+      });
+
+  }
+
 });
 // Update i delete funkcije
 app.use("/editCars", editCarsRouter);
