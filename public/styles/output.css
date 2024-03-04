@@ -743,6 +743,10 @@ video {
   display: none;
 }
 
+.h-12{
+  height: 3rem;
+}
+
 .h-2\/3{
   height: 66.666667%;
 }
@@ -885,10 +889,6 @@ video {
 
 .cursor-pointer{
   cursor: pointer;
-}
-
-.cursor-none{
-  cursor: none;
 }
 
 .resize-x{
@@ -1468,14 +1468,6 @@ video {
 .checked\:bg-black:checked{
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
-.hover\:w-96:hover{
-  width: 24rem;
-}
-
-.hover\:w-productsImg:hover{
-  width: 25rem;
 }
 
 .hover\:scale-125:hover{

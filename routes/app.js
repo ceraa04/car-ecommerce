@@ -14,10 +14,10 @@ const flash = require("connect-flash");
 const authRouter = require("./authRoutes");
 const editCarsRouter = require("./editCarsRouter");
 const productsRouter = require("./productsRouter");
-const newCarRouter = require("./newCar");
-const newBrandRouter = require("./newBrand");
+const newCarRouter = require("./newCarRouter");
+const newBrandRouter = require("./newBrandRouter");
 const indexPageRouter = require("./indexPageRouter");
-
+const cartRouter = require("./cartRouter");
 app.set("view engine", "ejs");
 
 const mongoDB = process.env.DB_CONNECTION_STRING;
@@ -50,10 +50,12 @@ app.use((req, res, next) => {
   res.locals.subtotal = 0;
   res.locals.shipmentCost = 0;
   res.locals.salesTax = 0;
+  res.locals.totalPrice = 0;
   for (car of res.locals.cartItems) {
     res.locals.subtotal += car.price;
     res.locals.shipmentCost += car.price * 0.1;
     res.locals.salesTax += car.price * 0.065;
+    res.locals.totalPrice = res.locals.subtotal + res.locals.shipmentCost + res.locals.salesTax;
   }
   next();
 });
@@ -71,7 +73,7 @@ app.get("/about", async (req, res) => {
 });
 
 app.use("/products", productsRouter);
-
+app.use("/cart", cartRouter);
 
 // Funkcije koje su samo za admina (update, delete, create)
 // 1. Create funkcije
@@ -82,28 +84,7 @@ app.use("/newCar", newCarRouter);
 app.use("/newBrand", newBrandRouter);
 
 
-app.get("/cart", async (req, res) => {
-  res.render("cart", {
-    cars: await carController.getAllCars(),
-  });
-});
 
-app.post("/cart", async (req, res) => {
-  const carId = req.body.carId;
-  if (carId) {
-    req.session.cartItems = req.session.cartItems.filter(item => item._id !== carId);
-    res.redirect("/cart");
-  } else {
-    carController.deleteCar(req, res, req.body.carIdCheckout)
-      .then(() => {
-        req.session.cartItems = req.session.cartItems.filter(item => item._id !== carId);
-
-        res.redirect("/cart");
-      });
-
-  }
-
-});
 // Update i delete funkcije
 app.use("/editCars", editCarsRouter);
 // Autentikacija korisnika

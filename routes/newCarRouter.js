@@ -10,8 +10,8 @@ router.get("/", async (req, res) => {
 });
 router.post("/", async (req, res) => {
     const { model, price, year, description, brand } = req.body;
-    await carController.add_car(req, res, model, price, year, description, brand);
-    res.redirect("/newCar");
+    await carController.add_car(model, price, year, description, brand);
+    res.redirect("/editCars");
 });
 
 module.exports = router;

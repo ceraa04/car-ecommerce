@@ -55,12 +55,17 @@ const productsPageRender = async () => {
     }
 };
 
-const add_car = async (req, res, model, price, year, description, brand) => {
+const add_car = async (model, price, year, description, brandName) => {
+    const brand = await Brand.findOne({ name: brandName });
+    if (!brand) {
+        throw new Error("Brand not found");
+    }
+
     try {
         const newCar = new Car({
             model: model,
             price: price,
-            brand: await Brand.findOne({ name: brand }),
+            brand: brand._id,
             description: description,
             year: year
         });
