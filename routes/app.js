@@ -88,7 +88,7 @@ app.get("/cart", async (req, res) => {
   });
 });
 
-app.post("/cart", async (req, res, next) => {
+app.post("/cart", async (req, res) => {
   const carId = req.body.carId;
   if (carId) {
     req.session.cartItems = req.session.cartItems.filter(item => item._id !== carId);
