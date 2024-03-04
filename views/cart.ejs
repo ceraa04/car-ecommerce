@@ -56,8 +56,8 @@
                             <%= car.model  %>
                         </span>
                     </p>
-                    <form class="flex gap-4" method="post">
-                        <input name="carId" value="<%= car._id  %>" class="hidden" type="text">
+
+                    <div class="flex gap-4">
                         <div>
                             <img class="w-40 rounded-lg" src="/img/<%= car.model %>.jpg" alt="<%= car.model  %>">
                         </div>
@@ -77,10 +77,13 @@
                                 <span class="font-bold"><%= car.year  %></span>
                             </p>
                         </div>
-                        <div class="flex items-center ml-28">
+                        <!-- Brisanje auta iz korpe -->
+                        <form class="flex items-center ml-28" method="post">
+                            <input name="carId" value="<%= car._id  %>" class="hidden" type="text">
                             <button type="submit" class="text-2xl cursor-pointer">x</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+
                 </section>
                 <% } %>
 
@@ -90,8 +93,13 @@
                 <div class="flex flex-col gap-5">
                     <h2>Enter Promo code:</h2>
                     <div class="flex gap-5">
-                        <input class="border-2 border-primary p-2" type="text" placeholder="Promo code">
-                        <button class="btn bg-black text-white">Submit</button>
+                        <div class="flex flex-col gap-2">
+                            <input class="inputPromo border-2 border-primary p-2" type="text" placeholder="Promo code">
+                            <p class="promoCodeMessage hidden">Promo code is invalid!</p>
+                        </div>
+                        <button class="submitPromo btn bg-black text-white h-12">
+                            Submit
+                        </button>
                     </div>
                 </div>
                 <div class="mt-10">
@@ -117,9 +125,22 @@
                                 <%=( subtotal + salesTax + shipmentCost).toFixed(2) %> $
                             </span>
                         </p>
-                        <button class="btn bg-black text-white mt-8">
+                        <% if(!currentUser){ %>
+                        <a class="btn bg-black text-white mt-8 flex justify-center" href="/signin">
                             Checkout
-                        </button>
+                        </a>
+                        <% } else { %>
+                        <form action="" method="post">
+                            <% for (car of cartItems) { %>
+                            <input class="hidden" name="carIdCheckout" value="<%= car._id %>" type="text">
+                            <% } %>
+                            <button class="checkoutButton w-full btn bg-black text-white mt-8 flex justify-center">
+                                Checkout
+                            </button>
+                        </form>
+
+                        <% } %>
+
                     </div>
                 </div>
             </div>
@@ -135,6 +156,18 @@
         <% } %>
     </div>
     <%- include ./partials/footer.ejs  %>
+    <script>
+        const submitPromo = () => {
+            const promoCodeMessage = document.querySelector(".promoCodeMessage");
+            const submitPromoBtn = document.querySelector(".submitPromo");
+
+            submitPromoBtn.addEventListener("click", () => {
+                promoCodeMessage.classList.remove("hidden");
+            })
+        };
+        submitPromo();
+
+    </script>
 </body>
 
 </html>
