@@ -32,8 +32,14 @@ const getAllCars = async () => {
     }
 };
 const getAllOrders = async (userId) => {
+    let userQuery;
+    if (userId) {
+        userQuery = { user: userId };
+    } else {
+        userQuery = {};
+    }
     try {
-        const orders = await Order.find({ user: userId })
+        const orders = await Order.find(userQuery)
             .populate({
                 path: "items",
                 populate: {

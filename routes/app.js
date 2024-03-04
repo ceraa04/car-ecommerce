@@ -93,7 +93,9 @@ app.use("/editCars", editCarsRouter);
 app.use("/myOrders", myOrdersRouter);
 
 //Stranica za sve porudzbine, adminova
-
+app.get("/allOrders", (req, res) => {
+  res.render("allOrders",);
+});
 
 // Autentikacija korisnika
 app.use("/", authRouter);

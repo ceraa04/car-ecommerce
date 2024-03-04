@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
         // Ako je checkout, odnosno kupovina auta:
     }
     else {
-        const orderNumber = await Order.countDocuments() + 1;
+        const orderNumber = await Order.countDocuments() + Math.floor(Math.random() * 15000);
         const itemsId = [];
         for (const item of res.locals.cartItems) {
             itemsId.push(item._id);
