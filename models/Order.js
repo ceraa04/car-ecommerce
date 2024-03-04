@@ -3,18 +3,16 @@ const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
     items: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Car"
+        ref: "Car",
+        required: true
     }],
     totalPrice: {
         type: Number,
-        required: true
-    },
-    shippingCity: {
-        type: String,
         required: true
     },
     numberOfItems: {
@@ -23,6 +21,13 @@ const orderSchema = new mongoose.Schema({
     },
     orderNumber: {
         type: Number,
+        required: true
+    },
+    delivered: {
+        type: Boolean
+    },
+    createdAt: {
+        type: Date,
         required: true
     }
 });

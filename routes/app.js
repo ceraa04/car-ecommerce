@@ -18,6 +18,8 @@ const newCarRouter = require("./newCarRouter");
 const newBrandRouter = require("./newBrandRouter");
 const indexPageRouter = require("./indexPageRouter");
 const cartRouter = require("./cartRouter");
+const myOrdersRouter = require("./myOrdersRouter");
+
 app.set("view engine", "ejs");
 
 const mongoDB = process.env.DB_CONNECTION_STRING;
@@ -84,9 +86,10 @@ app.use("/newCar", newCarRouter);
 app.use("/newBrand", newBrandRouter);
 
 
-
 // Update i delete funkcije
 app.use("/editCars", editCarsRouter);
+
+app.use("/myOrders", myOrdersRouter);
 // Autentikacija korisnika
 app.use("/", authRouter);
 app.get("*", async (req, res) => {
