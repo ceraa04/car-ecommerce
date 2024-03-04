@@ -114,12 +114,15 @@
             const carBrandValue = carBrand.textContent.trim();
             const carBrandSelect = document.createElement("select");
             const carBrandOptions = document.querySelectorAll(".brand");
-
             carBrandOptions.forEach(brand => {
+                console.log(brand)
                 const brandOption = document.createElement("option");
                 brandOption.value = brand.textContent;
                 brandOption.text = brand.textContent
                 carBrandSelect.appendChild(brandOption)
+                if (brand.textContent === carBrand.textContent) {
+                    brandOption.setAttribute("selected", "selected")
+                }
             })
 
             carBrandSelect.name = "carBrand";
@@ -132,7 +135,7 @@
             const carModelInput = document.createElement("textarea");
             carModelInput.value = carModelValue;
             carModelInput.name = "carModel"
-            carModelInput.className = "border-2 border-primary";
+            carModelInput.className = "p-2 border-2 border-primary";
             carModel.parentNode.replaceChild(carModelInput, carModel)
 
             // Car year edit
@@ -172,7 +175,7 @@
             const carDescriptionInput = document.createElement("textarea");
             carDescriptionInput.value = carDescriptionValue;
             carDescriptionInput.name = "carDescription"
-            carDescriptionInput.className = "col-span-4 px-2 border-2 border-primary";
+            carDescriptionInput.className = "col-span-4 p-2 border-2 border-primary";
             carDescription.parentNode.replaceChild(carDescriptionInput, carDescription)
         }
         function confirmEdit(carId) {
