@@ -62,19 +62,18 @@
             </div>
             <% if (!currentUser || (currentUser && currentUser.username !== "admin")) { %>
             <!-- Konvertujem car._id is ObjectID() formata u string, item_id je string -->
-            <% if (cartItems && cartItems.every(item => item._id !== car._id.toString() )) { %>
+            <% if (purchased) { %>
+            <p>You have already purchased this car!</p>
+            <% } else if(cartItems && cartItems.every(item => item._id !== car._id.toString() )) { %>
             <button class="btn bg-black text-white">Add to cart</button>
-            <% } else { %>
+            <% } else{ %>
             <p>Car already added</p>
+
             <% } %>
             <!-- Admin je ulogovan -->
             <% } else { %>
-            <p>Admin cannot buy cars!</p>
+            <p class="font-bodyFont font-bold text-2xl">Admin cannot buy cars!</p>
             <% } %>
-
-
-
-
         </form>
     </div>
     <%- include ./partials/footer.ejs  %>
