@@ -44,6 +44,7 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
+// Props koje se koriste u cart-u
 app.use((req, res, next) => {
   res.locals.cartItems = req.session.cartItems || [];
   res.locals.subtotal = 0;
@@ -74,16 +75,19 @@ app.use("/products", productsRouter);
 
 // Funkcije koje su samo za admina (update, delete, create)
 // 1. Create funkcije
-// Za novi auto
 
+// Za novi auto
 app.use("/newCar", newCarRouter);
 // Za novi brend
 app.use("/newBrand", newBrandRouter);
+
+
 app.get("/cart", async (req, res) => {
   res.render("cart", {
     cars: await carController.getAllCars(),
   });
 });
+
 app.post("/cart", (req, res) => {
   const carId = req.body.carId;
   // Brisanje izabranog auta iz cartItemsa

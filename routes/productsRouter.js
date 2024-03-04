@@ -73,6 +73,7 @@ router.post("/", (req, res) => {
 router.get("/:id", async (req, res) => {
     const id = req.params.id;
     const { cars, car } = await carController.singleCarPage(req, res, id);
+
     res.render("itemPage", {
         car: car,
         cars: cars,
@@ -83,7 +84,7 @@ router.post("/:id", async (req, res) => {
         const id = req.params.id;
         // Trazenje auta u DB
         const car = await Car.findOne({ _id: id }).populate("brand");
-        // Pravljenje arraya cartItems, dostupan i u app ruteru pomocu req.session
+        // Pravljenje arraya cartItems
         req.session.cartItems = req.session.cartItems || [];
         req.session.cartItems.push(car);
         res.redirect("/cart");
