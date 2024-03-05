@@ -6,10 +6,13 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 
 const mongoose = require("mongoose");
 require("dotenv").config();
-const carController = require("../public/controllers/indexController");
 const passport = require("./auth");
 const session = require("express-session");
 const flash = require("connect-flash");
+
+// Controllers
+const dbItemsController = require("../controllers/getAllController");
+
 // Routes
 const authRouter = require("./authRoutes");
 const editCarsRouter = require("./editCarsRouter");
@@ -19,6 +22,7 @@ const newBrandRouter = require("./newBrandRouter");
 const indexPageRouter = require("./indexPageRouter");
 const cartRouter = require("./cartRouter");
 const myOrdersRouter = require("./myOrdersRouter");
+const allOrdersRouter = require("./allOrdersRouter");
 
 app.set("view engine", "ejs");
 
@@ -46,10 +50,11 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
-// Props koje se koriste u celoj ap
+
+// Props koje se koriste u celoj apk
 app.use(async (req, res, next) => {
   res.locals.cartItems = req.session.cartItems || [];
-  res.locals.cars = await carController.getAllCars();
+  res.locals.cars = await dbItemsController.getAllCars();
   res.locals.subtotal = 0;
   res.locals.shipmentCost = 0;
   res.locals.salesTax = 0;
@@ -90,20 +95,7 @@ app.use("/editCars", editCarsRouter);
 app.use("/myOrders", myOrdersRouter);
 
 //Stranica za sve porudzbine, adminova
-app.get("/allOrders", async (req, res) => {
-  if (req.user && req.user.username === "admin") {
-    res.render("allOrders", {
-      orders: await carController.getAllOrders(),
-    });
-  } else {
-    res.render("errorPage");
-  }
-});
-app.post("/allOrders", async (req, res) => {
-  const orderId = req.body.orderId;
-  await carController.deleteOrder(orderId);
-  res.redirect("/allOrders");
-});
+app.use("/allOrders", allOrdersRouter);
 
 // Autentikacija korisnika
 app.use("/", authRouter);

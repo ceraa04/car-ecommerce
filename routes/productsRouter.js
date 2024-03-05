@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const carController = require("../public/controllers/indexController");
+// Controllers
+const dbItemsController = require("../controllers/getAllController");
+const productsController = require("../controllers/productsController");
+
 const Car = require("../models/Car");
 const ObjectId = require("mongoose").Types.ObjectId;
 
@@ -18,7 +21,7 @@ router.get("/", async (req, res) => {
             maxPrice,
             countDocuments,
             carBrandsAll,
-            price } = await carController.productsPageRender();
+            price } = await productsController.productsPageRender();
         res.render("products", {
             cars: cars,
             selectedOptionFilter: selectedOptionFilter,
@@ -40,7 +43,7 @@ router.get("/", async (req, res) => {
             checkboxesChecked,
             countDocuments,
             carBrandsAll,
-            price } = await carController.filterAndSortCars(req, res, sort, brandFilter, priceFilter);
+            price } = await productsController.filterAndSortCars(req, res, sort, brandFilter, priceFilter);
         res.render("products", {
             cars: cars,
             selectedOptionSort: selectedOptionSort,
@@ -78,11 +81,11 @@ router.get("/:id", async (req, res) => {
         if (!ObjectId.isValid(id)) {
             return res.render("errorPage");
         }
-        const { cars, car } = await carController.singleCarPage(req, res, id);
+        const { cars, car } = await productsController.singleCarPage(req, res, id);
         // Ako auto sa tim id-jem nije pronadjen
         let orders = [];
         if (res.locals.currentUser) {
-            orders = await carController.getAllOrders(res.locals.currentUser._id);
+            orders = await dbItemsController.getAllOrders(res.locals.currentUser._id);
         }
         let purchased = false;
         console.log("Ovo je id: " + id);

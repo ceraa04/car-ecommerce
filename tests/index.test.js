@@ -1,5 +1,5 @@
-const { getAllBrands } = require("../public/controllers/indexController");
 const Brand = require("../models/Brand");
+const dbItemsController = require("../controllers/getAllController");
 
 jest.mock("../models/Brand", () => ({
     find: jest.fn(),
@@ -25,7 +25,7 @@ describe("getAllBrands", () => {
         ];
         Brand.find.mockResolvedValue(brands);
         // get all brands vraca samo nazive brendova, ne cele objekte
-        const result = await getAllBrands();
+        const result = await dbItemsController.getAllBrands();
 
         expect(result).toEqual(["Toyota", "Honda"]);
     });

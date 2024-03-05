@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const carController = require("../public/controllers/indexController");
+const indexPageController = require("../controllers/indexPageController");
 
 router.get("/", async (req, res) => {
-    const imgSliderCars = await carController.cars_imgSlider();
     res.render("index", {
-        imgSliderCars: imgSliderCars,
+        imgSliderCars: await indexPageController.cars_imgSlider(),
         cars: res.locals.cars,
-        popularCar: await carController.carOfTheWeek(),
+        popularCar: await indexPageController.carOfTheWeek(),
     });
 });
 

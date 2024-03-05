@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const carController = require("../public/controllers/indexController");
 const Order = require("../models/Order");
 router.get("/", async (req, res) => {
 
@@ -40,8 +39,6 @@ router.post("/", async (req, res) => {
             .catch(error => {
                 console.error(error);
             });
-
-
 
     }
 });

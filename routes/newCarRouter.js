@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const carController = require("../public/controllers/indexController");
+const dbItemsController = require("../controllers/getAllController");
 
 router.get("/", async (req, res) => {
     res.render("newCar", {
-        brands: await carController.getAllBrands()
+        brands: await dbItemsController.getAllBrands()
     });
 });
 router.post("/", async (req, res) => {
