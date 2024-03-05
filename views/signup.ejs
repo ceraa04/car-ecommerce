@@ -19,42 +19,65 @@
     </head>
 
     <body>
-        <div class="h-screen bg-black font-bodyFont grid grid-rows-5">
-            <div class="m-14">
+        <div class="h-screen bg-black font-bodyFont grid grid-rows-6">
+            <div class="m-14 col-span-1">
                 <a class="btn bg-white text-black" href="/">
                     Go back to home page
                 </a>
             </div>
-            <div class="flex flex-col items-center gap-32 bg-white 
-        w-1/3 h-signUp pt-10 row-span-4 pb-40 mx-auto rounded-xl">
-                <h2 class="text-4xl underline tracking-wider">Sign up</h2>
-                <form class="flex flex-col gap-16" action="" method="post">
-                    <div class="flex flex-col gap-10">
-                        <section class="flex items-center gap-2">
-                            <svg class="w-12 fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <title>Username</title>
-                                <path
-                                    d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" />
-                            </svg>
-                            <input placeholder="Enter username..." class="border-2 border-primary px-5 py-2"
-                                id="username" name="username" type="text" autocomplete="username" required autofocus>
+            <div class=" row-span-5  ">
+                <div class="flex flex-col gap-32 py-10  bg-white mx-auto rounded-xl w-1/3">
+                    <h2 class="text-4xl underline tracking-wider flex justify-center">Sign up</h2>
+                    <form class="flex flex-col items-center gap-10" action="" method="post">
+                        <div class="flex flex-col gap-5">
+                            <div class="flex flex-col gap-10 px-32">
+                                <section class="flex items-center gap-2">
+                                    <svg class="w-12 fill-primary" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24">
+                                        <title>Username</title>
+                                        <path
+                                            d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" />
+                                    </svg>
+                                    <input placeholder="Enter username..." class="border-2 border-primary px-5 py-2"
+                                        id="username" name="username" type="text" autocomplete="username" required
+                                        autofocus>
+                                </section>
+                                <section class="flex gap-2 items-center">
+                                    <svg class="w-12 fill-primary" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24">
+                                        <title>password</title>
+                                        <path
+                                            d="M18,20V10H6V20H18M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V10A2,2 0 0,1 6,8H15V6A3,3 0 0,0 12,3A3,3 0 0,0 9,6H7A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,17A2,2 0 0,1 10,15A2,2 0 0,1 12,13A2,2 0 0,1 14,15A2,2 0 0,1 12,17Z" />
+                                    </svg>
+                                    <input placeholder="Enter password..." class="border-2 border-primary px-5 py-2"
+                                        id="current-password" name="password" type="text"
+                                        autocomplete="current-password" required>
+                                </section>
+                                <section class="flex gap-2 items-center">
+                                    <svg class="w-12 fill-primary" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24">
+                                        <title>password</title>
+                                        <path
+                                            d="M18,20V10H6V20H18M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V10A2,2 0 0,1 6,8H15V6A3,3 0 0,0 12,3A3,3 0 0,0 9,6H7A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,17A2,2 0 0,1 10,15A2,2 0 0,1 12,13A2,2 0 0,1 14,15A2,2 0 0,1 12,17Z" />
+                                    </svg>
+                                    <input placeholder="Repeat password..." class="border-2 border-primary px-5 py-2"
+                                        id="repe" name="repeatedPassword" type="text" autocomplete="current-password"
+                                        required>
+                                </section>
+                            </div>
+                            <% if(messages.error && messages.error.length > 0){ %>
+                            <p class="flex justify-center px-5"><%= messages.error[0]  %></p>
+                            <% } %>
+                        </div>
+                        <section class="flex flex-col gap-5">
+                            <button class="btn bg-black text-white w-48 mx-auto" type="submit">Sign up</button>
+                            <p class="text-primary">Or, if you already have an account, sign in below!</p>
+                            <a class="btn bg-black text-white w-48 mx-auto flex justify-center" href="/signin">
+                                Sign in
+                            </a>
                         </section>
-                        <section class="flex gap-2 items-center">
-                            <svg class="w-12 fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <title>password</title>
-                                <path
-                                    d="M18,20V10H6V20H18M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V10A2,2 0 0,1 6,8H15V6A3,3 0 0,0 12,3A3,3 0 0,0 9,6H7A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,17A2,2 0 0,1 10,15A2,2 0 0,1 12,13A2,2 0 0,1 14,15A2,2 0 0,1 12,17Z" />
-                            </svg>
-                            <input placeholder="Enter password..." class="border-2 border-primary px-5 py-2"
-                                id="current-password" name="password" type="text" autocomplete="current-password"
-                                required>
-                        </section>
-                    </div>
-                    <section class="flex flex-col gap-5">
-                        <button class="btn bg-black text-white w-48 mx-auto" type="submit">Sign up</button>
-                    </section>
-
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </body>
