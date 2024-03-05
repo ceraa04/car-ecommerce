@@ -91,9 +91,18 @@ app.use("/myOrders", myOrdersRouter);
 
 //Stranica za sve porudzbine, adminova
 app.get("/allOrders", async (req, res) => {
-  res.render("allOrders", {
-    orders: await carController.getAllOrders()
-  });
+  if (req.user && req.user.username === "admin") {
+    res.render("allOrders", {
+      orders: await carController.getAllOrders(),
+    });
+  } else {
+    res.render("errorPage");
+  }
+});
+app.post("/allOrders", async (req, res) => {
+  const orderId = req.body.orderId;
+  await carController.deleteOrder(orderId);
+  res.redirect("/allOrders");
 });
 
 // Autentikacija korisnika
