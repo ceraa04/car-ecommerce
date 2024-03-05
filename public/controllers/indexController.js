@@ -248,10 +248,13 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
 const singleCarPage = async (req, res, id) => {
     try {
         const itemCar = await Car.findOne({ _id: id }).populate("brand");
-        return {
-            car: itemCar,
-            cars: await getAllCars()
-        };
+        if (itemCar) {
+            return {
+                car: itemCar,
+                cars: await getAllCars()
+            };
+        }
+
     } catch (error) {
         console.error(error);
     }

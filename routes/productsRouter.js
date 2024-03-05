@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const carController = require("../public/controllers/indexController");
 const Car = require("../models/Car");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 router.get("/", async (req, res) => {
     const sort = req.query.sort;
@@ -71,26 +72,37 @@ router.post("/", (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-    const id = req.params.id;
-    const { cars, car } = await carController.singleCarPage(req, res, id);
-    let orders = [];
-    if (res.locals.currentUser) {
-        orders = await carController.getAllOrders(res.locals.currentUser._id);
-    }
-    let purchased = false;
-    console.log("Ovo je id: " + id);
-    orders.forEach(order => {
-        for (item of order.items) {
-            if (item._id.equals(id)) {
-                purchased = true;
-            }
+    try {
+        const id = req.params.id;
+        // Ako objec
+        if (!ObjectId.isValid(id)) {
+            return res.render("errorPage");
         }
-    });
-    res.render("itemPage", {
-        car: car,
-        cars: cars,
-        purchased: purchased
-    });
+        const { cars, car } = await carController.singleCarPage(req, res, id);
+        // Ako auto sa tim id-jem nije pronadjen
+        let orders = [];
+        if (res.locals.currentUser) {
+            orders = await carController.getAllOrders(res.locals.currentUser._id);
+        }
+        let purchased = false;
+        console.log("Ovo je id: " + id);
+        orders.forEach(order => {
+            for (item of order.items) {
+                if (item._id.equals(id)) {
+                    purchased = true;
+                }
+            }
+        });
+        res.render("itemPage", {
+            car: car,
+            cars: cars,
+            purchased: purchased
+        });
+    }
+    catch (error) {
+        res.render("errorPage");
+        console.log(error);
+    }
 });
 router.post("/:id", async (req, res) => {
     try {
