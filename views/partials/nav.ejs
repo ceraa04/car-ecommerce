@@ -1,10 +1,13 @@
-<nav class="flex gap-5 h-36 justify-between items-center mx-20">
-    <h1 class="font-bodyFont font-bold text-3xl tracking-wider underline">
+<nav class="xs:max-lg:flex-col lg:flex-row flex 
+h-36 items-center lg:justify-between mx-20 xs:max-lg:mx-5">
+    <h1 class="font-bodyFont font-bold text-3xl 
+    tracking-wider underline xs:mt-10 lg:mt-0">
         <a href="/">
             DriftDreams
         </a>
     </h1>
-    <ul class="flex gap-8 items-center">
+    <ul class="flex gap-8 xs:max-sm:flex-col
+    items-center xs:max-lg:mt-10">
         <li class="liNav">
             <a href="/about">ABOUT</a>
         </li>
@@ -15,7 +18,8 @@
             <a href="/contact">CONTACT</a>
         </li>
         <li>
-            <a class="btn bg-black text-white" href="/cart">
+            <a class="btn
+            bg-black text-white" href="/cart">
                 Cart
                 <% if(cartItems) { %>
                 <span>(<%= cartItems.length %>)</span>
@@ -23,7 +27,7 @@
             </a>
         </li>
         <% if(currentUser){ %>
-        <li class="min-h-48 flex-col flex gap-4 mt-profileMarginTop">
+        <li class="min-h-48 flex-col flex gap-4 lg:mt-profileMarginTop">
             <svg class="profileLogo w-10 cursor-pointer" xmlns="http://www.w3.org/2000/svg" version="1.0"
                 viewBox="0 0 1280.000000 1231.000000" preserveAspectRatio="xMidYMid meet">
                 <metadata>

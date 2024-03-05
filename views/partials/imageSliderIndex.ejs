@@ -4,19 +4,24 @@
     <a href="/products/<%= car._id  %>">
         <div class="slide relative hidden">
             <div>
-                <img class="rounded w-imgSlider h-imgSlider cursor-pointer" src="/img/<%= car.model %>.jpg"
-                    alt="<%= car.model %>">
+                <img class="rounded xs:w-imgSliderXs xs:h-imgSliderXs
+                sm:w-imgSliderSm sm:h-imgSliderSm
+                md:w-imgSliderMd md:h-imgSliderMd 
+                lg:w-imgSlider lg:h-imgSlider cursor-pointer" src="/img/<%= car.model %>.jpg" alt="<%= car.model %>">
             </div>
-            <div class="absolute bottom-0 w-full p-5 shadow-2xl bg-white ">
-                <div class="text-xl">
+            <div class="absolute bottom-0 md:w-imgSliderMd 
+            lg:w-imgSlider xs:p-1 sm:p-4
+            w-full lg:p-5 shadow-2xl bg-white">
+                <div class="xs:text-xs sm:text-sm lg:text-lg">
                     <span>
                         <%= car.brand.name %>
                     </span>
                     <span><%= car.model  %></span>
                 </div>
-                <div class="flex justify-between">
+                <div class="flex justify-between 
+                xs:text-xs sm:text-sm lg:text-lg">
                     <span class="text-primary"><%= car.year + "." %></span>
-                    <span class="font-bold pr-10 text-2xl"><%= car.price + " $" %></span>
+                    <span class="font-bold"><%= car.price + " $" %></span>
                 </div>
             </div>
         </div>
