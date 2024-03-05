@@ -9,19 +9,6 @@ function showSlides() {
     slides[slideIndex].classList.remove("hidden");
     slideIndex++;
 
-    let progressBars = document.querySelectorAll(".progressBar");
-    progressBars.forEach(progressBar => {
-        let currentWidth = 0;
-        let interval = setInterval(() => {
-            if (currentWidth >= 100) {
-                clearInterval(interval);
-            } else {
-                currentWidth += 1;
-                progressBar.style.width = `${currentWidth}%`;
-            }
-        }, 35);
-    });
-
     setTimeout(showSlides, 4000);
 }
 
