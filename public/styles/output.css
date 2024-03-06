@@ -735,6 +735,10 @@ video {
   margin-left: 10rem;
 }
 
+.ml-0{
+  margin-left: 0px;
+}
+
 .flex{
   display: flex;
 }
@@ -851,6 +855,10 @@ video {
   width: 50rem;
 }
 
+.w-20{
+  width: 5rem;
+}
+
 .transform{
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
@@ -899,6 +907,10 @@ video {
 
 .flex-col{
   flex-direction: column;
+}
+
+.items-start{
+  align-items: flex-start;
 }
 
 .items-end{
@@ -967,6 +979,10 @@ video {
 
 .gap-9{
   gap: 2.25rem;
+}
+
+.justify-self-center{
+  justify-self: center;
 }
 
 .overflow-hidden{
@@ -1574,6 +1590,14 @@ video {
     margin-top: 20rem;
   }
 
+  .xs\:mt-60{
+    margin-top: 15rem;
+  }
+
+  .xs\:mb-20{
+    margin-bottom: 5rem;
+  }
+
   .xs\:flex{
     display: flex;
   }
@@ -1584,6 +1608,14 @@ video {
 
   .xs\:h-40{
     height: 10rem;
+  }
+
+  .xs\:h-20{
+    height: 5rem;
+  }
+
+  .xs\:h-80{
+    height: 20rem;
   }
 
   .xs\:w-1\/2{
@@ -1610,6 +1642,14 @@ video {
     width: 24rem;
   }
 
+  .xs\:w-full{
+    width: 100%;
+  }
+
+  .xs\:w-20{
+    width: 5rem;
+  }
+
   .xs\:grid-cols-1{
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
@@ -1620,6 +1660,10 @@ video {
 
   .xs\:gap-10{
     gap: 2.5rem;
+  }
+
+  .xs\:gap-4{
+    gap: 1rem;
   }
 
   .xs\:pt-0{
@@ -1685,8 +1729,28 @@ video {
     margin-top: 10rem;
   }
 
+  .sm\:block{
+    display: block;
+  }
+
+  .sm\:flex{
+    display: flex;
+  }
+
+  .sm\:grid{
+    display: grid;
+  }
+
   .sm\:h-60{
     height: 15rem;
+  }
+
+  .sm\:h-productsImg{
+    height: 20rem;
+  }
+
+  .sm\:h-popularCar{
+    height: 40rem;
   }
 
   .sm\:w-80{
@@ -1701,12 +1765,24 @@ video {
     width: 66.666667%;
   }
 
+  .sm\:w-popularCar{
+    width: 50rem;
+  }
+
+  .sm\:grid-cols-3{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .sm\:flex-row{
     flex-direction: row;
   }
 
   .sm\:justify-around{
     justify-content: space-around;
+  }
+
+  .sm\:p-2{
+    padding: 0.5rem;
   }
 
   .sm\:text-2xl{
@@ -1717,6 +1793,13 @@ video {
   .sm\:text-lg{
     font-size: 1.125rem;
     line-height: 1.75rem;
+  }
+
+  @media not all and (min-width: 1024px){
+    .sm\:max-lg\:mx-auto{
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }
 
@@ -1730,8 +1813,20 @@ video {
     margin-top: 0px;
   }
 
+  .md\:mt-10{
+    margin-top: 2.5rem;
+  }
+
+  .md\:grid{
+    display: grid;
+  }
+
   .md\:h-96{
     height: 24rem;
+  }
+
+  .md\:h-popularCar{
+    height: 40rem;
   }
 
   .md\:w-full{
@@ -1744,6 +1839,22 @@ video {
 
   .md\:w-2\/3{
     width: 66.666667%;
+  }
+
+  .md\:w-popularCar{
+    width: 50rem;
+  }
+
+  .md\:w-3\/4{
+    width: 75%;
+  }
+
+  .md\:grid-cols-5{
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .md\:flex-row{
+    flex-direction: row;
   }
 
   .md\:text-3xl{
@@ -1830,6 +1941,18 @@ video {
     width: 25rem;
   }
 
+  .lg\:w-3\/4{
+    width: 75%;
+  }
+
+  .lg\:w-2\/3{
+    width: 66.666667%;
+  }
+
+  .lg\:w-4\/5{
+    width: 80%;
+  }
+
   .lg\:grid-cols-2{
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1844,6 +1967,10 @@ video {
 
   .lg\:flex-col{
     flex-direction: column;
+  }
+
+  .lg\:justify-end{
+    justify-content: flex-end;
   }
 
   .lg\:justify-between{

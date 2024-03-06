@@ -10,7 +10,8 @@
 
 <body>
     <%- include ./partials/nav.ejs  %>
-    <div class="flex flex-col items-center font-bodyFont tracking-wider ">
+    <div class="flex flex-col items-center  font-bodyFont tracking-wider 
+    xs:mt-80 sm:mt-20">
         <!-- Slucaj kada je admin ulogovan -->
         <% if(currentUser && currentUser.username === "admin") { %>
         <p class="text-3xl text-primary tracking-wider my-64">
@@ -21,12 +22,15 @@
         <% }else{ %>
         <h2 class="text-3xl">Your cart</h2>
         <% if(cartItems && cartItems.length > 0) { %>
-        <section class="mt-14 grid grid-cols-3 items-center w-3/4">
-            <div>
-                <a class="btn bg-black text-white" href="/products">
+        <section class="mt-14 grid grid-cols-3 items-center lg:w-3/4">
+            <div class="flex justify-start">
+                <a class="bg-black text-white rounded-lg 
+                w-52 sm:max-lg:mx-auto justify-center text-sm p-3
+                items-end xs:hidden sm:flex" href="/products">
                     Continue shopping
                 </a>
             </div>
+
             <p class="flex justify-center text-2xl">
                 <span class="mr-1"><%= cartItems.length %></span>
                 <% if(cartItems.length > 1) { %>
@@ -35,21 +39,22 @@
                 <span>item</span>
                 <% } %>
             </p>
-            <div class="flex justify-end">
+            <div class="flex justify-end xs:hidden sm:flex">
                 <p class="p-5">
                     Hope you are having a great time!
                 </p>
             </div>
         </section>
 
-        <section class="w-3/4 mt-14 mb-64 grid grid-cols-5">
+        <section class="xs:w-full md:w-3/4 mt-14 mb-64 lg:grid lg:grid-cols-5">
             <!-- Cart items div -->
             <div class="col-span-3 p-5 flex flex-col gap-7">
 
                 <% for(car of cartItems) { %>
                 <!-- Pojedinacni itemi -->
                 <div class="flex flex-col gap-3">
-                    <p class="span-2 font-bold text-xl">
+                    <p class="span-2 font-bold 
+                    xs:text-sm md:text-xl">
                         <span>
                             <%= car.brand.name  %>
                         </span>
@@ -91,14 +96,16 @@
             </div>
             <!-- Checkout div -->
             <div class=" p-5 col-span-2">
-                <div class="flex flex-col gap-5">
+                <!-- Promo code div -->
+                <div class="flex flex-col gap-5 xs:mb-20">
                     <h2>Enter Promo code:</h2>
-                    <div class="flex gap-5">
+                    <div class="flex xs:flex-col md:flex-row gap-5">
                         <div class="flex flex-col gap-2">
                             <input class="inputPromo border-2 border-primary p-2" type="text" placeholder="Promo code">
                             <p class="promoCodeMessage hidden">Promo code is invalid!</p>
                         </div>
-                        <button class="submitPromo btn bg-black text-white h-12">
+                        <button class="submitPromo btn bg-black text-white h-12
+                        xs:w-2/3 xs:mx-auto">
                             Submit
                         </button>
                     </div>
