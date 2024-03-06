@@ -1,30 +1,34 @@
 <h2 class="flex justify-center text-2xl font-bold">Filter items:</h2>
-<div class="flex flex-col mt-10 gap-5">
-    <p class="flex justify-center text-xl">Brand:</p>
-    <div class="flex flex-col gap-2">
-        <% carBrandsAll.forEach(brand => { %>
-        <label class="flex items-center gap-3">
-            <input class="appearance-none border-2 cursor-pointer h-5 w-5 border-black checked:bg-black"
-                onclick="submitForm()" type="checkbox" name="checkboxBrand" value="<%= brand %>"
-                <%= (checkboxesChecked && checkboxesChecked.includes(brand)) ? 'checked' : '' %>>
-            <%= brand  %>
-        </label>
-        <% }) %>
+<div class="mt-10 flex
+    xs:flex-col sm:flex-row lg:flex-col
+    sm:justify-around sm:mx-20">
+    <div class="flex flex-col gap-5">
+        <p class="flex justify-center text-xl">Brand:</p>
+        <div class="flex flex-col gap-2">
+            <% carBrandsAll.forEach(brand => { %>
+            <label class="flex items-center gap-3">
+                <input class="appearance-none border-2 cursor-pointer h-5 w-5 border-black checked:bg-black"
+                    onclick="submitForm()" type="checkbox" name="checkboxBrand" value="<%= brand %>"
+                    <%= (checkboxesChecked && checkboxesChecked.includes(brand)) ? 'checked' : '' %>>
+                <%= brand  %>
+            </label>
+            <% }) %>
+        </div>
     </div>
-</div>
-<div class="flex flex-col gap-2 justify-center mt-10 p-3">
-    <p>Range of price:</p>
-    <div class="relative w-52">
-        <input onchange="submitForm()" name="rangePriceFilter" class="rangeInputFilter" type="range" min="0" max="100"
-            value="<%= price %>">
-        <span class="absolute top-0 right-0 maxPrice hidden"><%= maxPrice %></span>
-        <p class="flex gap-3 justify-center mt-2">
-            <span class="minPrice"><%= minPrice  %></span>
-            <span>-</span>
-            <% if (!isNaN(maxPrice)) { %>
-            <span class="targetPrice"><%= maxPrice %></span>
-            <% } %>
-        </p>
+    <div class="flex flex-col gap-2 justify-center mt-10 p-3">
+        <p>Range of price:</p>
+        <div class="relative w-52">
+            <input onchange="submitForm()" name="rangePriceFilter" class="rangeInputFilter" type="range" min="0"
+                max="100" value="<%= price %>">
+            <span class="absolute top-0 right-0 maxPrice hidden"><%= maxPrice %></span>
+            <p class="flex gap-3 justify-center mt-2">
+                <span class="minPrice"><%= minPrice  %></span>
+                <span>-</span>
+                <% if (!isNaN(maxPrice)) { %>
+                <span class="targetPrice"><%= maxPrice %></span>
+                <% } %>
+            </p>
+        </div>
     </div>
 
     <script src="/javascript/rangeValue.js"></script>

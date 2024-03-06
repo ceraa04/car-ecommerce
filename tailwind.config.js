@@ -13,7 +13,11 @@ module.exports = {
         bodyFont: ["Rubik"]
       },
       maxHeight: {
-        index: "40rem"
+        index: "40rem",
+        productsItem: "25rem"
+      },
+      minHeight: {
+        productsItem: "25rem"
       },
       width: {
         imgSlider: "50rem",

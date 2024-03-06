@@ -10,7 +10,8 @@
 
 <body>
     <%- include ./partials/nav.ejs  %>
-    <div class="mb-20 flex flex-col items-center font-bodyFont">
+    <div class="mb-20 flex flex-col items-center font-bodyFont 
+    xs:mt-80 sm:mt-20 md:mt-0">
         <h2 class="text-3xl tracking-wider">About us</h2>
         <div class="flex flex-col gap-5 items-center mt-20">
             <div class="divAbout">
@@ -54,9 +55,10 @@
             </div>
             <div class="divAbout">
                 <h3>Where are we located?</h3>
-                <iframe
+                <iframe class="xs:w-60 sm:w-80 md:w-full
+                xs:h-40 sm:h-60 md:h-96"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22774.586467333673!2d19.536657774543762!3d44.47779441996445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475981cb66b7c061%3A0x341b47982c35d7ba!2z0KbQstC10YLRg9GZ0LA!5e0!3m2!1ssr!2srs!4v1708881751760!5m2!1ssr!2srs"
-                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
