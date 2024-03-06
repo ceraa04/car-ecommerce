@@ -10,61 +10,66 @@
 
 <body>
     <%- include ./partials/nav.ejs  %>
-    <h2 class="flex justify-center font-bodyFont text-3xl tracking-wider">All orders</h2>
-    <% if(orders && orders.length > 0) { %>
-    <div class="w-full flex flex-col gap-2 items-center mt-20 font-bodyFont">
-        <% for(order of orders) { %>
-        <div class="w-2/3 border-2 border-black p-5 grid grid-cols-9">
-            <!-- order.totalPrice, order.shippingCity, order.numberOfItems,
-                order.orderNumber, order.items -->
-            <div class="flex flex-col gap-2 items-center col-span-1">
-                <span>Order No.</span>
-                <span class="font-bold"><%= order.orderNumber  %></span>
-            </div>
-            <div class="flex flex-col gap-2 items-center col-span-1">
-                <span>User:</span>
-                <span class="font-bold"><%= order.user.username  %></span>
-            </div>
-            <div class="flex flex-col gap-2 col-span-2 items-center">
-                <p>Items:</p>
-                <div class="flex flex-col">
-                    <% for(item of order.items) { %>
-                    <a class="hover:text-primary text-xl" href="/products/<%= item._id  %>">
-                        <span class="font-bold"><%= item.brand.name  %></span>
-                        <span class="font-bold"><%= item.model  %></span>
-                        <span><%= item.year  %></span>
-                    </a>
-                    <% } %>
+    <div class="mb-64
+    xs:mt-72 sm:mt-20 lg:mt-0">
+        <h2 class="flex justify-center font-bodyFont text-3xl tracking-wider">All orders</h2>
+        <% if(orders && orders.length > 0) { %>
+        <div class="w-full flex flex-col gap-2 items-center mt-20 font-bodyFont">
+            <% for(order of orders) { %>
+            <div class="w-3/4 border-2 border-black p-5 relative
+                xs:text-sm xs:flex xs:flex-col xs:gap-4
+                sm:grid sm:grid-cols-9 sm:text-xs
+                lg:text-base"> <!-- order.totalPrice, order.shippingCity, order.numberOfItems,
+                    order.orderNumber, order.items -->
+                <div class="flex flex-col gap-2 items-center col-span-1">
+                    <span>Order No.</span>
+                    <span class="font-bold"><%= order.orderNumber  %></span>
                 </div>
+                <div class="flex flex-col gap-2 items-center col-span-1">
+                    <span>User:</span>
+                    <span class="font-bold"><%= order.user.username  %></span>
+                </div>
+                <div class="flex flex-col col-span-2 items-center
+                sm:gap-2">
+                    <p>Items:</p>
+                    <div class="flex flex-col">
+                        <% for(item of order.items) { %>
+                        <a class="hover:text-primary lg:text-xl" href="/products/<%= item._id  %>">
+                            <span class="font-bold"><%= item.brand.name  %></span>
+                            <span class="font-bold"><%= item.model  %></span>
+                            <span><%= item.year  %></span>
+                        </a>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="col-span-1 flex flex-col items-center justify-center gap-2">
+                    <p>Total price:</p>
+                    <p class="font-bold lg:text-xl"><%= order.totalPrice.toFixed(2)  %>$</p>
+                </div>
+                <div class="col-span-1 flex flex-col items-center justify-center gap-2">
+                    <p>Status:</p>
+                    <p class="font-bold"><%= order.delivered ? 'Delivered' : 'Pending' %></p>
+                </div>
+                <div class="col-span-2 flex flex-col items-center justify-center  gap-2">
+                    <p>Created at:</p>
+                    <p><%= order.createdAt.toLocaleString()  %></p>
+                </div>
+                <form class="sm:flex sm:justify-end
+                    xs:max-sm:absolute top-0 right-0
+                    items-center mr-5
+                    " action="" method="post">
+                    <input name="orderId" value="<%= order._id %>" class="hidden" type="text">
+                    <button class="xs:text-3xl">x</button>
+                </form>
             </div>
-
-            <div class="col-span-1 flex flex-col items-center justify-center gap-2">
-                <p>Total price:</p>
-                <p class="font-bold text-xl"><%= order.totalPrice.toFixed(2)  %>$</p>
-            </div>
-            <div class="col-span-1 flex flex-col items-center justify-center gap-2">
-                <p>Status:</p>
-                <p class="font-bold"><%= order.delivered ? 'Delivered' : 'Pending' %></p>
-            </div>
-            <div class="col-span-2 flex flex-col items-center justify-center  gap-2">
-                <p>Created at:</p>
-                <p><%= order.createdAt.toLocaleString()  %></p>
-            </div>
-            <form class="flex justify-end items-center mr-5" action="" method="post">
-                <!-- Pomocu ovog skrivenog inputa cu dobiti ID ordera koji treba
-                   da se obrise -->
-                <input name="orderId" value="<%= order._id %>" class="hidden" type="text">
-                <button class="text-5xl">x</button>
-            </form>
-
+            <% } %>
         </div>
+        <% } else{ %>
+        <p class="text-primary text-2xl my-52 flex flex-col items-center gap-3 tracking-wider">
+            No orders have been made yet!
+        </p>
         <% } %>
     </div>
-    <% } else{ %>
-    <p class="text-primary text-2xl my-52 flex flex-col items-center gap-3 tracking-wider">
-        No orders have been made yet!
-    </p>
-    <% } %>
 </body>
 
 </html>
