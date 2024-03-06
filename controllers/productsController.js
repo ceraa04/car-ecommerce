@@ -9,7 +9,6 @@ const productsPageRender = async () => {
     try {
         // Pretvaram checkboxove iz niza objekata u niz stringova, koje posle koristim da cekiram sve brandove na /products url
         return {
-            cars: await dbItemsController.getAllCars(),
             // Select option za sortiranje kada se stranica tek ucitava, kad i dalje nije POST method vec GET
             selectedOptionFilter: "",
             selectedOptionSort: "",
@@ -94,17 +93,17 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
     } else {
         targetPrice = 0;
     }
-    let cars;
+    let products;
     if (checkboxesObjectBrand.length > 0) {
-        cars = await Car.find({ $and: [{ brand: { $in: checkboxesObjectBrand } }, { price: { $lte: targetPrice } }] }).populate("brand").sort(sortMethod);
+        products = await Car.find({ $and: [{ brand: { $in: checkboxesObjectBrand } }, { price: { $lte: targetPrice } }] }).populate("brand").sort(sortMethod);
     } else {
-        cars = await Car.find({ price: { $lte: targetPrice } }).populate("brand").sort(sortMethod);
+        products = await Car.find({ price: { $lte: targetPrice } }).populate("brand").sort(sortMethod);
     }
     try {
-        const countDocuments = cars.length;
+        const countDocuments = products.length;
         if (Object.keys(checkboxesObjectBrand).length === 0) {
             return {
-                cars: [],
+                products: [],
                 selectedOptionSort: sort,
                 maxPrice: await maxPrice(),
                 minPrice: await minPrice(),
@@ -116,7 +115,7 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
         }
         // Max i min price trebaju uvek da budu pocetni, a ne da se menjaju pri promeni filtera
         return {
-            cars: cars,
+            products: products,
             selectedOptionSort: sort,
             maxPrice: maxPriceRender,
             minPrice: minPriceRender,
@@ -142,7 +141,6 @@ const singleCarPage = async (req, res, id) => {
         if (itemCar) {
             return {
                 car: itemCar,
-                cars: await dbItemsController.getAllCars()
             };
         } else {
             return res.render("errorPage");

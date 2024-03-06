@@ -13,7 +13,6 @@ router.get("/", async (req, res) => {
     const priceFilter = req.query.price;
     if (sort == undefined && brandFilter == undefined && priceFilter == undefined) {
         const {
-            cars,
             selectedOptionFilter,
             selectedOptionSort,
             checkboxesChecked,
@@ -23,7 +22,7 @@ router.get("/", async (req, res) => {
             carBrandsAll,
             price } = await productsController.productsPageRender();
         res.render("products", {
-            cars: cars,
+            products: res.locals.cars,
             selectedOptionFilter: selectedOptionFilter,
             selectedOptionSort: selectedOptionSort,
             checkboxesChecked: checkboxesChecked,
@@ -36,7 +35,7 @@ router.get("/", async (req, res) => {
 
     } else {
         const {
-            cars,
+            products,
             selectedOptionSort,
             maxPrice,
             minPrice,
@@ -45,7 +44,8 @@ router.get("/", async (req, res) => {
             carBrandsAll,
             price } = await productsController.filterAndSortCars(req, res, sort, brandFilter, priceFilter);
         res.render("products", {
-            cars: cars,
+            cars: res.locals.cars,
+            products: products,
             selectedOptionSort: selectedOptionSort,
             checkboxesChecked: checkboxesChecked,
             minPrice: minPrice,
@@ -81,7 +81,7 @@ router.get("/:id", async (req, res) => {
         if (!ObjectId.isValid(id)) {
             return res.render("errorPage");
         }
-        const { cars, car } = await productsController.singleCarPage(req, res, id);
+        const car = await productsController.singleCarPage(req, res, id);
         // Ako auto sa tim id-jem nije pronadjen
         let orders = [];
         if (res.locals.currentUser) {
@@ -97,8 +97,8 @@ router.get("/:id", async (req, res) => {
             }
         });
         res.render("itemPage", {
+            cars: res.locals.cars,
             car: car,
-            cars: cars,
             purchased: purchased
         });
     }
