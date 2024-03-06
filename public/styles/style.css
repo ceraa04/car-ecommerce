@@ -82,3 +82,13 @@
 .messageSuccess {
     @apply duration-500 absolute top-10 bg-green-500 px-20 py-5 rounded-lg 
 }
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    .video {
+        width: calc(100% - 2rem); 
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 1024px) {
+    .imgSliderXsLg {
+        width: calc(100% - 2rem);     
+    }
+}
