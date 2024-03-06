@@ -87,7 +87,12 @@
     w-full lg:p-5 shadow-2xl bg-white
     xs:text-xs sm:text-sm md:text-lg absolute bottom-0
 }
-
+.footerPopularModels {
+    @apply grid gap-5 h-2/3 p-6 
+    pl-10 w-full justify-center items-center xs:grid-cols-1 sm:grid-cols-2
+    lg:grid-cols-3 xl:grid-cols-4
+    
+}
 @media screen and (min-width: 320px){
     .video {
         width: calc(100% - 2rem);

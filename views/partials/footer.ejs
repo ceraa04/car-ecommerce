@@ -1,8 +1,11 @@
-<div class="bg-black h-auto py-10 text-white grid grid-cols-5 font-bodyFont">
+<div class="bg-black h-auto py-10 text-white
+        xs:flex xs:flex-col
+        lg:grid lg:grid-cols-5 
+        font-bodyFont">
     <div class="col-span-3">
         <h3 class="footerH">Popular models</h3>
         <% if(cars.length > 8) { %>
-        <div class="grid grid-cols-4 gap-5 h-2/3 p-6 pl-10 w-full justify-center items-center ">
+        <div class="footerPopularModels">
             <% for(let i = 0; i < 8; i++) { %>
             <a href="/products/<%= cars[i]._id %>">
                 <div class="cardFooter">
@@ -15,7 +18,7 @@
             <% } %>
         </div>
         <% } else if (cars.length > 0) { %>
-        <div class="grid grid-cols-4 gap-5 h-2/3 p-6 pl-10 w-full justify-center items-center ">
+        <div class="footerPopularModels">
             <% for(let i = 0; i < cars.length; i++) { %>
             <a href="/products/<%= cars[i]._id %>">
                 <div class="cardFooter">
@@ -33,9 +36,10 @@
         <% } %>
 
     </div>
-    <div>
+    <div class="xs:mt-10">
         <h3 class="footerH">Featured content</h3>
-        <div class="flex flex-col gap-5 mt-10 pl-5">
+        <div class="flex flex-col justify-center items-center 
+        gap-5 mt-10 ml-auto">
             <div>
                 <p>BMW has a big announcement:</p>
                 <a target="_blank" class="aFooter"
@@ -60,7 +64,7 @@
         </div>
 
     </div>
-    <div>
+    <div class="xs:mt-10">
         <h3 class="footerH">Links</h3>
         <div class="py-5 flex flex-col gap-4">
             <a target="_blank" class="flex justify-center" href="https://www.instagram.com/">
