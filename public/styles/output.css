@@ -554,10 +554,6 @@ video {
   position: relative;
 }
 
-.bottom-0{
-  bottom: 0px;
-}
-
 .left-14{
   left: 3.5rem;
 }
@@ -623,11 +619,6 @@ video {
   margin-right: 0.25rem;
 }
 
-.mx-10{
-  margin-left: 2.5rem;
-  margin-right: 2.5rem;
-}
-
 .mx-16{
   margin-left: 4rem;
   margin-right: 4rem;
@@ -666,6 +657,11 @@ video {
 .my-64{
   margin-top: 16rem;
   margin-bottom: 16rem;
+}
+
+.mx-10{
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
 }
 
 .mx-5{
@@ -745,14 +741,6 @@ video {
   margin-top: 2rem;
 }
 
-.ml-5{
-  margin-left: 1.25rem;
-}
-
-.ml-10{
-  margin-left: 2.5rem;
-}
-
 .flex{
   display: flex;
 }
@@ -791,10 +779,6 @@ video {
 
 .h-newsLetter{
   height: 30rem;
-}
-
-.h-popularCar{
-  height: 40rem;
 }
 
 .h-productsImg{
@@ -881,16 +865,16 @@ video {
   width: 40rem;
 }
 
-.w-popularCar{
-  width: 50rem;
-}
-
 .w-productsImg{
   width: 25rem;
 }
 
 .w-singleCarPage{
   width: 50rem;
+}
+
+.w-4\/5{
+  width: 80%;
 }
 
 .transform{
@@ -1158,10 +1142,6 @@ video {
   padding-bottom: 10rem;
 }
 
-.pb-5{
-  padding-bottom: 1.25rem;
-}
-
 .pl-10{
   padding-left: 2.5rem;
 }
@@ -1174,10 +1154,6 @@ video {
   padding-left: 1.25rem;
 }
 
-.pr-10{
-  padding-right: 2.5rem;
-}
-
 .pt-10{
   padding-top: 2.5rem;
 }
@@ -1188,10 +1164,6 @@ video {
 
 .pt-2{
   padding-top: 0.5rem;
-}
-
-.pt-5{
-  padding-top: 1.25rem;
 }
 
 .pt-6{
@@ -1496,15 +1468,50 @@ video {
   transition-duration: 500ms;
 }
 
-@media screen and (min-width: 320px) and (max-width: 640px) {
-  .video {
-    width: calc(100% - 2rem);
+.carDescriptionIndex{
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+@media (min-width: 320px){
+  .carDescriptionIndex{
+    padding: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
   }
 }
 
-@media screen and (min-width: 320px) and (max-width: 1024px) {
-  .imgSliderXsLg {
+@media (min-width: 640px){
+  .carDescriptionIndex{
+    padding: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+@media (min-width: 768px){
+  .carDescriptionIndex{
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px){
+  .carDescriptionIndex{
+    padding: 1.25rem;
+  }
+}
+
+@media screen and (min-width: 320px){
+  .video {
     width: calc(100% - 2rem);
+    margin: auto;
   }
 }
 
@@ -1570,25 +1577,12 @@ video {
     width: 20rem;
   }
 
-  .xs\:w-full{
-    width: 100%;
-  }
-
   .xs\:flex-col{
     flex-direction: column;
   }
 
   .xs\:gap-10{
     gap: 2.5rem;
-  }
-
-  .xs\:p-1{
-    padding: 0.25rem;
-  }
-
-  .xs\:text-lg{
-    font-size: 1.125rem;
-    line-height: 1.75rem;
   }
 
   .xs\:text-sm{
@@ -1599,11 +1593,6 @@ video {
   .xs\:text-xl{
     font-size: 1.25rem;
     line-height: 1.75rem;
-  }
-
-  .xs\:text-xs{
-    font-size: 0.75rem;
-    line-height: 1rem;
   }
 
   @media not all and (min-width: 1024px){
@@ -1655,10 +1644,6 @@ video {
     justify-content: space-around;
   }
 
-  .sm\:p-4{
-    padding: 1rem;
-  }
-
   .sm\:text-2xl{
     font-size: 1.5rem;
     line-height: 2rem;
@@ -1668,30 +1653,12 @@ video {
     font-size: 1.125rem;
     line-height: 1.75rem;
   }
-
-  .sm\:text-sm{
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
 }
 
 @media (min-width: 768px){
-  .md\:h-imgSliderMd{
-    height: 35rem;
-  }
-
-  .md\:w-imgSliderMd{
-    width: 40rem;
-  }
-
   .md\:text-3xl{
     font-size: 1.875rem;
     line-height: 2.25rem;
-  }
-
-  .md\:text-lg{
-    font-size: 1.125rem;
-    line-height: 1.75rem;
   }
 
   .md\:text-xl{
@@ -1713,15 +1680,19 @@ video {
     height: 40rem;
   }
 
-  .lg\:h-popularCar{
-    height: 40rem;
+  .lg\:h-96{
+    height: 24rem;
+  }
+
+  .lg\:h-full{
+    height: 100%;
+  }
+
+  .lg\:h-52{
+    height: 13rem;
   }
 
   .lg\:w-imgSlider{
-    width: 50rem;
-  }
-
-  .lg\:w-popularCar{
     width: 50rem;
   }
 
@@ -1731,10 +1702,6 @@ video {
 
   .lg\:justify-between{
     justify-content: space-between;
-  }
-
-  .lg\:p-5{
-    padding: 1.25rem;
   }
 
   .lg\:text-4xl{
