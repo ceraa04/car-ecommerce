@@ -1,13 +1,13 @@
-<nav class="xs:max-lg:flex-col lg:flex-row flex 
-h-36 items-center lg:justify-between mx-20 xs:max-lg:mx-5">
+<nav class="xs:flex-col lg:flex-row flex 
+h-36 items-center lg:justify-between xs:mx-5 lg:mx-32">
     <h1 class="font-bodyFont font-bold text-3xl 
     tracking-wider underline xs:mt-10 lg:mt-0">
         <a href="/">
             DriftDreams
         </a>
     </h1>
-    <ul class="flex gap-8 items-center xs:max-sm:flex-col
-    xs:mt-10 sm:mt-20 lg:mt-0  ">
+    <ul class="flex gap-8 xs:flex-col sm:flex-row
+    items-center mt-10 lg:mt-0">
         <li class="liNav">
             <a href="/about">ABOUT</a>
         </li>
@@ -27,50 +27,56 @@ h-36 items-center lg:justify-between mx-20 xs:max-lg:mx-5">
             </a>
         </li>
         <% if(currentUser){ %>
-        <li class="min-h-48 flex-col flex gap-4 lg:mt-profileMarginTop">
-            <svg class="profileLogo w-10 cursor-pointer" xmlns="http://www.w3.org/2000/svg" version="1.0"
-                viewBox="0 0 1280.000000 1231.000000" preserveAspectRatio="xMidYMid meet">
-                <metadata>
-                    <script xmlns="" />
-                    Created by potrace 1.15, written by Peter Selinger 2001-2017
-                </metadata>
-                <g transform="translate(0.000000,1231.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                    <path
-                        d="M6130 12304 c-19 -2 -84 -9 -145 -15 -700 -67 -1430 -353 -2000 -783 -233 -175 -534 -465 -707 -681 -709 -884 -1016 -1994 -857 -3100 136 -946 604 -1817 1309 -2438 141 -124 340 -275 478 -365 l93 -60 -53 -12 c-142 -33 -472 -125 -628 -176 -1667 -538 -2896 -1531 -3385 -2733 -150 -369 -235 -788 -235 -1161 0 -105 33 -638 46 -737 l5 -43 6349 0 6349 0 5 43 c13 98 46 631 46 732 0 316 -60 668 -167 980 -436 1276 -1666 2326 -3398 2900 -192 64 -561 170 -665 190 -19 4 -41 10 -48 14 -7 4 41 43 130 104 376 254 691 554 960 912 97 129 185 262 241 361 24 43 66 117 92 164 68 118 162 328 229 507 242 655 307 1374 186 2078 -74 431 -242 900 -461 1289 -84 148 -249 391 -365 536 -138 173 -441 476 -614 614 -140 112 -386 279 -525 358 -377 213 -789 368 -1210 453 -250 51 -410 66 -725 70 -162 2 -311 1 -330 -1z" />
-                </g>
-            </svg>
-            <div class="profileList hidden flex-col gap-4 items-center p-5 
-                font-bodyFont bg-white w-48 border-2 border-primary absolute top-28 right-0 z-10">
-                <h3 class="text-2xl font-bold"><%= currentUser.username  %></h3>
-                <ul class="flex flex-col items-center gap-2 text-primary">
-                    <!-- Kada je USER Admin -->
-                    <% if(currentUser.username === "admin") { %>
-                    <li class="hover:font-bold cursor-pointer ">
-                        <a href="/newCar">Add new car</a>
-                    </li>
-                    <li class="hover:font-bold cursor-pointer">
-                        <a href="/newBrand">Add new brand</a>
-                    </li>
-                    <li class="hover:font-bold cursor-pointer">
-                        <a href="/editCars">Edit cars</a>
-                    </li>
-                    <li class="hover:font-bold cursor-pointer text-nowrap">
-                        <a href="/allOrders">View pending orders</a>
-                    </li>
-                    <li class="hover:font-bold cursor-pointer">
-                        <a href="/signout">Sign out</a>
-                    </li>
-                    <!-- Kada je USER korisnik -->
-                    <% } else { %>
-                    <li class="cursor-pointer hover:font-bold hover:text-nowrap">
-                        <a href="/myOrders">My previous orders</a>
-                    </li>
-                    <li class="cursor-pointer hover:font-bold">
-                        <a href="/signout">Sign out</a>
-                    </li>
-                    <% } %>
-
-                </ul>
+        <li class="relative flex justify-center items-center mb-9 sm:ml-8
+        xs:ml-0">
+            <div class="absolute top-0 
+            z-10 flex flex-col items-center gap-2
+            ">
+                <svg class="profileLogo w-10 cursor-pointer" xmlns="http://www.w3.org/2000/svg" version="1.0"
+                    viewBox="0 0 1280.000000 1231.000000" preserveAspectRatio="xMidYMid meet">
+                    <metadata>
+                        <script xmlns="" />
+                        Created by potrace 1.15, written by Peter Selinger 2001-2017
+                    </metadata>
+                    <g transform="translate(0.000000,1231.000000) scale(0.100000,-0.100000)" fill="#000000"
+                        stroke="none">
+                        <path
+                            d="M6130 12304 c-19 -2 -84 -9 -145 -15 -700 -67 -1430 -353 -2000 -783 -233 -175 -534 -465 -707 -681 -709 -884 -1016 -1994 -857 -3100 136 -946 604 -1817 1309 -2438 141 -124 340 -275 478 -365 l93 -60 -53 -12 c-142 -33 -472 -125 -628 -176 -1667 -538 -2896 -1531 -3385 -2733 -150 -369 -235 -788 -235 -1161 0 -105 33 -638 46 -737 l5 -43 6349 0 6349 0 5 43 c13 98 46 631 46 732 0 316 -60 668 -167 980 -436 1276 -1666 2326 -3398 2900 -192 64 -561 170 -665 190 -19 4 -41 10 -48 14 -7 4 41 43 130 104 376 254 691 554 960 912 97 129 185 262 241 361 24 43 66 117 92 164 68 118 162 328 229 507 242 655 307 1374 186 2078 -74 431 -242 900 -461 1289 -84 148 -249 391 -365 536 -138 173 -441 476 -614 614 -140 112 -386 279 -525 358 -377 213 -789 368 -1210 453 -250 51 -410 66 -725 70 -162 2 -311 1 -330 -1z" />
+                    </g>
+                </svg>
+                <div class="profileList hidden flex-col gap-4 items-center p-5
+                    font-bodyFont bg-white w-48 border-2 border-primary
+                    z-10">
+                    <h3 class="text-2xl font-bold"><%= currentUser.username  %></h3>
+                    <ul class="flex flex-col items-center gap-2 text-primary">
+                        <!-- Kada je USER Admin -->
+                        <% if(currentUser.username === "admin") { %>
+                        <li class="hover:font-bold cursor-pointer ">
+                            <a href="/newCar">Add new car</a>
+                        </li>
+                        <li class="hover:font-bold cursor-pointer">
+                            <a href="/newBrand">Add new brand</a>
+                        </li>
+                        <li class="hover:font-bold cursor-pointer">
+                            <a href="/editCars">Edit cars</a>
+                        </li>
+                        <li class="hover:font-bold cursor-pointer text-nowrap">
+                            <a href="/allOrders">View pending orders</a>
+                        </li>
+                        <li class="hover:font-bold cursor-pointer">
+                            <a href="/signout">Sign out</a>
+                        </li>
+                        <!-- Kada je USER korisnik -->
+                        <% } else { %>
+                        <li class="cursor-pointer hover:font-bold hover:text-nowrap">
+                            <a href="/myOrders">My previous orders</a>
+                        </li>
+                        <li class="cursor-pointer hover:font-bold">
+                            <a href="/signout">Sign out</a>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div>
             </div>
         </li>
         <% } else { %>

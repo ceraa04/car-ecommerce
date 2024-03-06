@@ -582,6 +582,14 @@ video {
   top: 8rem;
 }
 
+.right-5{
+  right: 1.25rem;
+}
+
+.top-2{
+  top: 0.5rem;
+}
+
 .z-10{
   z-index: 10;
 }
@@ -735,6 +743,30 @@ video {
   margin-top: 2rem;
 }
 
+.mb-10{
+  margin-bottom: 2.5rem;
+}
+
+.ml-10{
+  margin-left: 2.5rem;
+}
+
+.ml-5{
+  margin-left: 1.25rem;
+}
+
+.mb-8{
+  margin-bottom: 2rem;
+}
+
+.mb-9{
+  margin-bottom: 2.25rem;
+}
+
+.ml-8{
+  margin-left: 2rem;
+}
+
 .flex{
   display: flex;
 }
@@ -781,6 +813,10 @@ video {
 
 .h-singleCarPage{
   height: 40rem;
+}
+
+.h-full{
+  height: 100%;
 }
 
 .max-h-index{
@@ -1559,6 +1595,46 @@ video {
 }
 
 @media (min-width: 320px){
+  .xs\:right-40{
+    right: 10rem;
+  }
+
+  .xs\:right-32{
+    right: 8rem;
+  }
+
+  .xs\:right-0{
+    right: 0px;
+  }
+
+  .xs\:right-5{
+    right: 1.25rem;
+  }
+
+  .xs\:right-8{
+    right: 2rem;
+  }
+
+  .xs\:right-16{
+    right: 4rem;
+  }
+
+  .xs\:top-72{
+    top: 18rem;
+  }
+
+  .xs\:top-0{
+    top: 0px;
+  }
+
+  .xs\:top-10{
+    top: 2.5rem;
+  }
+
+  .xs\:right-10{
+    right: 2.5rem;
+  }
+
   .xs\:mx-5{
     margin-left: 1.25rem;
     margin-right: 1.25rem;
@@ -1574,8 +1650,22 @@ video {
     margin-bottom: 2.5rem;
   }
 
+  .xs\:mx-20{
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+
+  .xs\:mx-10{
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+  }
+
   .xs\:mt-10{
     margin-top: 2.5rem;
+  }
+
+  .xs\:ml-0{
+    margin-left: 0px;
   }
 
   .xs\:flex{
@@ -1618,12 +1708,20 @@ video {
       margin-top: 18rem;
     }
 
+    .xs\:max-lg\:mt-10{
+      margin-top: 2.5rem;
+    }
+
     .xs\:max-lg\:flex-col{
       flex-direction: column;
     }
   }
 
   @media not all and (min-width: 640px){
+    .xs\:max-sm\:mt-10{
+      margin-top: 2.5rem;
+    }
+
     .xs\:max-sm\:flex-col{
       flex-direction: column;
     }
@@ -1631,6 +1729,18 @@ video {
 }
 
 @media (min-width: 640px){
+  .sm\:right-0{
+    right: 0px;
+  }
+
+  .sm\:top-28{
+    top: 7rem;
+  }
+
+  .sm\:right-5{
+    right: 1.25rem;
+  }
+
   .sm\:mx-16{
     margin-left: 4rem;
     margin-right: 4rem;
@@ -1643,6 +1753,10 @@ video {
 
   .sm\:mt-20{
     margin-top: 5rem;
+  }
+
+  .sm\:ml-8{
+    margin-left: 2rem;
   }
 
   .sm\:w-full{
@@ -1681,6 +1795,16 @@ video {
 }
 
 @media (min-width: 1024px){
+  .lg\:mx-20{
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+
+  .lg\:mx-32{
+    margin-left: 8rem;
+    margin-right: 8rem;
+  }
+
   .lg\:mt-0{
     margin-top: 0px;
   }
