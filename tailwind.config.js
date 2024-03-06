@@ -3,6 +3,9 @@ module.exports = {
   content: ["./views/**/*.ejs"],
   theme: {
     extend: {
+      screens: {
+        "xs": "320px"
+      },
       colors: {
         primary: "#969799",
       },
@@ -14,6 +17,9 @@ module.exports = {
       },
       width: {
         imgSlider: "50rem",
+        imgSliderMd: "35rem",
+        imgSliderSm: "30rem",
+        imgSliderXs: "25rem",
         newsLetter: "40rem",
         popularCar: "50rem",
         singleCarPage: "50rem",
@@ -23,6 +29,9 @@ module.exports = {
       height: {
         newsLetter: "30rem",
         imgSlider: "40rem",
+        imgSliderMd: "28rem",
+        imgSliderSm: "25rem",
+        imgSliderXs: "15rem",
         popularCar: "40rem",
         singleCarPage: "40rem",
         productsImg: "20rem",

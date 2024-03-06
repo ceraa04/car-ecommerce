@@ -10,7 +10,9 @@
 .btn {
     @apply rounded-md cursor-pointer tracking-wider py-3 px-8
 }
-
+.btnSm {
+    @apply rounded-md cursor-pointer py-3 px-5
+}
 .liNav {
     @apply text-primary cursor-pointer font-sans tracking-wide hover:text-black
 }
