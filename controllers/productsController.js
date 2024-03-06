@@ -137,13 +137,11 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
 // Renderovanje itemPage stranice
 const singleCarPage = async (req, res, id) => {
     try {
-        const itemCar = await Car.findOne({ _id: id }).populate("brand");
-        if (itemCar) {
-            return {
-                car: itemCar,
-            };
+        const car = await Car.findOne({ _id: id }).populate("brand");
+        if (car) {
+            return car;
         } else {
-            return res.render("errorPage");
+            res.render("errorPage");
         }
 
     } catch (error) {

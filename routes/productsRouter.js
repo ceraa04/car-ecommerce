@@ -81,7 +81,6 @@ router.get("/:id", async (req, res) => {
         if (!ObjectId.isValid(id)) {
             return res.render("errorPage");
         }
-        const car = await productsController.singleCarPage(req, res, id);
         // Ako auto sa tim id-jem nije pronadjen
         let orders = [];
         if (res.locals.currentUser) {
@@ -96,11 +95,15 @@ router.get("/:id", async (req, res) => {
                 }
             }
         });
-        res.render("itemPage", {
-            cars: res.locals.cars,
-            car: car,
-            purchased: purchased
-        });
+        const car = await productsController.singleCarPage(req, res, id);
+        console.log(car.);
+        if (car) {
+            res.render("itemPage", {
+                cars: res.locals.cars,
+                car: car,
+                purchased: purchased
+            });
+        }
     }
     catch (error) {
         res.render("errorPage");
