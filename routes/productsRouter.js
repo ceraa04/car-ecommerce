@@ -96,7 +96,7 @@ router.get("/:id", async (req, res) => {
             }
         });
         const car = await productsController.singleCarPage(req, res, id);
-        console.log(car.);
+        console.log(car);
         if (car) {
             res.render("itemPage", {
                 cars: res.locals.cars,
