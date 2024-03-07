@@ -11,8 +11,9 @@
 <body>
     <%- include ./partials/nav.ejs  %>
     <% if(currentUser && currentUser.username === "admin") { %>
-    <div class="font-bodyFont flex flex-col items-center">
-        <h3 class="text-3xl">Edit cars</h3>
+    <div class="font-bodyFont flex flex-col items-center w-2/3 mx-auto">
+        <h3 class="text-3xl font-bodyFont
+    xs:mt-80 sm:mt-20">Edit cars</h3>
         <p class="text-primary text-2xl tracking-wide mt-20">Below you have a list of all cars in the database. Feel
             free to
             edit or delete any car you want.</p>
@@ -23,36 +24,52 @@
                 <% }  %>
             </div>
             <% if(cars.length > 0){ %>
-            <ul class="w-editPageProducts">
-                <li class="border-2 border-primary text-primary p-5 grid grid-cols-12 items-center">
-                    <p class="col-span-3">Car brand and model:</p>
-                    <p class="col-span-1">Car year of production:</p>
+            <ul class="
+            xs:max-md:flex xs:max-md:gap-5 xs:max-md:flex-col">
+                <!-- Li for naming of each grid col -->
+                <li class="border-2 border-primary text-primary 
+                p-5 grid grid-cols-12 items-center xl:text-sm 2xl:text-base
+                xs:hidden 2xl:grid">
+                    <p class="col-span-2">Car brand and model:</p>
+                    <p class="col-span-3">Car year of production:</p>
                     <p class="col-span-2">Car price:</p>
-                    <p class="col-span-4">Car description:</p>
+                    <p class="col-span-3">Car description:</p>
                     <p class="col-span-2">Delete and edit car:</p>
                 </li>
                 <% for (car of cars) { %>
+                <!-- Single li for each car -->
                 <li>
-                    <form class="editForm_<%= car._id %> border-2 border-primary p-5 grid grid-cols-12" action=""
-                        method="post">
+                    <form class="editForm_<%= car._id %> 
+                        border-2 border-primary 
+                        xs:flex xs:flex-col xs:gap-5 xs:items-center xs:mx-auto
+                        xs:p-3 
+                        2xl:grid 2xl:grid-cols-12 2xl:p-5" action="" method="post">
                         <input class="hidden" name="carIdEdit" type="text" value="<%= car._id  %>">
-                        <div class="col-span-3 flex justify-center items-center gap-2 font-bold text-lg">
+                        <!-- Car Brand and model -->
+                        <div class="col-span-3 gap-2 font-bold lg:text-lg
+                        flex 2xl:flex-col 2xl:items-center ">
                             <span class="carBrand_<%= car._id  %>"><%= car.brand.name  %></span>
-                            <span class="carModel_<%= car._id  %> w-52 whitespace-normal"><%= car.model %></span>
+                            <span class="carModel_<%= car._id  %> 
+                                2xl:w-52 2xl:flex 2xl:justify-center"><%= car.model %></span>
                         </div>
-                        <div class="col-span-1 flex items-center">
+                        <!-- Car year -->
+                        <div class="col-span-1 flex">
                             <span class="carYear_<%= car._id %>"><%= car.year  %></span>
                         </div>
-                        <p class="flex col-span-2 justify-start items-center gap-2">
+                        <!-- Car Price -->
+                        <p class="flex col-span-2 justify-center gap-2">
                             <span class="carPrice_<%= car._id %>">
                                 <%= car.price %>
                             </span>
                             <span> $</span>
                         </p>
-                        <p class="carDescription_<%= car._id %> col-span-4 flex items-center">
+                        <!-- Car description -->
+                        <p class="carDescription_<%= car._id %> 
+                            col-span-4 flex  justify-center
+                            xs:w-2/3 lg:w-full">
                             <%= car.description %></p>
-
-                        <div class="col-span-2 flex gap-5 justify-center items-center">
+                        <!-- Handle delete and edit car -->
+                        <div class="col-span-2 flex gap-5 justify-center ">
                             <div onclick="submitDelete('<%= car._id %>')" class="deleteButton editCarsButton">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                     <title>delete</title>
@@ -75,9 +92,10 @@
                                     <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" />
                                 </svg>
                             </div>
-
                         </div>
+
                     </form>
+                    <!-- Hidden form for putting id of car in req.body -->
                     <form class="hidden deleteForm_<%= car._id  %>" action="" method="post" name="delete">
                         <input class="hidden" name="carIdDelete" value="<%= car._id %>">
                     </form>
@@ -174,7 +192,7 @@
             const carDescriptionInput = document.createElement("textarea");
             carDescriptionInput.value = carDescriptionValue;
             carDescriptionInput.name = "carDescription";
-            carDescriptionInput.className = "col-span-4 p-2 border-2 border-primary";
+            carDescriptionInput.className = "col-span-4 p-2 border-2 border-primary w-full xs:h-40 2xl:h-80";
             carDescription.parentNode.replaceChild(carDescriptionInput, carDescription);
         }
         function confirmEdit(carId) {
