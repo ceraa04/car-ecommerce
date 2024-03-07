@@ -5,12 +5,14 @@ const dbItemsController = require("../controllers/getAllController");
 const productsController = require("../controllers/productsController");
 
 const Car = require("../models/Car");
+// Import objectId for comparing later on
 const ObjectId = require("mongoose").Types.ObjectId;
 
 router.get("/", async (req, res) => {
     const sort = req.query.sort;
     const brandFilter = req.query.brand;
     const priceFilter = req.query.price;
+    // If there is no sort and filter
     if (sort == undefined && brandFilter == undefined && priceFilter == undefined) {
         const {
             selectedOptionFilter,
@@ -33,7 +35,7 @@ router.get("/", async (req, res) => {
             price: price
         });
 
-    } else {
+    } else { // When there is either sort or filter
         const {
             products,
             selectedOptionSort,
@@ -61,6 +63,7 @@ router.post("/", (req, res) => {
     const brand = req.body.checkboxBrand;
     const price = req.body.rangePriceFilter;
     let redirectUrl = "/products";
+    // Add items to query(URL), so GET method can get values for sorting and filtering
     if (sort) {
         redirectUrl += `?sort=${sort}`;
     }
@@ -76,26 +79,20 @@ router.post("/", (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        // Ako objec
+        // If id from params is not valid ObjectId 
         if (!ObjectId.isValid(id)) {
             return res.render("errorPage");
         }
-        // Ako auto sa tim id-jem nije pronadjen
         let orders = [];
         if (res.locals.currentUser) {
             orders = await dbItemsController.getAllOrders(res.locals.currentUser._id);
         }
-        let purchased = false;
-        console.log("Ovo je id: " + id);
-        orders.forEach(order => {
-            for (item of order.items) {
-                if (item._id.equals(id)) {
-                    purchased = true;
-                }
-            }
-        });
+        // Checking if user already bought car that has that id, if he did, unable another order for that car
+        const purchased = orders.some(order =>
+            order.items.some(item => item._id.equals(id))
+        );
+
         const car = await productsController.singleCarPage(req, res, id);
-        console.log(car);
         if (car) {
             res.render("itemPage", {
                 car: car,
@@ -111,9 +108,9 @@ router.get("/:id", async (req, res) => {
 router.post("/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        // Trazenje auta u DB
+
         const car = await Car.findOne({ _id: id }).populate("brand");
-        // Pravljenje arraya cartItems
+        // Make an array for items in cart if there is not one already and push car in it
         req.session.cartItems = req.session.cartItems || [];
         req.session.cartItems.push(car);
         res.redirect("/cart");

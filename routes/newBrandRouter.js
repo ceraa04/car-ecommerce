@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
         await adminController.add_brand(req, res, brand, founded, description, urlNewBrand);
         res.redirect("/newBrand");
     } else {
-        console.log("Neispravne vrednosti za add brand!");
+        console.log("Invalid values for brand model!");
     }
 });
 
