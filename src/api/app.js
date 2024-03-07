@@ -3,29 +3,29 @@ const app = express();
 
 const path = require("path");
 // Defining static folder using express.static(); CSS,JS,images
-app.use(express.static(path.join(__dirname, "..", "public")));
-
+app.use(express.static(path.join(__dirname, "../..", "public")));
+console.log((path.join(__dirname, "../..", "public")));
 const mongoose = require("mongoose");
 // Dotenv is for secret keys, i am using it for storing mongoose key to DB
 require("dotenv").config();
 // Requiring passport and packages for it
-const passport = require("./controllers/authController");
+const passport = require("../controllers/authController");
 const session = require("express-session");
 const flash = require("connect-flash");
 
 // Controllers
-const dbItemsController = require("./controllers/getAllController");
+const dbItemsController = require("../controllers/getAllController");
 
 // Routes
-const authRouter = require("./routes/authRoutes");
-const editCarsRouter = require("./routes/editCarsRouter");
-const productsRouter = require("./routes/productsRouter");
-const newCarRouter = require("./routes/newCarRouter");
-const newBrandRouter = require("./routes/newBrandRouter");
-const indexPageRouter = require("./routes/indexPageRouter");
-const cartRouter = require("./routes/cartRouter");
-const myOrdersRouter = require("./routes/myOrdersRouter");
-const allOrdersRouter = require("./routes/allOrdersRouter");
+const authRouter = require("../routes/authRoutes");
+const editCarsRouter = require("../routes/editCarsRouter");
+const productsRouter = require("../routes/productsRouter");
+const newCarRouter = require("../routes/newCarRouter");
+const newBrandRouter = require("../routes/newBrandRouter");
+const indexPageRouter = require("../routes/indexPageRouter");
+const cartRouter = require("../routes/cartRouter");
+const myOrdersRouter = require("../routes/myOrdersRouter");
+const allOrdersRouter = require("../routes/allOrdersRouter");
 
 // Seting view engine to ejs
 app.set("view engine", "ejs");

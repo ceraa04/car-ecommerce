@@ -6,7 +6,7 @@
 			"script": "start",
 			"problemMatcher": [],
 			"label": "npm: start",
-			"detail": "nodemon ../src/app.js"
+			"detail": "nodemon ../src/api/app.js"
 		},
 		{
 			"type": "npm",
