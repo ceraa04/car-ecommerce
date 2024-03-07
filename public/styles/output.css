@@ -554,12 +554,12 @@ video {
   position: relative;
 }
 
-.right-0{
-  right: 0px;
+.left-10{
+  left: 2.5rem;
 }
 
-.right-20{
-  right: 5rem;
+.right-0{
+  right: 0px;
 }
 
 .top-0{
@@ -568,18 +568,6 @@ video {
 
 .top-32{
   top: 8rem;
-}
-
-.top-60{
-  top: 15rem;
-}
-
-.left-20{
-  left: 5rem;
-}
-
-.left-10{
-  left: 2.5rem;
 }
 
 .z-10{
@@ -608,14 +596,6 @@ video {
 
 .row-span-5{
   grid-row: span 5 / span 5;
-}
-
-.m-12{
-  margin: 3rem;
-}
-
-.m-16{
-  margin: 4rem;
 }
 
 .mx-1{
@@ -683,10 +663,6 @@ video {
   margin-bottom: 2.25rem;
 }
 
-.mb-96{
-  margin-bottom: 24rem;
-}
-
 .ml-2{
   margin-left: 0.5rem;
 }
@@ -733,14 +709,6 @@ video {
 
 .mt-8{
   margin-top: 2rem;
-}
-
-.mb-40{
-  margin-bottom: 10rem;
-}
-
-.mb-80{
-  margin-bottom: 20rem;
 }
 
 .flex{
@@ -891,10 +859,6 @@ video {
 
 .flex-col{
   flex-direction: column;
-}
-
-.items-start{
-  align-items: flex-start;
 }
 
 .items-end{
@@ -1123,11 +1087,6 @@ video {
 .text-3xl{
   font-size: 1.875rem;
   line-height: 2.25rem;
-}
-
-.text-4xl{
-  font-size: 2.25rem;
-  line-height: 2.5rem;
 }
 
 .text-5xl{
@@ -1542,6 +1501,14 @@ video {
 }
 
 @media (min-width: 320px){
+  .xs\:m-10{
+    margin: 2.5rem;
+  }
+
+  .xs\:m-12{
+    margin: 3rem;
+  }
+
   .xs\:mx-5{
     margin-left: 1.25rem;
     margin-right: 1.25rem;
@@ -1584,10 +1551,6 @@ video {
 
   .xs\:mt-96{
     margin-top: 24rem;
-  }
-
-  .xs\:mb-10{
-    margin-bottom: 2.5rem;
   }
 
   .xs\:flex{
@@ -1674,6 +1637,11 @@ video {
     padding-top: 0px;
   }
 
+  .xs\:text-2xl{
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
   .xs\:text-3xl{
     font-size: 1.875rem;
     line-height: 2.25rem;
@@ -1700,12 +1668,12 @@ video {
   }
 
   @media not all and (min-width: 1024px){
-    .xs\:max-lg\:mt-72{
-      margin-top: 18rem;
-    }
-
     .xs\:max-lg\:mb-10{
       margin-bottom: 2.5rem;
+    }
+
+    .xs\:max-lg\:mt-72{
+      margin-top: 18rem;
     }
 
     .xs\:max-lg\:flex{
@@ -1743,14 +1711,18 @@ video {
     .xs\:max-sm\:absolute{
       position: absolute;
     }
-
-    .xs\:max-sm\:mb-10{
-      margin-bottom: 2.5rem;
-    }
   }
 }
 
 @media (min-width: 640px){
+  .sm\:m-16{
+    margin: 4rem;
+  }
+
+  .sm\:m-12{
+    margin: 3rem;
+  }
+
   .sm\:mx-16{
     margin-left: 4rem;
     margin-right: 4rem;
@@ -1829,6 +1801,11 @@ video {
   .sm\:text-2xl{
     font-size: 1.5rem;
     line-height: 2rem;
+  }
+
+  .sm\:text-4xl{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 
   .sm\:text-lg{
@@ -1938,22 +1915,6 @@ video {
 
   .lg\:mt-40{
     margin-top: 10rem;
-  }
-
-  .lg\:mb-96{
-    margin-bottom: 24rem;
-  }
-
-  .lg\:mb-40{
-    margin-bottom: 10rem;
-  }
-
-  .lg\:mb-60{
-    margin-bottom: 15rem;
-  }
-
-  .lg\:mb-32{
-    margin-bottom: 8rem;
   }
 
   .lg\:block{
@@ -2131,3 +2092,4 @@ video {
     line-height: 1.5rem;
   }
 }
+
