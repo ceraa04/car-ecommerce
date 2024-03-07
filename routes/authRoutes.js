@@ -34,8 +34,8 @@ router.get("/signup", (req, res) => {
 
 router.post("/signup", async (req, res, next) => {
     try {
-        // Salt je broj dodatnih random karaktera koje ce bcrypt funkcija dodati
         const existingUser = await User.findOne({ username: req.body.username });
+        // Validation for username and password
         if (existingUser) {
             req.flash("error", "Username already exists");
             res.redirect("/signup");
@@ -58,10 +58,10 @@ router.post("/signup", async (req, res, next) => {
         }
         let hasUpperCase = false;
         let hasLowerCase = false;
-
+        // Checking if password[i] is a number, if it is, skip checks for lower
+        // and upper case
         for (let i = 0; i < req.body.password.length; i++) {
             if (req.body.password[i] >= "0" && req.body.password[i] <= "9") {
-                console.log("Element je broj!");
                 continue;
             } else {
                 if (req.body.password[i] === req.body.password[i].toUpperCase()) {
@@ -71,18 +71,17 @@ router.post("/signup", async (req, res, next) => {
                 }
             }
 
-            // Ako su oba slucaja pronadjena, izadji iz loopa
+            // If both cases found, break out of the loop
             if (hasUpperCase && hasLowerCase) {
                 break;
             }
         }
-
+        // If password does not contain both lower and upper case letters
         if (!hasUpperCase || !hasLowerCase) {
-            console.log("Sifra mora imati veliko i malo slovo!");
             req.flash("error", "Password has to have at least 1 uppercase and 1 lowercase letter");
             return res.redirect("/signup");
         }
-        console.log("Sifra je prosla sve provere!");
+        // generating salt for password
         const salt = await bcrypt.genSalt(15);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
         const user = new User({
