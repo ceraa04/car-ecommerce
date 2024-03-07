@@ -88,9 +88,17 @@
     lg:grid-cols-3 xl:grid-cols-4
     
 }
+.signInInput {
+    @apply border-2
+    border-primary px-5 py-2
+    xs:w-2/3 lg:w-full
+}
 @media screen and (min-width: 320px){
     .video {
         width: calc(100% - 2rem);
         margin: auto;
+    }
+    .signUpMainDiv {
+        height: 95%
     }
 }
