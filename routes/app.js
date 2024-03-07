@@ -46,13 +46,9 @@ app.use(session({
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  next();
-});
-
 // Props koje se koriste u celoj apk
 app.use(async (req, res, next) => {
+  res.locals.currentUser = req.user;
   res.locals.cartItems = req.session.cartItems || [];
   res.locals.cars = await dbItemsController.getAllCars();
   res.locals.subtotal = 0;
