@@ -10,29 +10,31 @@ xs:mt-80 sm:mt-20 lg:mt-0">
         dedicated team is committed to addressing your concerns promptly and thoroughly.
         Your satisfaction is our priority. So, don't hesitate and reach out to us today!
     </p>
-    <form action="" class="my-20 flex flex-col gap-10 items-center 
-    xs:w-2/3 lg:w-full">
-        <div class="flex gap-10 xs:flex-col sm:flex-row">
-            <div class="inputContact xs:w-2/3 md:w-full mx-auto 
+    <form action="" class="my-20 flex flex-col gap-10 xs:max-xl:items-center
+    xs:w-3/4 md:w-2/3">
+        <div class="flex gap-10 xs:flex-col md:flex-row w-2/3 mx-auto">
+            <div class="inputContact xs:w-full md:w-2/3 mx-auto 
             xs:placeholder:text-sm">
                 <label for="email">Email</label>
                 <input required class="p-3 border-2 border-primary 
                 xs:placeholder:text-sm md:placeholder:text-base" type="email" id="email"
                     placeholder="Enter your email...">
             </div>
-            <div class="inputContact xs:w-2/3 md:w-full mx-auto">
+            <div class="inputContact xs:w-full md:w-1/3 mx-auto">
                 <label for="name">Name</label>
                 <input required class="p-3 border-2 border-primary
                 xs:placeholder:text-sm md:placeholder:text-base" type="text" id="name"
                     placeholder="Enter your name...">
             </div>
         </div>
-        <div class="inputContact xs:w-96 md:w-2/3 flex flex-col">
+        <div class="inputContact xs:w-full flex flex-col">
             <label class="flex" for="message">Message</label>
             <textarea required class="message border-2 
             border-primary p-4 resize-x" name="" cols="30" rows="10"></textarea>
         </div>
-        <button class="btn bg-black text-white uppercase">send</button>
+        <div class="mx-auto">
+            <button class="btn bg-black text-white uppercase">send</button>
+        </div>
         <div class="messageContact messageSuccess opacity-0">
             <p>Message sent</p>
         </div>
