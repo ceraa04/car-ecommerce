@@ -12,13 +12,13 @@
     <%- include ./partials/nav.ejs  %>
     <div class="flex flex-col items-center  font-bodyFont tracking-wider 
     xs:mt-80 sm:mt-20">
-        <!-- Slucaj kada je admin ulogovan -->
+        <!-- When admin is logged in -->
         <% if(currentUser && currentUser.username === "admin") { %>
         <p class="text-3xl text-primary tracking-wider my-64">
             Admin cannot buy items from his own shop! Sign out of admin profile to be able to visit cart.
         </p>
 
-        <!-- Slucaj kada admin nije ulogovan -->
+        <!-- Otherwise -->
         <% }else{ %>
         <h2 class="text-3xl">Your cart</h2>
         <% if(cartItems && cartItems.length > 0) { %>
@@ -51,7 +51,7 @@
             <div class="col-span-3 p-5 flex flex-col gap-7">
 
                 <% for(car of cartItems) { %>
-                <!-- Pojedinacni itemi -->
+                <!-- Div for each item in cart -->
                 <div class="flex flex-col gap-3">
                     <p class="span-2 font-bold 
                     xs:text-sm md:text-xl">
@@ -81,9 +81,9 @@
                                 <span>Car year:</span>
                                 <span class="font-bold"><%= car.year  %></span>
                             </p>
-                            <!-- Brisanje auta iz korpe -->
+                            <!-- Form for deleting car from cart -->
                             <form class="flex items-center justify-center" method="post">
-                                <input name="carId" value="<%= car._id  %>" class="hidden" type="text">
+                                <input name="carIdDelete" value="<%= car._id  %>" class="hidden" type="text">
                                 <button type="submit" class="text-2xl cursor-pointer">x</button>
                             </form>
                         </div>
@@ -110,6 +110,7 @@
                         </button>
                     </div>
                 </div>
+                <!-- Pricing div -->
                 <div class="mt-10">
                     <div class="border-b-2 border-b-primary">
                         <h2 class="font-bold text-2xl">Price:</h2>
@@ -133,10 +134,12 @@
                                 <%= totalPrice.toFixed(2) %> $
                             </span>
                         </p>
+                        <!-- Case if no user is logged in, redirect to sign in page -->
                         <% if(!currentUser){ %>
                         <a class="btn bg-black text-white mt-8 flex justify-center" href="/signin">
                             Checkout
                         </a>
+                        <!-- If there is an user that is logged in, checkout cart -->
                         <% } else { %>
                         <form action="" method="post">
                             <% for (car of cartItems) { %>

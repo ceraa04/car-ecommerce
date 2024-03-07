@@ -7,14 +7,15 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-    const carId = req.body.carId;
+
+    const carIdDelete = req.body.carIdDelete;
     console.log(req.body);
-    // Ako je brisanje iz korpe:
-    if (carId) {
-        req.session.cartItems = req.session.cartItems.filter(item => item._id !== carId);
+    // If carIdDelete is not undefined, it means the user has submitted the form for deleting car from cart
+    if (carIdDelete) {
+        req.session.cartItems = req.session.cartItems.filter(item => item._id !== carIdDelete);
         res.redirect("/cart");
 
-        // Ako je checkout, odnosno kupovina auta:
+        // Otherwise, user has clicked checkout, handle checkout, create new order 
     }
     else {
         const orderNumber = await Order.countDocuments() + Math.floor(Math.random() * 15000);
