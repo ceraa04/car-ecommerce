@@ -11,13 +11,16 @@
 <body>
     <%- include ./partials/nav.ejs  %>
     <% if(currentUser && currentUser.username === "admin") { %>
-    <h3 class="flex justify-center text-3xl font-bodyFont">Add new car</h3>
-    <form action="" method="post" class="mt-20 flex flex-col items-center">
+    <h3 class="flex justify-center text-3xl font-bodyFont
+    xs:mt-80 sm:mt-20">Add new car</h3>
+    <form action="" method="post" class="mt-20 flex flex-col items-center
+    xs:w-2/3 lg:w-full xs:mx-auto lg:mx-0">
         <p class="text-primary text-2xl tracking-wide">
             Please fill out all inputs to add new car to the shop.
         </p>
-        <div class="flex flex-col gap-7 justify-center mt-32">
-            <div class="flex gap-10">
+        <div class="flex flex-col gap-7 justify-center mt-32 items-center">
+            <div class="flex gap-10
+            xs:flex-col lg:flex-row">
                 <div class="inputNewCarDiv">
                     <label for="modelNewCar">Model:</label>
                     <input placeholder="A4" type="text" class="inputNewCar" id="modelNewCar" name="model" required>
@@ -28,8 +31,9 @@
                         name="year" required>
                 </div>
             </div>
-            <div class="flex flex-col gap-6">
-                <div class="flex gap-10">
+            <div class="flex flex-col gap-6 xs:max-lg:items-center">
+                <div class="flex gap-10
+                xs:flex-col lg:flex-row">
                     <div class="inputNewCarDiv">
                         <label for="newCarSelect">Name of brand:</label>
                         <select class="w-72 border-2 border-primary p-2" name="brand" id="newCarSelect">
@@ -46,8 +50,8 @@
                 </div>
                 <div class="inputNewCarDiv">
                     <label for="descriptionNewCar">Description:</label>
-                    <textarea required class="border-2 border-primary p-5" name="description" id="descriptionNewCar"
-                        cols="30" rows="10"></textarea>
+                    <textarea required class="border-2 border-primary p-5 resize-y" name="description"
+                        id="descriptionNewCar" cols="30" rows="10"></textarea>
                 </div>
             </div>
         </div>

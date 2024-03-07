@@ -11,13 +11,17 @@
 <body>
     <%- include ./partials/nav.ejs  %>
     <% if(currentUser && currentUser.username === "admin") { %>
-    <h3 class="flex justify-center text-3xl font-bodyFont">Add new brand</h3>
-    <form action="" method="post" class="mt-20 flex flex-col items-center">
+    <h3 class="flex justify-center text-3xl font-bodyFont
+        xs:mt-80 sm:mt-20">Add new brand</h3>
+    <form action="" method="post" class="mt-20 flex flex-col items-center
+        xs:w-2/3 lg:w-full xs:mx-auto lg:mx-0">
         <p class="text-primary text-2xl tracking-wide">
             Please fill out all inputs to add new brand for cars.
         </p>
         <div class="flex flex-col gap-7 justify-center mt-32">
-            <div class="flex gap-10">
+            <div class="flex gap-10 
+            xs:flex-col xs:max-lg:items-center
+            lg:flex-row">
                 <div class="inputNewCarDiv">
                     <label for="newBrand">Name of the brand:</label>
                     <input placeholder="Audi" type="text" class="inputNewCar" id="newBrand" name="brand" required>

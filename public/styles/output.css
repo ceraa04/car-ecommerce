@@ -867,8 +867,16 @@ video {
   cursor: pointer;
 }
 
+.resize-y{
+  resize: vertical;
+}
+
 .resize-x{
   resize: horizontal;
+}
+
+.resize{
+  resize: both;
 }
 
 .appearance-none{
@@ -1674,6 +1682,16 @@ video {
     .xs\:max-lg\:w-4\/5{
       width: 80%;
     }
+
+    .xs\:max-lg\:items-center{
+      align-items: center;
+    }
+  }
+
+  @media not all and (min-width: 768px){
+    .xs\:max-md\:items-center{
+      align-items: center;
+    }
   }
 
   @media not all and (min-width: 640px){
@@ -1850,6 +1868,11 @@ video {
   .lg\:my-20{
     margin-top: 5rem;
     margin-bottom: 5rem;
+  }
+
+  .lg\:mx-0{
+    margin-left: 0px;
+    margin-right: 0px;
   }
 
   .lg\:mr-10{
