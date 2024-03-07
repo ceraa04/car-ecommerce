@@ -2,21 +2,19 @@ const Car = require("../models/Car");
 const Brand = require("../models/Brand");
 const dbItemsController = require("../controllers/getAllController");
 
-// Renderovanje /products stranice
+// Function returns all of required items for products view
 const productsPageRender = async () => {
     const maxP = await maxPrice();
     const allBrands = await dbItemsController.getAllBrands();
     try {
-        // Pretvaram checkboxove iz niza objekata u niz stringova, koje posle koristim da cekiram sve brandove na /products url
         return {
-            // Select option za sortiranje kada se stranica tek ucitava, kad i dalje nije POST method vec GET
+            // SelectedOptions are empty, because this function is on /products, where user has not applied any sort or filter methdo
             selectedOptionFilter: "",
             selectedOptionSort: "",
             checkboxesChecked: allBrands,
             minPrice: await minPrice(),
             maxPrice: maxP,
             countDocuments: await Car.countDocuments(),
-            // CarBrandAll koristim za ispisivanje checkboxova za filtriranje na products page
             carBrandsAll: allBrands,
             price: maxP
         };
@@ -25,95 +23,112 @@ const productsPageRender = async () => {
         console.log(error.message);
     }
 };
-// Izracunavanje najmanje i najvece cene od svih automobila koji prodju filter iz argumenata, 
-// ako se ne ubaci nijedan argument, filter je prazan
 
+// Functions for calculating min and max prices
 const maxPrice = async (filter = {}) => {
-    const cars = await Car.find(filter).sort({ price: -1 });
-    if (cars.length > 0) {
-        const biggestPrice = cars[0].price;
-        return biggestPrice;
+    try {
+        // Using aggregation for boosting perfomance, getting maxPrice from it
+        const result = await Car.aggregate([
+            { $match: filter },
+            { $group: { _id: null, maxPrice: { $max: "$price" } } }
+        ]);
+
+        if (result.length > 0) {
+            return result[0].maxPrice;
+        } else {
+            return null; // No documents found
+        }
+    } catch (error) {
+        console.error("Error occurred while finding max price:", error);
+        throw error;
     }
-
 };
-
+// Min price works the same way as maxPric
 const minPrice = async (filter = {}) => {
-    const cars = await Car.find(filter).sort({ price: 1 });
-    if (cars.length > 0) {
-        const smallestPrice = cars[0].price;
-        return smallestPrice;
-    }
+    try {
 
+        const result = await Car.aggregate([
+            { $match: filter },
+            { $group: { _id: null, minPrice: { $min: "$price" } } }
+        ]);
+
+        if (result.length > 0) {
+            return result[0].    // Posto je brand prvobitno string, pomocu splita ga pretvaramo u array
+                minPrice;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error("Error occurred while finding min price:", error);
+        throw error;
+    }
 };
 
+// Handling filter and sort methods
 const filterAndSortCars = async (req, res, sort, brand, price) => {
-    // Posto je brand prvobitno string, pomocu splita ga pretvaramo u array
+    // Brand is recieved as []
     if (brand) {
         brand = brand.split(",");
     }
     let sortMethod;
-    if (sort === "ascendingPrice") {
-        sortMethod = { price: 1 };
-    } else if (sort === "descendingPrice") {
-        sortMethod = { price: -1 };
-    } else if (sort === "descendingYear") {
-        sortMethod = { year: -1 };
-    } else if (sort === "ascendingYear") {
-        sortMethod = { year: 1 };
+    // Using switch for defining sortMethod
+    switch (sort) {
+        case "ascendingPrice":
+            sortMethod = { price: 1 };
+            break;
+        case "descendingPrice":
+            sortMethod = { price: 1 };
+            break;
+        case "descendingYear":
+            sortMethod = { year: -1 };
+            break;
+        case "ascendingYear":
+            sortMethod = { year: 1 };
+            break;
     }
-    // u ovaj niz cu pakovati ID-jeve checkboxova kada prodju mapiranje 
-    let checkboxesBrandMethod = [];
 
+    let checkboxesBrands = []; // Array in which ids of brands will be packed
+    // If brand is array, use Promise.all with mapping for finding specific brand
     if (Array.isArray(brand)) {
         await Promise.all(brand.map(async (checkbox) => {
             const brand = await Brand.findOne({ name: checkbox });
-            checkboxesBrandMethod.push(brand._id);
+            checkboxesBrands.push(brand._id);
         }));
     }
+    // If brand is string
     else if (brand) {
         const brandResult = await Brand.findOne({ name: brand });
-        checkboxesBrandMethod.push(brandResult._id);
+        checkboxesBrands.push(brandResult._id);
     }
 
-    let checkboxesObjectBrand;
-    if (checkboxesBrandMethod.length > 0) {
-        checkboxesObjectBrand = checkboxesBrandMethod;
-    } else {
-        checkboxesObjectBrand = {};
+    // If some brands were found, use them as filter later on, otherwise, use empty array, which will give no documents back 
+    if (checkboxesBrands.length === 0) {
+        return {
+            products: [],
+            selectedOptionSort: sort,
+            maxPrice: await maxPrice(),
+            minPrice: await minPrice(),
+            checkboxesChecked: brand,
+            countDocuments: 0,
+            carBrandsAll: await dbItemsController.getAllBrands(),
+            price: price
+        };
     }
-
-    // Izracunavanje targetPrice za sortiranje, trebaju mi funkcije za min i max price
+    // Calculating min and max price
     const minPriceRender = await minPrice();
     const maxPriceRender = await maxPrice();
 
     let targetPrice;
-    // Ako su pronadjeni max i min price, odnosno ako cars collection nije prazan
+    // if max and min are found, which means that some documents were find, calculate targetPrice
     if (minPriceRender && maxPriceRender) {
         targetPrice = minPriceRender + (price / 100) * (maxPriceRender - minPriceRender);
     } else {
         targetPrice = 0;
     }
-    let products;
-    if (checkboxesObjectBrand.length > 0) {
-        products = await Car.find({ $and: [{ brand: { $in: checkboxesObjectBrand } }, { price: { $lte: targetPrice } }] }).populate("brand").sort(sortMethod);
-    } else {
-        products = await Car.find({ price: { $lte: targetPrice } }).populate("brand").sort(sortMethod);
-    }
+
+    const products = await Car.find({ $and: [{ brand: { $in: checkboxesBrands } }, { price: { $lte: targetPrice } }] }).populate("brand").sort(sortMethod);
     try {
         const countDocuments = products.length;
-        if (Object.keys(checkboxesObjectBrand).length === 0) {
-            return {
-                products: [],
-                selectedOptionSort: sort,
-                maxPrice: await maxPrice(),
-                minPrice: await minPrice(),
-                checkboxesChecked: brand,
-                countDocuments: 0,
-                carBrandsAll: await dbItemsController.getAllBrands(),
-                price: price
-            };
-        }
-        // Max i min price trebaju uvek da budu pocetni, a ne da se menjaju pri promeni filtera
         return {
             products: products,
             selectedOptionSort: sort,
@@ -125,12 +140,7 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
             price: price
         };
     } catch (error) {
-
-        if (error.name === "CastError") {
-            console.error("Invalid value for price:", error.message);
-        } else {
-            console.error("Error:", error.message);
-        }
+        console.error("Error while filtering and sorting cars:", error.message);
     }
 };
 
