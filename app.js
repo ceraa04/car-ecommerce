@@ -2,27 +2,27 @@ const express = require("express");
 const app = express();
 
 const path = require("path");
-app.use(express.static(path.join(__dirname, "..", "public")));
+app.use(express.static(path.join(__dirname, ".", "public")));
 
 const mongoose = require("mongoose");
 require("dotenv").config();
-const passport = require("./auth");
+const passport = require("./routes/auth");
 const session = require("express-session");
 const flash = require("connect-flash");
 
 // Controllers
-const dbItemsController = require("../controllers/getAllController");
+const dbItemsController = require("./controllers/getAllController");
 
 // Routes
-const authRouter = require("./authRoutes");
-const editCarsRouter = require("./editCarsRouter");
-const productsRouter = require("./productsRouter");
-const newCarRouter = require("./newCarRouter");
-const newBrandRouter = require("./newBrandRouter");
-const indexPageRouter = require("./indexPageRouter");
-const cartRouter = require("./cartRouter");
-const myOrdersRouter = require("./myOrdersRouter");
-const allOrdersRouter = require("./allOrdersRouter");
+const authRouter = require("./routes/authRoutes");
+const editCarsRouter = require("./routes/editCarsRouter");
+const productsRouter = require("./routes/productsRouter");
+const newCarRouter = require("./routes/newCarRouter");
+const newBrandRouter = require("./routes/newBrandRouter");
+const indexPageRouter = require("./routes/indexPageRouter");
+const cartRouter = require("./routes/cartRouter");
+const myOrdersRouter = require("./routes/myOrdersRouter");
+const allOrdersRouter = require("./routes/allOrdersRouter");
 
 app.set("view engine", "ejs");
 
