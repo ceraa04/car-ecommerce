@@ -44,7 +44,6 @@ router.get("/", async (req, res) => {
             carBrandsAll,
             price } = await productsController.filterAndSortCars(req, res, sort, brandFilter, priceFilter);
         res.render("products", {
-            cars: res.locals.cars,
             products: products,
             selectedOptionSort: selectedOptionSort,
             checkboxesChecked: checkboxesChecked,
@@ -99,7 +98,6 @@ router.get("/:id", async (req, res) => {
         console.log(car);
         if (car) {
             res.render("itemPage", {
-                cars: res.locals.cars,
                 car: car,
                 purchased: purchased
             });
