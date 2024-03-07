@@ -10,6 +10,7 @@
 
 <body>
     <%- include ./partials/nav.ejs  %>
+    <!-- If ADMIN is logged in -->
     <% if(currentUser && currentUser.username === "admin") { %>
     <h3 class="flex justify-center text-3xl font-bodyFont
     xs:mt-80 sm:mt-20">Add new car</h3>
@@ -57,6 +58,7 @@
         </div>
         <button class="btn bg-black text-white my-20">Add car</button>
     </form>
+    <!-- If ADMIN is not logged in -->
     <% } else { %>
     <p class="pageNotFoundP">Page not found!</p>
     <% } %>

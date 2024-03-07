@@ -7,7 +7,6 @@
     <title>DriftDreams</title>
     <link rel="stylesheet" href="/styles/output.css">
 </head>
-<!--Props se nalaze u objectu koji se zove car-->
 
 <body>
     <%- include ./partials/nav.ejs  %>
@@ -61,17 +60,21 @@
                     </div>
                 </div>
             </div>
+            <!-- If there is an user and it's not admin -->
             <% if (!currentUser || (currentUser && currentUser.username !== "admin")) { %>
-            <!-- Konvertujem car._id is ObjectID() formata u string, item_id je string -->
+            <!-- If user did purchase this car -->
             <% if (purchased) { %>
             <p>You have already purchased this car!</p>
+
+            <!-- If user did not purchase this car -->
             <% } else if(cartItems && cartItems.every(item => item._id !== car._id.toString() )) { %>
+            <!-- toString() converts ObjectId to string -->
             <button class="btn bg-black text-white">Add to cart</button>
             <% } else{ %>
             <p>Car already added</p>
 
             <% } %>
-            <!-- Admin je ulogovan -->
+            <!-- Case when admin is logged in -->
             <% } else { %>
             <p class="font-bodyFont font-bold text-2xl">Admin cannot buy cars!</p>
             <% } %>
