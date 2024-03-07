@@ -3,7 +3,7 @@ const app = express();
 
 const path = require("path");
 // Defining static folder using express.static(); CSS,JS,images
-app.use(express.static(path.join(__dirname, ".", "public")));
+app.use(express.static(path.join(__dirname, "..", "public")));
 
 const mongoose = require("mongoose");
 // Dotenv is for secret keys, i am using it for storing mongoose key to DB
