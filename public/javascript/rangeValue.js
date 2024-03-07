@@ -1,4 +1,5 @@
 const rangeInput = document.querySelector(".rangeInputFilter");
+// Function for updating price on range for price(products page)
 function updateTargetPrice() {
     const targetPrice = document.querySelector(".targetPrice");
     const maxPrice = parseInt(document.querySelector(".maxPrice").textContent);
@@ -8,6 +9,8 @@ function updateTargetPrice() {
 
 }
 
+// Range is updating on every drag-move of mouse
 rangeInput.addEventListener("mousemove", updateTargetPrice);
 
+// Loading function when page loads
 window.addEventListener("load", updateTargetPrice);
