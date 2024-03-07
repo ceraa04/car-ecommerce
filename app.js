@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 // Dotenv is for secret keys, i am using it for storing mongoose key to DB
 require("dotenv").config();
 // Requiring passport and packages for it
-const passport = require("./routes/auth");
+const passport = require("./controllers/authController");
 const session = require("express-session");
 const flash = require("connect-flash");
 
