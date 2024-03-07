@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "kill": "npx kill-port 3000",
-    "start": "nodemon ./src/api/app.js",
+    "start": "nodemon ./src/api/index.js",
     "test": "jest",
     "dev": "tailwindcss -i ./public/styles/style.css -o ./public/styles/output.css --watch"
   },
