@@ -2,6 +2,7 @@ const Car = require("../models/Car");
 const Brand = require("../models/Brand");
 const Order = require("../models/Order");
 
+// Controller for getting all brands, only getting name of them, for optimization
 const getAllBrands = async () => {
     let brands = await Brand.find({}, { name: 1, _id: 0 });
     if (brands.length > 0) {
@@ -10,8 +11,10 @@ const getAllBrands = async () => {
         ));
         return brands;
     }
-
+    // If there are no brands, return empty array
+    return [];
 };
+// Getting all cars from DB
 const getAllCars = async () => {
     try {
         const cars = await Car.find().populate("brand");
@@ -21,6 +24,7 @@ const getAllCars = async () => {
         console.log(error);
     }
 };
+// Getting all orders from DB, by current user id
 const getAllOrders = async (userId) => {
     let userQuery;
     if (userId) {
@@ -28,6 +32,7 @@ const getAllOrders = async (userId) => {
     } else {
         userQuery = {};
     }
+    // Populating user field and items field, in which i also populate brand field
     try {
         const orders = await Order.find(userQuery)
             .populate({

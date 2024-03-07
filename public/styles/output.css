@@ -735,6 +735,14 @@ video {
   margin-top: 2rem;
 }
 
+.mb-40{
+  margin-bottom: 10rem;
+}
+
+.mb-80{
+  margin-bottom: 20rem;
+}
+
 .flex{
   display: flex;
 }
@@ -883,6 +891,10 @@ video {
 
 .flex-col{
   flex-direction: column;
+}
+
+.items-start{
+  align-items: flex-start;
 }
 
 .items-end{
@@ -1692,6 +1704,10 @@ video {
       margin-top: 18rem;
     }
 
+    .xs\:max-lg\:mb-10{
+      margin-bottom: 2.5rem;
+    }
+
     .xs\:max-lg\:flex{
       display: flex;
     }
@@ -1726,6 +1742,10 @@ video {
   @media not all and (min-width: 640px){
     .xs\:max-sm\:absolute{
       position: absolute;
+    }
+
+    .xs\:max-sm\:mb-10{
+      margin-bottom: 2.5rem;
     }
   }
 }

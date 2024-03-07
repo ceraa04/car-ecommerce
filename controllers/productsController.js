@@ -144,7 +144,7 @@ const filterAndSortCars = async (req, res, sort, brand, price) => {
     }
 };
 
-// Renderovanje itemPage stranice
+// Controller for individual car pages
 const singleCarPage = async (req, res, id) => {
     try {
         const car = await Car.findOne({ _id: id }).populate("brand");

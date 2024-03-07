@@ -1,14 +1,16 @@
 const Car = require("../models/Car");
 const Brand = require("../models/Brand");
 const Order = require("../models/Order");
+// User is required for populating
 const User = require("../models/User");
 
+// Controller for adding car to DB
 const add_car = async (model, price, year, description, brandName) => {
     const brand = await Brand.findOne({ name: brandName });
     if (!brand) {
         throw new Error("Brand not found");
     }
-
+    // Saving new car to DB
     try {
         const newCar = new Car({
             model: model,
@@ -26,9 +28,10 @@ const add_car = async (model, price, year, description, brandName) => {
 
 };
 
-// Funkcija za dodvanje branda u bazu
+// Function for adding brand to DB
 const add_brand = async (req, res, name, founded, description, url) => {
     try {
+        // If brand is not already declared, new one is made and saved in DB
         const doesBrandExist = await Brand.findOne({ name: name });
         if (!doesBrandExist) {
             const newBrand = new Brand({
@@ -44,22 +47,22 @@ const add_brand = async (req, res, name, founded, description, url) => {
 
 };
 
-// Funkcija za brisanje auta iz DB
+// Controller for deleting car from DB
 const deleteCar = async (req, res, carId) => {
     try {
         await Car.deleteOne({ _id: carId });
-        console.log(`Model sa brojem ${carId} je izbrisan iz DB!`);
-        return; // Resolve the promise
+        return;
     } catch (error) {
         console.error(error);
-        throw error; // Re-throw the error to be caught in the calling function
+        throw error;
     }
 };
 
-// Funkcija za editovanje auta iz DB
+// Controller for editing car that is already in DB
 const editCar = async (carId, model, brandName, price, year, description) => {
     try {
         const brandId = await Brand.findOne({ name: brandName });
+        // UpdateOne takes 2 args, first one is filter, second one is object of fields that are updated
         await Car.updateOne(
             { _id: carId },
             { price: price, year: year, model: model, brand: brandId, description: description }
@@ -69,15 +72,14 @@ const editCar = async (carId, model, brandName, price, year, description) => {
     }
 };
 
-// Funkcija za brisanje porudzbine iz DB
+// Delete orders from DB
 const deleteOrder = async (id) => {
     try {
         Order.deleteOne({ _id: id })
             .then(() => {
-                console.log("Uspesno brisanje ordera!");
             });
     } catch (error) {
-        console.log("greska pri brisanju ordera iz DB!");
+        console.log("Error while deleting order from DB!");
     }
 };
 
