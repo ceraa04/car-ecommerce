@@ -3,11 +3,11 @@ const router = express.Router();
 const passport = require("passport");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+
 // Sign-in route
 router.get("/signin", (req, res) => {
     res.render("signIn", { message: req.flash("error")[0] });
 });
-
 router.post("/signin", passport.authenticate("local", {
     failureRedirect: "/signin",
     failureFlash: true
@@ -60,10 +60,15 @@ router.post("/signup", async (req, res, next) => {
         let hasLowerCase = false;
 
         for (let i = 0; i < req.body.password.length; i++) {
-            if (req.body.password[i] === req.body.password[i].toUpperCase()) {
-                hasUpperCase = true;
-            } else if (req.body.password[i] === req.body.password[i].toLowerCase()) {
-                hasLowerCase = true;
+            if (req.body.password[i] >= "0" && req.body.password[i] <= "9") {
+                console.log("Element je broj!");
+                continue;
+            } else {
+                if (req.body.password[i] === req.body.password[i].toUpperCase()) {
+                    hasUpperCase = true;
+                } else if (req.body.password[i] === req.body.password[i].toLowerCase()) {
+                    hasLowerCase = true;
+                }
             }
 
             // Ako su oba slucaja pronadjena, izadji iz loopa
@@ -73,10 +78,11 @@ router.post("/signup", async (req, res, next) => {
         }
 
         if (!hasUpperCase || !hasLowerCase) {
+            console.log("Sifra mora imati veliko i malo slovo!");
             req.flash("error", "Password has to have at least 1 uppercase and 1 lowercase letter");
             return res.redirect("/signup");
         }
-
+        console.log("Sifra je prosla sve provere!");
         const salt = await bcrypt.genSalt(15);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
         const user = new User({
