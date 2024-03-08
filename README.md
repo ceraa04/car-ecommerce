@@ -30,14 +30,13 @@ Responsive Design: The application is designed to be usable on both desktop and 
 ```
 DB_CONNECTION_STRING = connection string for mongo database
 PORT = port on which the server will run
-
 ```
 Before running the application, make sure to set up these environment variables in a `.env` file located in the root directory of the project.
 
 ## NPM commands
 
 For server: 
-`npm start
+`npm start`
 
 For client:
-`` npm run dev
+` npm run dev `
