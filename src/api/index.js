@@ -36,7 +36,8 @@ const mongoDB = process.env.DB_CONNECTION_STRING;
 // Connecting to mongo db and then booting up a server at port 3000
 mongoose.connect(mongoDB)
   .then(() => {
-    app.listen(3000, () => {
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => {
       console.log("Server is live");
     });
   })
