@@ -5,9 +5,18 @@ Welcome to the Car E-commerce Full Stack Shop! This project is a comprehensive s
 ## Login credentials
 
 For admin:
+
 **username: admin**
 
 **password: adminAdmin**
+
+For User:
+
+**username: GuestUser**
+
+**password: userGuest5500**
+
+
 ## Features
 Authentication: Passport.js, authentication for every user, requirements for password strength, some pages are shown only when specific user is logged in (User or admin)
 
