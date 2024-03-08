@@ -2,6 +2,12 @@
 # Car E-commerce Full Stack Shop
 Welcome to the Car E-commerce Full Stack Shop! This project is a comprehensive solution for managing an online car dealership, featuring CRUD (Create, Read, Update, Delete) operations for admin functionalities. The project utilizes MongoDB for the database, Express.js for the backend, and EJS (Embedded JavaScript) for the frontend templating.
 
+## Login credentials
+
+For admin:
+**username: admin**
+
+**password: adminAdmin**
 ## Features
 Authentication: Passport.js, authentication for every user, requirements for password strength, some pages are shown only when specific user is logged in (User or admin)
 
